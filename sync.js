@@ -1,12 +1,10 @@
 import { spawn } from "child_process";
 
 import { PATHS } from "./paths.js";
-import { exit } from "process";
 
-const asyncExec = (command, args) =>
+const asyncExec = (command) =>
   new Promise((resolve, reject) => {
-    console.log({ command, args });
-    const process = spawn(command, args);
+    const process = spawn("zsh", ["-c", command]);
     let data = "";
     let error = "";
     process.stdout.on("data", (stdout) => {
@@ -30,7 +28,7 @@ const asyncExec = (command, args) =>
 
 async function syncFile(localSrc, externalSrc) {
   console.log(`Syncing ${localSrc}...`);
-  const output = await asyncExec("curl", ["-o", localSrc, externalSrc])
+  const output = await asyncExec(`curl -o ${localSrc} ${externalSrc}`);
   console.log(output);
 }
 
@@ -41,7 +39,6 @@ console.log("Syncing external files...");
 let hasError = false;
 
 for (const path of externalFiles) {
-
   try {
     await syncFile(path.src, path.externalSrc);
   } catch (error) {
@@ -55,13 +52,7 @@ if (!hasError) {
   console.log("Creating diff...");
   for (const { src, dest } of PATHS) {
     try {
-      const output = await asyncExec("diff", [
-        "-Nu",
-        src,
-        dest,
-        // "|",
-        // "diff-so-fancy",
-      ]);
+      const output = await asyncExec(`diff -Nu ${src} ${dest} | diff-so-fancy`);
       console.log(output);
     } catch (error) {
       console.error(error);

@@ -4,5 +4,8 @@
   "type": "module",
   "scripts": {
     "sync": "node sync.js"
+  },
+  "dependencies": {
+    "terminal-kit": "^3.1.1"
   }
 }

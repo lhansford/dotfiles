@@ -1,7 +1,11 @@
 import { homedir } from "os";
 import path from "path";
 
+const SYSTEMS = { macOS: "macOS", linux: "linux" };
+
 export const PATHS = [
+  // Amethyst
+  { src: "./amethyst/amethyst.yml", dest: "~/.amethyst.yml", system: SYSTEMS.macOS },
   // Kitty
   { src: "./kitty/kitty.conf", dest: "~/.config/kitty/kitty.conf" },
   {

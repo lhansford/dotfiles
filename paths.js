@@ -5,7 +5,19 @@ const SYSTEMS = { macOS: "macOS", linux: "linux" };
 
 export const PATHS = [
   // Amethyst
-  { src: "./amethyst/amethyst.yml", dest: "~/.amethyst.yml", system: SYSTEMS.macOS },
+  {
+    src: "./amethyst/amethyst.yml",
+    dest: "~/.amethyst.yml",
+    system: SYSTEMS.macOS,
+  },
+  // Git
+  { src: "./git/gitconfig", dest: "~/.gitconfig" },
+  {
+    src: "./git/git_commit_template.txt",
+    dest: "~/.config/git/git_commit_template.txt",
+    externalSrc:
+      "https://raw.githubusercontent.com/lhansford/git_commit_template/main/git_commit_template.txt",
+  },
   // Kitty
   { src: "./kitty/kitty.conf", dest: "~/.config/kitty/kitty.conf" },
   {

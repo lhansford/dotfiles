@@ -1,0 +1,28 @@
+[user]
+	name = Luke Hansford
+	email = mail@lukehansford.me
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
+	editor = code --wait
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[commit]
+  template = ~/.config/git/git_commit_template.txt
+[init]
+	defaultBranch = main
+[diff]
+	noprefix =
+[pull]
+	rebase = false

@@ -26,6 +26,9 @@ export const PATHS = [
     externalSrc:
       "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.conf",
   },
+  // Polybar
+  { src: "./polybar/polybar.desktop", dest: "~/.config/autostart/polybar.desktop" },
+  { src: "./polybar/config.ini", dest: "~/.config/polybar/config.ini" },
 ].map((p) => ({
   ...p,
   src: path.resolve(p.src),

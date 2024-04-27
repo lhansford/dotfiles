@@ -2,7 +2,8 @@
 
 ## Requirements
 
-diff-so-fancy
+- diff-so-fancy
+- [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 
 
 ## TODO:

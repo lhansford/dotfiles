@@ -29,6 +29,8 @@ export const PATHS = [
   // Polybar
   { src: "./polybar/polybar.desktop", dest: "~/.config/autostart/polybar.desktop", system: SYSTEMS.linux },
   { src: "./polybar/config.ini", dest: "~/.config/polybar/config.ini", system: SYSTEMS.linux },
+  // ZSH
+  { src: "./zsh/.zshrc", dest: "~/.zshrc" },
 ].map((p) => ({
   ...p,
   src: path.resolve(p.src),

@@ -8,6 +8,7 @@ export EDITOR='code'
 export MISE_LEGACY_VERSION_FILE=1
 
 eval "$(atuin init zsh)"
+eval "$(~/.local/bin/mise activate zsh)"
 eval "$(mise activate zsh)"
 
 ZSH_THEME="skogen"

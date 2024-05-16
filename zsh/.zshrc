@@ -7,7 +7,6 @@ export ZSH=$HOME/.oh-my-zsh
 export EDITOR='code'
 export MISE_LEGACY_VERSION_FILE=1
 
-eval "$(atuin init zsh)"
 eval "$(~/.local/bin/mise activate zsh)"
 eval "$(mise activate zsh)"
 
@@ -22,6 +21,9 @@ zstyle ':omz:plugins:alias-finder' autoload yes
 
 source $ZSH/oh-my-zsh.sh
 
+# Atuin - needs to be loaded after zsh-autosuggestions
+eval "$(atuin init zsh)"
+
 # Perm
 export PERM_PEOPLE_DIR="$HOME/Obsidian/Personal/people"
 
@@ -35,7 +37,6 @@ alias gcfp='git commit -a --amend --no-edit --no-verify && git push --force-with
 alias gcnv='git commit -a --no-verify'
 # Open github homepage of a repository
 alias gho='open "https://github.com/$(git config --get remote.origin.url | cut -d ":" -f 2  | cut -d "." -f 1)"'
-
 
 echo "CHEATSHEET"
 echo "============================="

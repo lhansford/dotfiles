@@ -1,0 +1,5 @@
+undo_backspace: false
+toggle_key: off
+# search_shortcut: META+CTRL+SHIFT+S
+search_trigger: off
+backend: clipboard

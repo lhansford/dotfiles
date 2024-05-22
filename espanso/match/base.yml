@@ -1,0 +1,143 @@
+matches:
+  - trigger: ";em"
+    replace: "mail@lukehansford.me"
+  - trigger: ";oem"
+    replace: "l.s.hansford@gmail.com"
+  - trigger: ";wem"
+    replace: "luke@fishbrain.com"
+  - trigger: ";evem"
+    replace: "evelynchia98@gmail.com"
+
+  - trigger: ";lh"
+    replace: "Luke Hansford"
+
+  - trigger: ";add"
+    replace: "29/14 Soi 5 Chuan Chuen, Moo 2, Thepkrasattri Road, Ko Kaeo, Mueang Phuket, Phuket, 83000"
+
+  - trigger: ":swadd"
+    replace: "Larsbodavägen 76 #13, Stockholm 12341"
+
+  - trigger: ";pn"
+    replace: "198710053276"
+
+  - trigger: ";ph"
+    replace: "+66980183056"
+
+  - trigger: ";swph"
+    replace: "0722366838"
+
+  - trigger: ";evph"
+    replace: "0980139856"
+
+  - trigger: ";site"
+    replace: "https://lukehansford.me"
+
+  # Dates
+  - trigger: ";date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
+  - trigger: ";yest"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%Y-%m-%d"
+          offset: -86400
+
+  # Shell commands
+  - trigger: ";shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo Hello from your shell"
+
+  - trigger: ";ys"
+    replace: "yarn && yarn start"
+
+  - trigger: ";hg"
+    replace: 'history | grep "$|$"'
+
+  # Code
+  - trigger: ";comp"
+    replace: |
+      type Props = {}
+
+      export function ComponentName({}: Props) {
+        return <></>;
+      }
+  - trigger: ";test"
+    replace: |
+      import { render, screen } from '@testing-library/react';
+
+      import { MyComponent } from './MyComponent';
+
+      describe('MyComponent', () => {
+        it('Renders', () => {
+          render(<MyComponent />);
+
+          expect(screen.getByText('')).toBeVisible();
+        });
+      });
+
+  # Writing
+  - trigger: ";exp"
+    replace: |
+      ## Week $|$, 2022 -
+
+      *Goal*:
+      *Hypothesis*:
+      *Outcome*: In progress
+
+  - trigger: ";refs"
+    replace: |
+      ## References
+
+      [^1]: [Title](url)
+
+  - trigger: ";mns"
+    replace: |
+      # $|$ [{{mydate}}]
+
+      ## Discussion items
+
+      ## Notes
+
+      ## Action points
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
+  # Work
+
+  # Terraform
+  - trigger: ";tff"
+    replace: "terraform fmt -recursive"
+
+  # Other
+  - trigger: ";recruiter"
+    replace: |
+      Hi $|$,
+
+      Thanks for reaching out, but I'm not currently looking for a new position. Good luck finding the right person for the job.
+
+      Regards,
+      Luke
+
+  - trigger: ";dbr"
+    replace: "@dependabot rebase"
+  - trigger: ";fb"
+    replace: "fishbrain"
+  - trigger: ";co2"
+    replace: "CO<sub>2</sub>"
+  - trigger: ";deg"
+    replace: "°C"

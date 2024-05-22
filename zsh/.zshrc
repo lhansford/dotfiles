@@ -38,6 +38,10 @@ alias gcnv='git commit -a --no-verify'
 # Open github homepage of a repository
 alias gho='open "https://github.com/$(git config --get remote.origin.url | cut -d ":" -f 2  | cut -d "." -f 1)"'
 
+# eza
+alias ls='eza'
+alias l='eza -la --group-directories-first'
+
 echo "CHEATSHEET"
 echo "============================="
 echo "gho - Open the github page of the current repo."

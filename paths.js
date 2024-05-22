@@ -10,6 +10,15 @@ export const PATHS = [
     dest: "~/.amethyst.yml",
     system: SYSTEMS.macOS,
   },
+  // Espanso
+  {
+    src: "./espanso/match/base.yml",
+    dest: "~/.config/espanso/match/base.yml",
+  },
+  {
+    src: "./espanso/config/default.yml",
+    dest: "~/.config/espanso/config/default.yml",
+  },
   // Git
   { src: "./git/gitconfig", dest: "~/.gitconfig" },
   {
@@ -27,8 +36,16 @@ export const PATHS = [
       "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.conf",
   },
   // Polybar
-  { src: "./polybar/polybar.desktop", dest: "~/.config/autostart/polybar.desktop", system: SYSTEMS.linux },
-  { src: "./polybar/config.ini", dest: "~/.config/polybar/config.ini", system: SYSTEMS.linux },
+  {
+    src: "./polybar/polybar.desktop",
+    dest: "~/.config/autostart/polybar.desktop",
+    system: SYSTEMS.linux,
+  },
+  {
+    src: "./polybar/config.ini",
+    dest: "~/.config/polybar/config.ini",
+    system: SYSTEMS.linux,
+  },
   // ZSH
   { src: "./zsh/.zshrc", dest: "~/.zshrc" },
 ].map((p) => ({

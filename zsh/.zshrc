@@ -3,6 +3,8 @@ source ~/Dropbox/config/zsh/work/.zshrc
 export PATH="/home/luke/.local/bin:$PATH"
 export PATH="/Users/luke/.cargo/bin:$PATH" # Cargo binaries
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:$PATH"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="/Users/luke/.bin:$PATH" # ecs-run
 export ZSH=$HOME/.oh-my-zsh
 
 export EDITOR='code'

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { argv, exit } = require("process");
+import { argv, exit } from "process";
 
 // TODO: Would be nice to run this in the background
 function createTask(text) {
@@ -17,8 +17,6 @@ function createTask(text) {
   })
     .catch((e) => console.error(e));
 }
-
-console.error(process.env)
 
 if (argv.length > 2) {
   const text = argv[2];

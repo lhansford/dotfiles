@@ -50,7 +50,7 @@ mainbox {
 imagebox {
     padding:                     8px;
     background-color:            transparent;
-    background-image:            url("~/.config/rofi/images/bg-transparent.png", height);
+    background-image:            url("~/.config/rofi/bg-transparent.png", height);
     border-radius:               4px;
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];

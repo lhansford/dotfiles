@@ -46,6 +46,11 @@ export const PATHS = [
     dest: "~/.config/polybar/config.ini",
     system: SYSTEMS.linux,
   },
+  // Rofi
+  { src: "./rofi/config.rasi", dest: "~/.config/rofi/config.rasi", system: SYSTEMS.linux },
+  { src: "./rofi/rofi-control-center.py", dest: "~/.config/rofi/rofi-control-center.py", system: SYSTEMS.linux },
+  { src: "./rofi/rofi-todoist.js", dest: "~/.config/rofi/rofi-todoist.js", system: SYSTEMS.linux },
+  { src: "./rofi/bg-transparent.png", dest: "~/.config/rofi/bg-transparent.png", system: SYSTEMS.linux },
   // ZSH
   { src: "./zsh/.zshrc", dest: "~/.zshrc" },
 ].map((p) => ({

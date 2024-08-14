@@ -62,6 +62,8 @@ export const PATHS = [
   { src: "./rofi/rofi-control-center.py", dest: "~/.config/rofi/rofi-control-center.py", system: SYSTEMS.linux },
   { src: "./rofi/rofi-todoist.js", dest: "~/.config/rofi/rofi-todoist.js", system: SYSTEMS.linux },
   { src: "./rofi/bg-transparent.png", dest: "~/.config/rofi/bg-transparent.png", system: SYSTEMS.linux },
+  // xkb
+  { src: "./xkb/symbols/capslock", dest: "~/.config/xkb/symbols/capslock", system: SYSTEMS.linux },
   // ZSH
   { src: "./zsh/.zshrc", dest: "~/.zshrc" },
 ].map((p) => ({

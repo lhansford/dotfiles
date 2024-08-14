@@ -10,6 +10,17 @@ export const PATHS = [
     dest: "~/.amethyst.yml",
     system: SYSTEMS.macOS,
   },
+  // Autostart
+  {
+    src: "./autostart/polybar.desktop",
+    dest: "~/.config/autostart/polybar.desktop",
+    system: SYSTEMS.linux,
+  },
+  {
+    src: "./autostart/xmodmap.desktop",
+    dest: "~/.config/autostart/xmodmap.desktop",
+    system: SYSTEMS.linux,
+  },
   // Espanso
   {
     src: "./espanso/match/base.yml",

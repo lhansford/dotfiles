@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=Xmodmap
-Exec=xmodmap -e "remove mod4 = Hyper_L" -e "add mod3 = Hyper_L" -e "remove mod3 = ISO_Level5_Shift"
-Terminal=false
-Type=Application

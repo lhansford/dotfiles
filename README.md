@@ -3,6 +3,7 @@
 ## Requirements
 
 - ZSH
+- [ohmyzsh](https://ohmyz.sh/#install)
 - [mise](https://mise.jdx.dev/)
 - diff-so-fancy
 - [1Password CLI](https://developer.1password.com/docs/cli/get-started/)

@@ -1,4 +1,7 @@
-source ~/Dropbox/config/zsh/work/.zshrc
+if [ -e ~/Dropbox/config/zsh/work/.zshrc ]
+then
+  source ~/Dropbox/config/zsh/work/.zshrc
+fi
 
 export PATH="/home/luke/.local/bin:$PATH"
 export PATH="/Users/luke/.cargo/bin:$PATH" # Cargo binaries

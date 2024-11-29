@@ -43,6 +43,13 @@ export const PATHS = [
     externalSrc:
       "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.conf",
   },
+  // Ohmyzsh
+  {
+    src: "./ohmyzsh/themes/skogen.zsh-theme",
+    dest: "~/.oh-my-zsh/themes/skogen.zsh-theme",
+    externalSrc:
+      "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.zsh-theme",
+  },
   // Polybar
   {
     src: "./polybar/polybar.desktop",

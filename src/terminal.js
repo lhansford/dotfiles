@@ -19,6 +19,7 @@ export function getSelection(options) {
 
 export async function asyncExec(command, shellCommand = "zsh") {
   return new Promise((resolve, reject) => {
+    console.log(command);
     const process = spawn(shellCommand, ["-c", command]);
     let data = "";
     let error = "";

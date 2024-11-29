@@ -78,12 +78,12 @@ function prompt_dir() {
 }
 
 prompt_env() {
-  if [ -f ".tool-versions" ]; then
-    # TODO: Read file any get back actaul language
-    prompt_segment red black $(node -v)
-  elif [ -f ".ruby-version" ]; then
-    prompt_segment red black $(ruby -v) # TODO: Split this to get actual number
+  version=$(mise current)
+  if [ -z $version ]; then
+    return
   fi
+  version_array=(${(@s/ /)version})
+  prompt_segment red black $version_array[2]
 }
 
 function build_prompt() {

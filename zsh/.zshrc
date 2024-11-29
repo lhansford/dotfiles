@@ -3,7 +3,7 @@ then
   source ~/Dropbox/config/zsh/work/.zshrc
 fi
 
-if [ hostname = "ciani" ]
+if hostname | grep ciani
 then
   export TERM=xterm-256color
 fi

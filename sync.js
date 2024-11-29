@@ -22,8 +22,8 @@ async function symlinkFile(target, linkName) {
 
 let hasError = false;
 
-const os = await getSelection(["MacOS", "Linux"]);
-const osPaths = PATHS.filter((p) => p.os === os || !p.os);
+const os = await getSelection(["MacOS", "Linux", "Raspberry Pi"]);
+const osPaths = PATHS.filter((p) => p.systems.includes(os) || !p.systems);
 const externalFiles = osPaths.filter((p) => p.externalSrc);
 
 terminal.bold("Syncing external files...\n\n");

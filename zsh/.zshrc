@@ -8,6 +8,24 @@ then
   export TERM=xterm-256color
 fi
 
+if hostname | grep aphex
+then
+  last_upgrade=$(dnf history | grep upgrade | head -n 1)
+  extracted_date=$(echo $last_upgrade | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+  date_timestamp=$(date -d "$extracted_date" +%s)
+  week_ago_timestamp=$(date -d '7 days ago' +%s)
+  if [ $date_timestamp -lt $week_ago_timestamp ]; then
+    echo "Last dnf upgrade was on $extracted_date. Would you like to run it now?"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes ) sudo dnf upgrade; break;;
+            No ) break;;
+        esac
+    done
+  fi
+
+fi
+
 export PATH="/home/luke/.local/bin:$PATH"
 export PATH="/Users/luke/.cargo/bin:$PATH" # Cargo binaries
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:$PATH"

@@ -79,11 +79,19 @@ then
   if read -q "choice?Press Y/y to backup files: "; then
     backup_dropbox
     restic -r /Volumes/Backups/dropbox forget --keep-last 2
-    # TODO: Turn on tailscale
+
+    echo "\nMounting ciani..."
     mount_ciani
-    backup_media
-    restic -r /Volumes/Backups/media forget --keep-last 2
-    umount /Volumes/ciani
+
+    if [ -z "$( ls -A '/Volumes/ciani' )" ];
+    then
+      echo "/Volumes/ciani failed to mount. Check that Tailscale is running."
+    else
+      echo "Mounted ciani. Backing up media..."
+      backup_media
+      restic -r /Volumes/Backups/media forget --keep-last 2
+      umount /Volumes/ciani
+    fi
   fi
 fi
 

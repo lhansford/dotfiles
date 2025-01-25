@@ -78,7 +78,7 @@ function prompt_dir() {
 }
 
 prompt_env() {
-  version=$(mise current)
+  version=$(mise current | sed -n '1 p')
   if [ -z $version ]; then
     return
   fi

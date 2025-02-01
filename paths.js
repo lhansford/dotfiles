@@ -44,6 +44,8 @@ export const PATHS = [
     externalSrc:
       "https://raw.githubusercontent.com/lhansford/git_commit_template/main/git_commit_template.txt",
   },
+  // Keymapper
+  { src: "./keymapper/keymapper.conf", dest: "./.config/keymapper.conf" },
   // Kitty
   { src: "./kitty/kitty.conf", dest: "~/.config/kitty/kitty.conf" },
   {

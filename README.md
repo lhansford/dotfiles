@@ -10,7 +10,6 @@
 - [eza](https://eza.rocks/)
   - `cargo install eza`
 
-
 ## TODO:
 
 - Cleanup package.json

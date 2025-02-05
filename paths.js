@@ -27,6 +27,8 @@ export const PATHS = [
     dest: "~/.config/espanso/config/default.yml",
     systems: [SYSTEMS.macOS, SYSTEMS.linux],
   },
+  // Ghostty
+  { src: "./ghostty/config", dest: "~/.config/ghostty/config" },
   // Git
   { src: "./git/gitconfig", dest: "~/.gitconfig" },
   {

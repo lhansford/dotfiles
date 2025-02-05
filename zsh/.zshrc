@@ -18,6 +18,14 @@ export ZSH=$HOME/.oh-my-zsh
 export EDITOR='code'
 export MISE_LEGACY_VERSION_FILE=1
 
+export GUM_CONFIRM_PROMPT_FOREGROUND="#D0883E"
+export GUM_CONFIRM_PROMPT_BACKGROUND="#2a2a26"
+export GUM_CONFIRM_SELECTED_FOREGROUND="#D0D0D2"
+export GUM_CONFIRM_SELECTED_BACKGROUND="#4E683E"
+export GUM_CONFIRM_UNSELECTED_FOREGROUND="#D0D0D2"
+export GUM_CONFIRM_UNSELECTED_BACKGROUND="#767676"
+
+
 eval "$(~/.local/bin/mise activate zsh)"
 eval "$(mise activate zsh)"
 
@@ -66,18 +74,15 @@ then
   week_ago_timestamp=$(date -d '7 days ago' +%s)
   if [ $date_timestamp -lt $week_ago_timestamp ]; then
     echo "Last dnf upgrade was on $extracted_date. Would you like to run it now?"
-    select yn in "Yes" "No"; do
-        case $yn in
-            Yes ) sudo dnf upgrade; break;;
-            No ) break;;
-        esac
-    done
+    if gum confirm; then
+      sudo dnf upgrade
+    fi
   fi
 fi
 
 if hostname | grep harmonia
 then
-  if read -q "choice?Press Y/y to backup files: "; then
+  if gum confirm "Backup files?"; then
     backup_dropbox
     restic -r /Volumes/Backups/dropbox forget --keep-last 2
 

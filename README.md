@@ -9,6 +9,12 @@
 - [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 - [eza](https://eza.rocks/)
   - `cargo install eza`
+- [Gum](https://github.com/charmbracelet/gum)
+  - `brew install gum`
+
+### Mac only
+
+- [SketchyBar](https://felixkratz.github.io/SketchyBar/setup)
 
 ## TODO:
 

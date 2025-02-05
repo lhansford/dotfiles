@@ -28,7 +28,14 @@ export const PATHS = [
     systems: [SYSTEMS.macOS, SYSTEMS.linux],
   },
   // Ghostty
-  { src: "./ghostty/config", dest: "~/.config/ghostty/config" },
+  {
+    src: "./ghostty/config",
+    dest: "~/.config/ghostty/config",
+  },
+  {
+    src: "./ghostty/themes/skogen",
+    dest: "~/.config/ghostty/themes/skogen",
+  },
   // Git
   { src: "./git/gitconfig", dest: "~/.gitconfig" },
   {
@@ -37,6 +44,8 @@ export const PATHS = [
     externalSrc:
       "https://raw.githubusercontent.com/lhansford/git_commit_template/main/git_commit_template.txt",
   },
+  // Keymapper
+  { src: "./keymapper/keymapper.conf", dest: "./.config/keymapper.conf" },
   // Kitty
   { src: "./kitty/kitty.conf", dest: "~/.config/kitty/kitty.conf" },
   {

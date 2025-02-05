@@ -1,4 +1,6 @@
 # Ghostty config
+theme=skogen
+
 font-family = Inconsolata Nerd Font Mono Regular
 font-family-bold = Inconsolata Nerd Font Mono Bold
 font-size = 13.5

@@ -34,6 +34,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Atuin - needs to be loaded after zsh-autosuggestions
 eval "$(atuin init zsh)"
+. "$HOME/.atuin/bin/env"
 
 # Perm
 export PERM_PEOPLE_DIR="$HOME/Obsidian/Personal/people"

@@ -63,11 +63,12 @@ function prompt_dir() {
 }
 
 prompt_env() {
-  version=$(mise current)
-  if [ ! -z $version ]; then
-    version_array=(${(@s/ /)version})
-    prompt_segment red black $version_array[2]
+  version=$(mise current | sed -n '1 p')
+  if [ -z $version ]; then
+    return
   fi
+  version_array=(${(@s/ /)version})
+  prompt_segment red black $version_array[2]
 }
 
 # Git: branch/detached head, dirty status

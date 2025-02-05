@@ -3,7 +3,7 @@ import { dirname } from "path";
 
 import terminalKit from "terminal-kit";
 
-import { PATHS } from "./paths.js";
+import { PATHS, SYSTEMS } from "./paths.js";
 import { asyncExec, getSelection, prompt } from "./src/terminal.js";
 
 const { terminal } = terminalKit;
@@ -22,8 +22,8 @@ async function symlinkFile(target, linkName) {
 
 let hasError = false;
 
-const os = await getSelection(["MacOS", "Linux", "Raspberry Pi"]);
-const osPaths = PATHS.filter((p) => p.systems?.includes(os) || !p.systems);
+const os = await getSelection(Object.values(SYSTEMS), "Select your OS:");
+const osPaths = PATHS.filter((p) => p.systems?.includes(os));
 const externalFiles = osPaths.filter((p) => p.externalSrc);
 
 terminal.bold("Syncing external files...\n\n");

@@ -57,22 +57,9 @@ function prompt_context() {
   prompt_segment black default "%n@%m"
 }
 
-# Dir: current working directory
-function prompt_dir() {
-  prompt_segment blue black '%3~'
-}
-
-prompt_env() {
-  version=$(mise current | sed -n '1 p')
-  if [ -z $version ]; then
-    return
-  fi
-  version_array=(${(@s/ /)version})
-  prompt_segment red black $version_array[2]
-}
-
 # Git: branch/detached head, dirty status
 function prompt_git() {
+  local ref dirty
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
@@ -81,9 +68,22 @@ function prompt_git() {
     else
       prompt_segment green black
     fi
-
     echo -n "${ref/refs\/heads\// }"
   fi
+}
+
+# Dir: current working directory
+function prompt_dir() {
+  prompt_segment blue black '%3~'
+}
+
+prompt_env() {
+  version=$(mise current)
+  if [ -z $version ]; then
+    return
+  fi
+  version_array=(${(@s/ /)version})
+  prompt_segment red black $version_array[2]
 }
 
 function build_prompt() {
@@ -96,9 +96,9 @@ function build_prompt() {
 
 PROMPT='$(build_prompt)%{$reset_color%} '
 
-# ZSH_THEME_GIT_PROMPT_PREFIX=" %{$reset_color%} "
-# ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
-# ZSH_THEME_RUBY_PROMPT_PREFIX=" ${FG[239]}using${FG[243]} ‹"
-# ZSH_THEME_RUBY_PROMPT_SUFFIX="›%{$reset_color%}"
+ZSH_THEME_RUBY_PROMPT_PREFIX=" ${FG[239]}using${FG[243]} ‹"
+ZSH_THEME_RUBY_PROMPT_SUFFIX="›%{$reset_color%}"
 

@@ -48,7 +48,7 @@ export const PATHS = [
     systems: [SYSTEMS.macOS, SYSTEMS.linux, SYSTEMS.rpi],
   },
   // Keymapper
-  { src: "./keymapper/keymapper.conf", dest: "./.config/keymapper.conf", systems: [SYSTEMS.macOS, SYSTEMS.linux], },
+  { src: "./keymapper/keymapper.conf", dest: "~/.config/keymapper.conf", systems: [SYSTEMS.macOS, SYSTEMS.linux], },
   // Kitty
   { src: "./kitty/kitty.conf", dest: "~/.config/kitty/kitty.conf", systems: [SYSTEMS.macOS, SYSTEMS.linux] },
   {

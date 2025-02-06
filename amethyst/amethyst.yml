@@ -1,7 +1,6 @@
 layouts:
-  - tall
   - fullscreen
-  - bsp # Binary sapce partitioning
+  - tall
 window-margins: true
 window-margin-size: 10 # Put a little space around everything.
 screen-padding-top: 30 # Padding so we can put a menu bar above any apps.

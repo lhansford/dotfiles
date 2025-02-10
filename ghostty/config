@@ -1,4 +1,7 @@
 # Ghostty config
+
+config-file = ?config-linux
+
 theme=skogen
 
 font-family = Inconsolata Nerd Font Mono Regular

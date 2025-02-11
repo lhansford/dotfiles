@@ -1,6 +1,4 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/config.schema.json
 
-undo_backspace: true
 toggle_key: OFF
 search_trigger: off
-backend: clipboard

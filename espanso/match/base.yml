@@ -14,6 +14,9 @@ matches:
     replace: "Luke Hansford"
 
   - trigger: ";add"
+    replace: "5F Greenmont Court, Discovery Bay Road, Discovery Bay, Lantau Island, Hong Kong"
+
+  - trigger: ";thadd"
     replace: "29/14 Soi 5 Chuan Chuen, Moo 2, Thepkrasattri Road, Ko Kaeo, Mueang Phuket, Phuket, 83000"
 
   - trigger: ":swadd"
@@ -23,6 +26,9 @@ matches:
     replace: "198710053276"
 
   - trigger: ";ph"
+    replace: "+85262094782"
+
+  - trigger: ";thph"
     replace: "+66980183056"
 
   - trigger: ";swph"

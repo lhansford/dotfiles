@@ -78,6 +78,10 @@ function prompt_dir() {
 }
 
 prompt_env() {
+  if [[ ! -a .mise.toml ]]; then
+    return
+  fi
+
   version=$(mise current | sed -n '1 p')
   if [ -z $version ]; then
     return

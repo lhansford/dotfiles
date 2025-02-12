@@ -1,12 +1,12 @@
 # Ghostty config
 
 config-file = ?config-linux
+config-file = ?config-macos
 
 theme=skogen
 
 font-family = Inconsolata Nerd Font Mono Regular
 font-family-bold = Inconsolata Nerd Font Mono Bold
-font-size = 10
 
 background-opacity = 0.9
 background-blur-radius = 16

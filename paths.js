@@ -39,6 +39,11 @@ export const PATHS = [
     systems: [SYSTEMS.linux],
   },
   {
+    src: "./ghostty/config-macos",
+    dest: "~/.config/ghostty/config-macos",
+    systems: [SYSTEMS.macOS],
+  },
+  {
     src: "./ghostty/themes/skogen",
     dest: "~/.config/ghostty/themes/skogen",
     systems: [SYSTEMS.macOS, SYSTEMS.linux],

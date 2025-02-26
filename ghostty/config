@@ -12,3 +12,5 @@ background-opacity = 0.9
 background-blur-radius = 16
 
 adjust-cursor-thickness = 3
+
+keybind = control+w=close_surface

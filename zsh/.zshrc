@@ -25,9 +25,12 @@ export GUM_CONFIRM_SELECTED_BACKGROUND="#4E683E"
 export GUM_CONFIRM_UNSELECTED_FOREGROUND="#D0D0D2"
 export GUM_CONFIRM_UNSELECTED_BACKGROUND="#767676"
 
+if [ -x "$(command -v mise)" ];then
+  eval "$(mise activate zsh)"
+else
+  eval "$(~/.local/bin/mise activate zsh)"
+fi
 
-eval "$(~/.local/bin/mise activate zsh)"
-eval "$(mise activate zsh)"
 
 ZSH_THEME="skogen"
 

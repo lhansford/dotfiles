@@ -1,3 +1,10 @@
+if [ -e ~/.shell_timestamps ]
+then
+  source ~/.shell_timestamps
+fi
+LAST_HOMEBREW_UPGRADE="${LAST_HOMEBREW_UPGRADE:-0}"
+
+
 if [ -e ~/Dropbox/config/zsh/work/.zshrc ]
 then
   source ~/Dropbox/config/zsh/work/.zshrc
@@ -85,6 +92,20 @@ fi
 
 if hostname | grep harmonia
 then
+  week_ago_timestamp=$(date -v -7d +%s)
+  if [ $LAST_HOMEBREW_UPGRADE -lt $week_ago_timestamp ]; then
+    last_upgrade_date_formatted=$(date -r $LAST_HOMEBREW_UPGRADE)
+    echo "Last \`brew upgrade\` was on $last_upgrade_date_formatted. Would you like to run it now?"
+    if gum confirm; then
+      brew upgrade
+      if grep -q "LAST_HOMEBREW_UPGRADE" ~/.shell_timestamps; then
+        sed -i '' "s/LAST_HOMEBREW_UPGRADE=.*/LAST_HOMEBREW_UPGRADE=$(date +%s)/" ~/.shell_timestamps
+      else
+        echo "LAST_HOMEBREW_UPGRADE=$(date +%s)" >> ~/.shell_timestamps
+      fi
+    fi
+  fi
+
   if gum confirm "Backup files?"; then
     backup_dropbox
     restic -r /Volumes/Backups/dropbox forget --keep-last 2

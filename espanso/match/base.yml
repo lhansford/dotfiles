@@ -149,3 +149,5 @@ matches:
     replace: "CO<sub>2</sub>"
   - trigger: ";deg"
     replace: "°C"
+  - trigger: ";-"
+    replace: "—"

@@ -3,7 +3,7 @@ then
   source ~/.shell_timestamps
 fi
 LAST_HOMEBREW_UPGRADE="${LAST_HOMEBREW_UPGRADE:-0}"
-
+LAST_BACKUP="${LAST_BACKUP:-0}"
 
 if [ -e ~/Dropbox/config/zsh/work/.zshrc ]
 then
@@ -74,7 +74,7 @@ alias l='eza -la --group-directories-first'
 
 alias mount_ciani='sshfs ciani:/mnt/wdhd /Volumes/ciani'
 alias backup_dropbox='restic -r /Volumes/Backups/dropbox --verbose backup ~/Dropbox'
-alias backup_media='restic -r /Volumes/Backups/media --verbose backup /Volumes/ciani --exclude=Movies --exclude=TV'
+alias backup_media='restic -r /Volumes/Backups/media --verbose backup --ignore-inode /Volumes/ciani --exclude=Movies --exclude=TV'
 
 if hostname | grep aphex
 then
@@ -95,8 +95,7 @@ then
   week_ago_timestamp=$(date -v -7d +%s)
   if [ $LAST_HOMEBREW_UPGRADE -lt $week_ago_timestamp ]; then
     last_upgrade_date_formatted=$(date -r $LAST_HOMEBREW_UPGRADE)
-    echo "Last \`brew upgrade\` was on $last_upgrade_date_formatted. Would you like to run it now?"
-    if gum confirm; then
+    if gum confirm "Last \`brew upgrade\` was on $last_upgrade_date_formatted. Would you like to run it now?"; then
       brew upgrade
       if grep -q "LAST_HOMEBREW_UPGRADE" ~/.shell_timestamps; then
         sed -i '' "s/LAST_HOMEBREW_UPGRADE=.*/LAST_HOMEBREW_UPGRADE=$(date +%s)/" ~/.shell_timestamps
@@ -106,21 +105,30 @@ then
     fi
   fi
 
-  if gum confirm "Backup files?"; then
-    backup_dropbox
-    restic -r /Volumes/Backups/dropbox forget --keep-last 2
+  if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
+    last_backup_date_formatted=$(date -r $LAST_BACKUP)
+    if gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"; then
+      backup_dropbox
+      restic -r /Volumes/Backups/dropbox forget --keep-last 2
 
-    echo "\nMounting ciani..."
-    mount_ciani
+      echo "\nMounting ciani..."
+      mount_ciani
 
-    if [ -z "$( ls -A '/Volumes/ciani' )" ];
-    then
-      echo "/Volumes/ciani failed to mount. Check that Tailscale is running."
-    else
-      echo "Mounted ciani. Backing up media..."
-      backup_media
-      restic -r /Volumes/Backups/media forget --keep-last 2
-      umount /Volumes/ciani
+      if [ -z "$( ls -A '/Volumes/ciani' )" ];
+      then
+        echo "/Volumes/ciani failed to mount. Check that Tailscale is running."
+      else
+        echo "Mounted ciani. Backing up media..."
+        backup_media
+        restic -r /Volumes/Backups/media forget --keep-last 2
+        umount /Volumes/ciani
+        echo "Unmounted ciani."
+        if grep -q "LAST_BACKUP" ~/.shell_timestamps; then
+          sed -i '' "s/LAST_BACKUP=.*/LAST_BACKUP=$(date +%s)/" ~/.shell_timestamps
+        else
+          echo "LAST_BACKUP=$(date +%s)" >> ~/.shell_timestamps
+        fi
+      fi
     fi
   fi
 fi

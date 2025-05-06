@@ -78,7 +78,7 @@ alias backup_media='restic -r /Volumes/Backups/media --verbose backup --ignore-i
 
 if hostname | grep aphex
 then
-  last_upgrade=$(dnf history | grep upgrade | head -n 1)
+  last_upgrade=$(dnf history list | grep upgrade | head -n 1)
   extracted_date=$(echo $last_upgrade | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
   date_timestamp=$(date -d "$extracted_date" +%s)
   week_ago_timestamp=$(date -d '7 days ago' +%s)

@@ -4,3 +4,30 @@ layouts:
 window-margins: true
 window-margin-size: 10 # Put a little space around everything.
 screen-padding-top: 30 # Padding so we can put a menu bar above any apps.
+
+mod2:
+  - option
+  - shift
+  - control
+
+mod3:
+  - option
+  - shift
+  - control
+  - command
+
+cycle-layout:
+  mod: mod3
+  key: space
+
+throw-screen-1:
+  mod: mod3
+  key: '1'
+
+throw-screen-2:
+  mod: mod3
+  key: '2'
+
+swap-main:
+  mod: mod3
+  key: 'Enter'

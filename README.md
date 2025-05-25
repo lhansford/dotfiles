@@ -8,7 +8,7 @@
 - diff-so-fancy
 - [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 - [eza](https://eza.rocks/)
-  - `cargo install eza`
+  - `brew install eza`
 - [Gum](https://github.com/charmbracelet/gum)
   - `brew install gum`
 

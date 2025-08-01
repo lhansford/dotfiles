@@ -35,7 +35,7 @@ matches:
     replace: "0722366838"
 
   - trigger: ";evph"
-    replace: "0980139856"
+    replace: "+85262332572"
 
   - trigger: ";site"
     replace: "https://lukehansford.me"

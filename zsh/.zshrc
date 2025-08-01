@@ -109,6 +109,16 @@ then
   if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
     last_backup_date_formatted=$(date -r $LAST_BACKUP)
     if gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"; then
+      if ! command -v restic >/dev/null 2>&1; then
+        echo "restic is not installed. Visit https://restic.readthedocs.io/en/stable/020_installation.html for installation instructions."
+        return 1
+      fi
+
+      if ! command -v sshfs >/dev/null 2>&1; then
+        echo "sshfs is not installed. Visit https://macfuse.github.io/ and https://github.com/libfuse/sshfs for installation instructions."
+        return 1
+      fi
+
       backup_dropbox
       restic -r /Volumes/Backups/dropbox forget --keep-last 2
 

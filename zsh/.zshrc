@@ -21,8 +21,8 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:$PAT
 export PATH="/usr/local/opt/libpq/bin:$PATH" # Postgres
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH" # Postgres on Mac
 export PATH="/Users/luke/.bin:$PATH" # ecs-run
+export PATH="/home/luke/.atuin/bin:$PATH" # atuin on ciani
 export ZSH=$HOME/.oh-my-zsh
-
 export EDITOR='code'
 export MISE_LEGACY_VERSION_FILE=1
 

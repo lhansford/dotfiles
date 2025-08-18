@@ -78,7 +78,7 @@ function prompt_dir() {
 }
 
 prompt_env() {
-  version=$(mise current)
+  version=$(mise ls --local --no-header)
   if [ -z $version ]; then
     return
   fi

@@ -77,7 +77,7 @@ alias mount_ciani='sshfs ciani:/mnt/wdhd /Volumes/ciani'
 alias backup_dropbox='restic -r /Volumes/Backups/dropbox --verbose backup ~/Dropbox'
 alias backup_media='restic -r /Volumes/Backups/media --verbose backup --ignore-inode /Volumes/ciani --exclude=Movies --exclude=TV'
 
-if hostname | grep aphex
+if hostname | grep aphex && [ "$TERM_PROGRAM" != "vscode" ]
 then
   last_upgrade=$(dnf history list | grep upgrade | head -n 1)
   extracted_date=$(echo $last_upgrade | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
@@ -91,7 +91,7 @@ then
   fi
 fi
 
-if hostname | grep harmonia
+if hostname | grep harmonia && [ "$TERM_PROGRAM" != "vscode" ]
 then
   week_ago_timestamp=$(date -v -7d +%s)
   if [ $LAST_HOMEBREW_UPGRADE -lt $week_ago_timestamp ]; then

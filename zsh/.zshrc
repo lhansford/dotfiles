@@ -143,3 +143,17 @@ then
     fi
   fi
 fi
+
+# Upgrade apt-get
+if hostname | grep ciani || hostname | grep isao
+then
+  date=$(date -r /var/log/apt/history.log)
+  date_timestamp=$(date -r /var/log/apt/history.log +%s)
+  week_ago_timestamp=$(date -d '7 days ago' +%s)
+  if [ $date_timestamp -lt $week_ago_timestamp ]; then
+    echo "Last apt-get upgrade was on $date. Would you like to run it now?"
+    if gum confirm; then
+      sudo apt-get update && sudo apt-get upgrade -y
+    fi
+  fi
+fi

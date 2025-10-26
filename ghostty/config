@@ -14,3 +14,6 @@ background-blur-radius = 16
 adjust-cursor-thickness = 3
 
 keybind = control+w=close_surface
+
+# Added by Claude Code
+keybind = shift+enter=text:\x1b\r

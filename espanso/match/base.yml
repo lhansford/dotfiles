@@ -9,6 +9,8 @@ matches:
     replace: "luke@fishbrain.com"
   - trigger: ";evem"
     replace: "evelynchia98@gmail.com"
+  - trigger: ";ddem"
+    replace: "luke@dungeondraws.com"
 
   - trigger: ";lh"
     replace: "Luke Hansford"

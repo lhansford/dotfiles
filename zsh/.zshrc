@@ -78,7 +78,7 @@ alias mount_ciani='sshfs ciani:/mnt/wdhd /Volumes/ciani'
 alias backup_dropbox='restic -r /Volumes/Backups/dropbox --verbose backup ~/Dropbox'
 alias backup_media='restic -r /Volumes/Backups/media --verbose backup --ignore-inode /Volumes/ciani --exclude=Movies --exclude=TV'
 
-if hostname | grep aphex && [ "$TERM_PROGRAM" != "vscode" ]
+if (hostname | grep aphex || hostname | grep jdilla) && [ "$TERM_PROGRAM" != "vscode" ]
 then
   last_upgrade=$(dnf history list | grep upgrade | head -n 1)
   extracted_date=$(echo $last_upgrade | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
@@ -87,7 +87,7 @@ then
   if [ $date_timestamp -lt $week_ago_timestamp ]; then
     echo "Last dnf upgrade was on $extracted_date. Would you like to run it now?"
     if gum confirm; then
-      sudo dnf upgrade
+      sudo dnf upgrade --refresh
     fi
   fi
 fi

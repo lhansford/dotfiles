@@ -74,4 +74,19 @@ if (diffLength === 0) {
   }
 }
 
+if (os === SYSTEMS.linux) {
+  const promptResponse = await prompt("Sync PaperWM config? (y/n)");
+  if (promptResponse === "y") {
+    try {
+      await asyncExec(
+        "dconf load /org/gnome/shell/extensions/paperwm/ < ./paperwm/paperwm.dconf"
+      );
+      terminal.green.bold("PaperWM config synced successfully.\n");
+    } catch (error) {
+      console.error(error);
+      hasError = true;
+    }
+  }
+}
+
 process.exit(hasError ? 1 : 0);

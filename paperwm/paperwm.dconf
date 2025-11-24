@@ -16,15 +16,36 @@ use-default-background=true
 vertical-margin=16
 vertical-margin-bottom=16
 window-gap=16
-winprops=['{"wm_class":"browsers","scratch_layer":true}', '{"wm_class":"Rofi","scratch_layer":true,"title":""}']
+winprops=['{"wm_class":"browsers","scratch_layer":true}', '{"wm_class":"re.sonny.Junction","scratch_layer":true}', '{"wm_class":"Rofi","scratch_layer":true,"title":""}']
 
 [workspaces]
-list=['36bbffcd-d640-483c-aa9e-e5b31137b8c6', 'd243d411-9c6c-489e-aa80-0d997c55155a']
+list=['36bbffcd-d640-483c-aa9e-e5b31137b8c6', 'd243d411-9c6c-489e-aa80-0d997c55155a', '5506f58f-1441-4208-9adb-3bef72ecb590']
+
+[workspaces/1477f610-63f3-4116-804a-f2ef79e58f61]
+index=2
+
+[workspaces/28514c35-6fb1-4222-a8a2-77749d1c5bd3]
+index=4
+
+[workspaces/32a11c8e-f834-4a6e-8327-90fe9350ca6e]
+index=0
 
 [workspaces/36bbffcd-d640-483c-aa9e-e5b31137b8c6]
 background=''
 color='rgb(143,240,164)'
 index=0
+show-position-bar=true
+show-top-bar=true
+
+[workspaces/5506f58f-1441-4208-9adb-3bef72ecb590]
+index=2
+
+[workspaces/73689fdd-f087-489d-9e8c-262ce8c4236b]
+index=3
+
+[workspaces/844b72be-4852-462b-a148-207ef8850a55]
+index=1
+name='Workspace 2'
 show-position-bar=true
 show-top-bar=true
 

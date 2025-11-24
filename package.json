@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dump-paperwm-config": "dconf dump /org/gnome/shell/extensions/paperwm/ > ~/paperwm/paperwm.dconf",
+    "dump-paperwm-config": "dconf dump /org/gnome/shell/extensions/paperwm/ > ./paperwm/paperwm.dconf",
     "sync": "node sync.js"
   },
   "dependencies": {

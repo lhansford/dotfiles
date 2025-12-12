@@ -131,9 +131,9 @@ matches:
 
   - trigger: ;llmpr
     replace: |
-    **Disclaimer**: This commit was mostly generated using Claude Code. I
-    have reviewed all code changes myself, but would appreciate a review
-    with consideration that some of code is generated.
+      **Disclaimer**: This commit was mostly generated using Claude Code. I
+      have reviewed all code changes myself, but would appreciate a review
+      with consideration that some of code is generated.
 
   # Terraform
   - trigger: ";tff"

@@ -1,4 +1,5 @@
 [/]
+gesture-horizontal-fingers=4
 horizontal-margin=16
 last-used-display-server='Wayland'
 open-window-position=0
@@ -16,7 +17,7 @@ use-default-background=true
 vertical-margin=16
 vertical-margin-bottom=16
 window-gap=16
-winprops=['{"wm_class":"browsers","scratch_layer":true}', '{"wm_class":"re.sonny.Junction","scratch_layer":true}', '{"wm_class":"Rofi","scratch_layer":true,"title":""}']
+winprops=['{"wm_class":"1password","scratch_layer":true}', '{"wm_class":"browsers","scratch_layer":true}', '{"wm_class":"re.sonny.Junction","scratch_layer":true}', '{"wm_class":"Rofi","scratch_layer":true,"title":""}', '{"wm_class":"it.mijorus.smile","title":"","scratch_layer":true}']
 
 [workspaces]
 list=['36bbffcd-d640-483c-aa9e-e5b31137b8c6', 'd243d411-9c6c-489e-aa80-0d997c55155a', '5506f58f-1441-4208-9adb-3bef72ecb590']

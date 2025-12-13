@@ -26,7 +26,7 @@ if [ -z "$MEALIE_API_TOKEN" ]; then
   return 1
 fi
 
-MEALIE_URL="http://localhost:9000"
+MEALIE_URL="http://localhost:9925"
 BACKUP_DRIVE="/mnt/backup"
 MEALIE_BACKUP_DIR="$BACKUP_DRIVE/mealie"
 MUSIC_DIR="/mnt/exthd/Music"

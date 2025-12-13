@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 function backup_mealie() {
   backup_response=$(curl -s -X POST "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN" -H "Content-Type: application/json")
   backup_filename=$(echo $backup_response | grep -oP '"fileName":"\K[^"]+')

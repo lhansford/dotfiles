@@ -1,6 +1,6 @@
 if [ -e ~/.env ]
 then
-  source ~/.env
+  export $(cat .env | xargs)
 fi
 
 if [ -e ~/.shell_timestamps ]

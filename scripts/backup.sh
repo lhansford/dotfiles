@@ -2,17 +2,26 @@
 
 function backup_mealie() {
   backup_response=$(curl -s -X POST "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN" -H "Content-Type: application/json")
-  backup_filename=$(echo $backup_response | grep -oP '"fileName":"\K[^"]+')
 
-  if [ -z "$backup_filename" ]; then
+  error=$(echo $backup_response | grep -o '"error":[^,}]*' | cut -d':' -f2)
+
+  if [ "$error" = "true" ]; then
     echo $backup_response
     echo "Failed to create Mealie backup"
   else
-    curl -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \
-      -H "Authorization: Bearer $MEALIE_API_TOKEN" \
-      -o "$MEALIE_BACKUP_DIR/$backup_filename"
+    # Get list of backups and download the most recent one
+    backups=$(curl -s -X GET "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN")
+    backup_filename=$(echo $backups | grep -o '"fileName":"[^"]*"' | head -1 | cut -d'"' -f4)
 
-    echo "Downloaded backup to /$MEALIE_BACKUP_DIR/$backup_filename"
+    if [ -n "$backup_filename" ]; then
+      curl -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \
+        -H "Authorization: Bearer $MEALIE_API_TOKEN" \
+        -o "$MEALIE_BACKUP_DIR/$backup_filename"
+
+      echo "Downloaded backup to /$MEALIE_BACKUP_DIR/$backup_filename"
+    else
+      echo "Failed to retrieve backup filename"
+    fi
   fi
 }
 

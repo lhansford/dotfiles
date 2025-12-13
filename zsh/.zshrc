@@ -74,10 +74,6 @@ alias gho='open "https://github.com/$(git config --get remote.origin.url | cut -
 alias ls='eza'
 alias l='eza -la --group-directories-first'
 
-alias mount_ciani='sshfs ciani:/mnt/wdhd /Volumes/ciani'
-alias backup_dropbox='restic -r /Volumes/Backups/dropbox --verbose backup ~/Dropbox'
-alias backup_media='restic -r /Volumes/Backups/media --verbose backup --ignore-inode /Volumes/ciani --exclude=Movies --exclude=TV'
-
 if (hostname | grep aphex || hostname | grep jdilla) && [ "$TERM_PROGRAM" != "vscode" ]
 then
   last_upgrade=$(dnf history list | grep upgrade | head -n 1)
@@ -123,6 +119,16 @@ fi
 #     fi
 #   fi
 # fi
+
+if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
+  last_backup_date_formatted=$(date -d $LAST_BACKUP)
+
+  if ([[ -t 1 ]] && gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"); then
+    ssh kraftwerk
+  fi
+
+  stty sane
+fi
 
 
 #   # if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then

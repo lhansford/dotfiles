@@ -11,14 +11,14 @@ function backup_mealie() {
   else
     # Get list of backups and download the most recent one
     backups=$(curl -s -X GET "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN")
-    backup_filename=$(echo $backups | grep -o '"fileName":"[^"]*"' | head -1 | cut -d'"' -f4)
+    backup_filename=$(echo $backups | grep -o '"name":"[^"]*"' | head -1 | cut -d'"' -f4)
 
     if [ -n "$backup_filename" ]; then
       curl -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \
         -H "Authorization: Bearer $MEALIE_API_TOKEN" \
         -o "$MEALIE_BACKUP_DIR/$backup_filename"
 
-      echo "Downloaded backup to /$MEALIE_BACKUP_DIR/$backup_filename"
+      echo "Downloaded backup to $MEALIE_BACKUP_DIR/$backup_filename"
     else
       echo "Failed to retrieve backup filename"
     fi

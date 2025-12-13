@@ -5,6 +5,7 @@ function backup_mealie() {
   backup_filename=$(echo $backup_response | grep -oP '"fileName":"\K[^"]+')
 
   if [ -z "$backup_filename" ]; then
+    echo $backup_response
     echo "Failed to create Mealie backup"
   else
     curl -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \

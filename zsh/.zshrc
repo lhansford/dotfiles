@@ -86,77 +86,78 @@ then
   week_ago_timestamp=$(date -d '7 days ago' +%s)
   if [ $date_timestamp -lt $week_ago_timestamp ]; then
     echo "Last dnf upgrade was on $extracted_date. Would you like to run it now?"
-    if gum confirm; then
+    if ([[ -t 1 ]] && gum confirm); then
       sudo dnf upgrade --refresh
     fi
+    stty sane
   fi
 fi
 
-# Upgrade Homebrew
-if brew -v &>/dev/null && [ "$TERM_PROGRAM" != "vscode" ]
-then
-  week_ago_timestamp=$(date -v -7d +%s)
-  if [ $LAST_HOMEBREW_UPGRADE -lt $week_ago_timestamp ]; then
-    last_upgrade_date_formatted=$(date -r $LAST_HOMEBREW_UPGRADE)
-    if gum confirm "Last \`brew upgrade\` was on $last_upgrade_date_formatted. Would you like to run it now?"; then
-      brew upgrade
-      if grep -q "LAST_HOMEBREW_UPGRADE" ~/.shell_timestamps; then
-        sed -i '' "s/LAST_HOMEBREW_UPGRADE=.*/LAST_HOMEBREW_UPGRADE=$(date +%s)/" ~/.shell_timestamps
-      else
-        echo "LAST_HOMEBREW_UPGRADE=$(date +%s)" >> ~/.shell_timestamps
-      fi
-    fi
-  fi
-fi
+# # Upgrade Homebrew
+# if brew -v &>/dev/null && [ "$TERM_PROGRAM" != "vscode" ]
+# then
+#   week_ago_timestamp=$(date -v -7d +%s)
+#   if [ $LAST_HOMEBREW_UPGRADE -lt $week_ago_timestamp ]; then
+#     last_upgrade_date_formatted=$(date -r $LAST_HOMEBREW_UPGRADE)
+#     if gum confirm "Last \`brew upgrade\` was on $last_upgrade_date_formatted. Would you like to run it now?"; then
+#       brew upgrade
+#       if grep -q "LAST_HOMEBREW_UPGRADE" ~/.shell_timestamps; then
+#         sed -i '' "s/LAST_HOMEBREW_UPGRADE=.*/LAST_HOMEBREW_UPGRADE=$(date +%s)/" ~/.shell_timestamps
+#       else
+#         echo "LAST_HOMEBREW_UPGRADE=$(date +%s)" >> ~/.shell_timestamps
+#       fi
+#     fi
+#   fi
+# fi
 
-# Upgrade apt-get
-if hostname | grep ciani || hostname | grep isao
-then
-  date=$(date -r /var/log/apt/history.log)
-  date_timestamp=$(date -r /var/log/apt/history.log +%s)
-  week_ago_timestamp=$(date -d '7 days ago' +%s)
-  if [ $date_timestamp -lt $week_ago_timestamp ]; then
-    echo "Last apt-get upgrade was on $date. Would you like to run it now?"
-    if gum confirm; then
-      sudo apt-get update && sudo apt-get upgrade -y
-    fi
-  fi
-fi
+# # Upgrade apt-get
+# if hostname | grep ciani || hostname | grep isao
+# then
+#   date=$(date -r /var/log/apt/history.log)
+#   date_timestamp=$(date -r /var/log/apt/history.log +%s)
+#   week_ago_timestamp=$(date -d '7 days ago' +%s)
+#   if [ $date_timestamp -lt $week_ago_timestamp ]; then
+#     echo "Last apt-get upgrade was on $date. Would you like to run it now?"
+#     if gum confirm; then
+#       sudo apt-get update && sudo apt-get upgrade -y
+#     fi
+#   fi
+# fi
 
 
-  # if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
-  #   last_backup_date_formatted=$(date -r $LAST_BACKUP)
-  #   if gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"; then
-  #     if ! command -v restic >/dev/null 2>&1; then
-  #       echo "restic is not installed. Visit https://restic.readthedocs.io/en/stable/020_installation.html for installation instructions."
-  #       return 1
-  #     fi
+#   # if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
+#   #   last_backup_date_formatted=$(date -r $LAST_BACKUP)
+#   #   if gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"; then
+#   #     if ! command -v restic >/dev/null 2>&1; then
+#   #       echo "restic is not installed. Visit https://restic.readthedocs.io/en/stable/020_installation.html for installation instructions."
+#   #       return 1
+#   #     fi
 
-  #     if ! command -v sshfs >/dev/null 2>&1; then
-  #       echo "sshfs is not installed. Visit https://macfuse.github.io/ and https://github.com/libfuse/sshfs for installation instructions."
-  #       return 1
-  #     fi
+#   #     if ! command -v sshfs >/dev/null 2>&1; then
+#   #       echo "sshfs is not installed. Visit https://macfuse.github.io/ and https://github.com/libfuse/sshfs for installation instructions."
+#   #       return 1
+#   #     fi
 
-  #     backup_dropbox
-  #     restic -r /Volumes/Backups/dropbox forget --keep-last 2
+#   #     backup_dropbox
+#   #     restic -r /Volumes/Backups/dropbox forget --keep-last 2
 
-  #     echo "\nMounting ciani..."
-  #     mount_ciani
+#   #     echo "\nMounting ciani..."
+#   #     mount_ciani
 
-  #     if [ -z "$( ls -A '/Volumes/ciani' )" ];
-  #     then
-  #       echo "/Volumes/ciani failed to mount. Check that Tailscale is running."
-  #     else
-  #       echo "Mounted ciani. Backing up media..."
-  #       backup_media
-  #       restic -r /Volumes/Backups/media forget --keep-last 2
-  #       umount /Volumes/ciani
-  #       echo "Unmounted ciani."
-  #       if grep -q "LAST_BACKUP" ~/.shell_timestamps; then
-  #         sed -i '' "s/LAST_BACKUP=.*/LAST_BACKUP=$(date +%s)/" ~/.shell_timestamps
-  #       else
-  #         echo "LAST_BACKUP=$(date +%s)" >> ~/.shell_timestamps
-  #       fi
-  #     fi
-  #   fi
-  # fi
+#   #     if [ -z "$( ls -A '/Volumes/ciani' )" ];
+#   #     then
+#   #       echo "/Volumes/ciani failed to mount. Check that Tailscale is running."
+#   #     else
+#   #       echo "Mounted ciani. Backing up media..."
+#   #       backup_media
+#   #       restic -r /Volumes/Backups/media forget --keep-last 2
+#   #       umount /Volumes/ciani
+#   #       echo "Unmounted ciani."
+#   #       if grep -q "LAST_BACKUP" ~/.shell_timestamps; then
+#   #         sed -i '' "s/LAST_BACKUP=.*/LAST_BACKUP=$(date +%s)/" ~/.shell_timestamps
+#   #       else
+#   #         echo "LAST_BACKUP=$(date +%s)" >> ~/.shell_timestamps
+#   #       fi
+#   #     fi
+#   #   fi
+#   # fi

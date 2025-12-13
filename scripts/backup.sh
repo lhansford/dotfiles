@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+if [ -e ~/.env ]
+then
+  export $(cat .env | xargs)
+fi
+
 function backup_mealie() {
   backup_response=$(curl -s -X POST "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN" -H "Content-Type: application/json")
 

@@ -124,7 +124,7 @@ if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
   last_backup_date_formatted=$(date -d $LAST_BACKUP)
 
   if ([[ -t 1 ]] && gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"); then
-    ssh kraftwerk
+    ssh kraftwerk -t '~/dotfiles/scripts/backup.sh'
   fi
 
   stty sane

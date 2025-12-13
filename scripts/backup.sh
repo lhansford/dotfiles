@@ -40,10 +40,10 @@ BACKUP_DRIVE="/mnt/backup"
 MEALIE_BACKUP_DIR="$BACKUP_DRIVE/mealie"
 MUSIC_DIR="/mnt/exthd/Music"
 
-# password=$(gum input --password)
-# export RESTIC_PASSWORD=$password
-# # TODO:
-# # restic -r "$BACKUP_DRIVE/music" --verbose backup --ignore-inode $MUSIC_DIR
-# export RESTIC_PASSWORD=""
+password=$(gum input --password)
+export RESTIC_PASSWORD=$password
+restic -r "$BACKUP_DRIVE/music" --verbose backup --ignore-inode $MUSIC_DIR
+export RESTIC_PASSWORD=""
+
 backup_mealie
 # gum spin --spinner dot --title "Backing up Mealie..." -- backup_mealie

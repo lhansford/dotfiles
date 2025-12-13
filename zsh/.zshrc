@@ -1,3 +1,8 @@
+if [ -e ~/.env ]
+then
+  source ~/.env
+fi
+
 if [ -e ~/.shell_timestamps ]
 then
   source ~/.shell_timestamps

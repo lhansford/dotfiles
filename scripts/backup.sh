@@ -42,7 +42,7 @@ MUSIC_DIR="/mnt/exthd/Music"
 
 password=$(gum input --password)
 export RESTIC_PASSWORD=$password
-# restic -r "$BACKUP_DRIVE/music" --verbose backup --ignore-inode $MUSIC_DIR
+restic -r "$BACKUP_DRIVE/music" --verbose backup --ignore-inode $MUSIC_DIR
 export RESTIC_PASSWORD=""
 
 backup_mealie

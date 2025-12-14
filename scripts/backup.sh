@@ -9,7 +9,7 @@ MEALIE_URL="http://localhost:9925"
 BACKUP_DRIVE="/mnt/backup"
 MEALIE_BACKUP_DIR="$BACKUP_DRIVE/mealie"
 MUSIC_DIR="/mnt/exthd/Music"
-IMAGES_DIR="/mnt/exthd/Images"
+IMMICH_LIBRARY_DIR="/mnt/exthd/Images/library"
 PLEX_CONFIG_DIR="/home/luke/plex/config"
 
 function backup_mealie() {
@@ -38,7 +38,7 @@ function backup_mealie() {
 }
 
 function backup_immich() {
-  restic -r "$BACKUP_DRIVE/images" --verbose backup --ignore-inode $IMAGES_DIR
+  restic -r "$BACKUP_DRIVE/images" --verbose backup --ignore-inode $IMMICH_LIBRARY_DIR
   echo "Backing up Immich database..."
   docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip > "/mnt/backup/immich/dump.sql.gz"
 }
@@ -56,6 +56,7 @@ function restic_backups() {
   export RESTIC_PASSWORD=$password
   backup_media
   backup_plex
+  backup_immich
   export RESTIC_PASSWORD=""
 }
 
@@ -70,5 +71,4 @@ if [ -z "$MEALIE_API_TOKEN" ]; then
 fi
 
 restic_backups
-backup_immich
 backup_mealie

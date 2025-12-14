@@ -9,10 +9,10 @@ MEALIE_URL="http://localhost:9925"
 BACKUP_DRIVE="/mnt/backup"
 MEALIE_BACKUP_DIR="$BACKUP_DRIVE/mealie"
 MUSIC_DIR="/mnt/exthd/Music"
-PLEX_CONFIG_DIR="~/plex/config"
+PLEX_CONFIG_DIR="/home/luke/plex/config"
 
 function backup_mealie() {
-  backup_response=$(gum spin --spinner pulse --title "Creating Mealie backup..." -- curl -s -X POST "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN" -H "Content-Type: application/json")
+  backup_response=$(curl -s -X POST "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN" -H "Content-Type: application/json")
 
   error=$(echo $backup_response | grep -o '"error":[^,}]*' | cut -d':' -f2)
 
@@ -21,11 +21,11 @@ function backup_mealie() {
     echo "Failed to create Mealie backup"
   else
     # Get list of backups and download the most recent one
-    backups=$(gum spin --spinner pulse --title "Fetching Mealie backups..." -- curl -s -X GET "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN")
+    backups=$(curl -s -X GET "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN")
     backup_filename=$(echo $backups | grep -o '"name":"[^"]*"' | head -1 | cut -d'"' -f4)
 
     if [ -n "$backup_filename" ]; then
-      gum spin --spinner pulse --title "Downloading Mealie backup..." -- curl -s -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \
+      curl -s -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \
         -H "Authorization: Bearer $MEALIE_API_TOKEN" \
         -o "$MEALIE_BACKUP_DIR/$backup_filename"
 

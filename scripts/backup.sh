@@ -5,6 +5,12 @@ then
   export $(cat .env | xargs)
 fi
 
+MEALIE_URL="http://localhost:9925"
+BACKUP_DRIVE="/mnt/backup"
+MEALIE_BACKUP_DIR="$BACKUP_DRIVE/mealie"
+MUSIC_DIR="/mnt/exthd/Music"
+PLEX_CONFIG_DIR="~/plex/config"
+
 function backup_mealie() {
   backup_response=$(curl -s -X POST "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN" -H "Content-Type: application/json")
 
@@ -19,7 +25,7 @@ function backup_mealie() {
     backup_filename=$(echo $backups | grep -o '"name":"[^"]*"' | head -1 | cut -d'"' -f4)
 
     if [ -n "$backup_filename" ]; then
-      curl -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \
+      curl -s -X GET "$MEALIE_URL/api/admin/backups/$backup_filename" \
         -H "Authorization: Bearer $MEALIE_API_TOKEN" \
         -o "$MEALIE_BACKUP_DIR/$backup_filename"
 
@@ -28,6 +34,26 @@ function backup_mealie() {
       echo "Failed to retrieve backup filename"
     fi
   fi
+}
+
+function backup_immich() {
+  echo "Immich backup not implemented yet."
+}
+
+function backup_plex() {
+  restic -r "$BACKUP_DRIVE/plex" --verbose backup --ignore-inode $PLEX_CONFIG_DIR
+}
+
+function backup_media() {
+  restic -r "$BACKUP_DRIVE/music" --verbose backup --ignore-inode $MUSIC_DIR
+}
+
+function restic_backups() {
+  password=$(gum input --password)
+  export RESTIC_PASSWORD=$password
+  backup_media
+  backup_plex
+  export RESTIC_PASSWORD=""
 }
 
 if ! command -v restic >/dev/null 2>&1; then
@@ -40,15 +66,6 @@ if [ -z "$MEALIE_API_TOKEN" ]; then
   return 1
 fi
 
-MEALIE_URL="http://localhost:9925"
-BACKUP_DRIVE="/mnt/backup"
-MEALIE_BACKUP_DIR="$BACKUP_DRIVE/mealie"
-MUSIC_DIR="/mnt/exthd/Music"
-
-password=$(gum input --password)
-export RESTIC_PASSWORD=$password
-restic -r "$BACKUP_DRIVE/music" --verbose backup --ignore-inode $MUSIC_DIR
-export RESTIC_PASSWORD=""
-
-backup_mealie
-# gum spin --spinner dot --title "Backing up Mealie..." -- backup_mealie
+restic_backups
+backup_immich
+gum spin --spinner dot --title "Backing up Mealie..." -- backup_mealie

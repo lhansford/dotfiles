@@ -9,6 +9,7 @@ MEALIE_URL="http://localhost:9925"
 BACKUP_DRIVE="/mnt/backup"
 MEALIE_BACKUP_DIR="$BACKUP_DRIVE/mealie"
 MUSIC_DIR="/mnt/exthd/Music"
+IMAGES_DIR="/mnt/exthd/Images"
 PLEX_CONFIG_DIR="/home/luke/plex/config"
 
 function backup_mealie() {
@@ -37,7 +38,9 @@ function backup_mealie() {
 }
 
 function backup_immich() {
-  echo "Immich backup not implemented yet."
+  restic -r "$BACKUP_DRIVE/images" --verbose backup --ignore-inode $IMAGES_DIR
+  echo "Backing up Immich database..."
+  docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip > "/mnt/backup/immich/dump.sql.gz"
 }
 
 function backup_plex() {

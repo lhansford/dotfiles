@@ -40,7 +40,7 @@ function backup_mealie() {
 function backup_immich() {
   restic -r "$BACKUP_DRIVE/images" --verbose backup --ignore-inode $IMMICH_LIBRARY_DIR
   echo "Backing up Immich database..."
-  docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip > "/mnt/backup/immich/dump.sql.gz"
+  sudo docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip > "/mnt/backup/immich/dump.sql.gz"
 }
 
 function backup_plex() {

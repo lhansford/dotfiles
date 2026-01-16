@@ -13,6 +13,7 @@ IMMICH_LIBRARY_DIR="/mnt/exthd/Images/library"
 PLEX_CONFIG_DIR="/home/luke/plex/config"
 
 function backup_mealie() {
+  echo "Backing up Mealie..."
   backup_response=$(curl -s -X POST "$MEALIE_URL/api/admin/backups" -H "Authorization: Bearer $MEALIE_API_TOKEN" -H "Content-Type: application/json")
 
   error=$(echo $backup_response | grep -o '"error":[^,}]*' | cut -d':' -f2)
@@ -40,7 +41,7 @@ function backup_mealie() {
 function backup_immich() {
   restic -r "$BACKUP_DRIVE/images" --verbose backup --ignore-inode $IMMICH_LIBRARY_DIR
   echo "Backing up Immich database..."
-  sudo docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip > "/mnt/backup/immich/dump.sql.gz"
+  echo $RESTIC_PASSWORD | sudo -S docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip > "/mnt/backup/immich/dump.sql.gz"
 }
 
 function backup_plex() {
@@ -52,7 +53,7 @@ function backup_media() {
 }
 
 function restic_backups() {
-  password=$(gum input --password)
+  password=$(gum input --password --placeholder "Password...")
   export RESTIC_PASSWORD=$password
   backup_media
   backup_plex

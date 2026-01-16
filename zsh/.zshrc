@@ -126,49 +126,17 @@ fi
 # fi
 
 if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
-  last_backup_date_formatted=$(date -d $LAST_BACKUP)
+  last_backup_date_formatted=$(date -d @$LAST_BACKUP)
 
   if ([[ -t 1 ]] && gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"); then
     ssh kraftwerk -t 'zsh -lic "~/dotfiles/scripts/backup.sh"'
+
+    if grep -q "LAST_BACKUP" ~/.shell_timestamps; then
+      sed -i '' "s/LAST_BACKUP=.*/LAST_BACKUP=$(date +%s)/" ~/.shell_timestamps
+    else
+      echo "LAST_BACKUP=$(date +%s)" >> ~/.shell_timestamps
+    fi
   fi
 
   stty sane
 fi
-
-
-#   # if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
-#   #   last_backup_date_formatted=$(date -r $LAST_BACKUP)
-#   #   if gum confirm "Last backup was on $last_backup_date_formatted. Would you like to run it now?"; then
-#   #     if ! command -v restic >/dev/null 2>&1; then
-#   #       echo "restic is not installed. Visit https://restic.readthedocs.io/en/stable/020_installation.html for installation instructions."
-#   #       return 1
-#   #     fi
-
-#   #     if ! command -v sshfs >/dev/null 2>&1; then
-#   #       echo "sshfs is not installed. Visit https://macfuse.github.io/ and https://github.com/libfuse/sshfs for installation instructions."
-#   #       return 1
-#   #     fi
-
-#   #     backup_dropbox
-#   #     restic -r /Volumes/Backups/dropbox forget --keep-last 2
-
-#   #     echo "\nMounting ciani..."
-#   #     mount_ciani
-
-#   #     if [ -z "$( ls -A '/Volumes/ciani' )" ];
-#   #     then
-#   #       echo "/Volumes/ciani failed to mount. Check that Tailscale is running."
-#   #     else
-#   #       echo "Mounted ciani. Backing up media..."
-#   #       backup_media
-#   #       restic -r /Volumes/Backups/media forget --keep-last 2
-#   #       umount /Volumes/ciani
-#   #       echo "Unmounted ciani."
-#   #       if grep -q "LAST_BACKUP" ~/.shell_timestamps; then
-#   #         sed -i '' "s/LAST_BACKUP=.*/LAST_BACKUP=$(date +%s)/" ~/.shell_timestamps
-#   #       else
-#   #         echo "LAST_BACKUP=$(date +%s)" >> ~/.shell_timestamps
-#   #       fi
-#   #     fi
-#   #   fi
-#   # fi

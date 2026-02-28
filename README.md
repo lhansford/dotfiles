@@ -12,6 +12,12 @@
 - [Gum](https://github.com/charmbracelet/gum)
   - `brew install gum`
 
+### Arch
+
+```sh
+paru -S eza gum diff-so-fancy espanso-wayland atuin
+```
+
 ### Mac only
 
 - [SketchyBar](https://felixkratz.github.io/SketchyBar/setup)
@@ -23,5 +29,7 @@
 - Add linting?
 - Reconsider symlinks. It behaves a little weird with the sync script. E.g. If I've already symlinked my files and pull
   changes from git, that now becomes the true sync, not the script.
-- Polybar
-- Rofi
+- Flatpak update in zshrc
+- Paru/pacman update in zsrhc
+- Appimage updates?? Todoist specifically
+- Sync noctalia and niri configs

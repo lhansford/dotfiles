@@ -1,6 +1,6 @@
 if [ -e ~/.env ]
 then
-  export $(cat .env | xargs)
+  export $(cat ~/.env | xargs)
 fi
 
 if [ -e ~/.shell_timestamps ]
@@ -78,9 +78,11 @@ alias gho='open "https://github.com/$(git config --get remote.origin.url | cut -
 alias ls='eza'
 alias l='eza -la --group-directories-first'
 
+
+week_ago_timestamp=$(date -d '7 days ago' +%s)
+
 if (hostname | grep -q aphex || hostname | grep -q jdilla) && [ "$TERM_PROGRAM" != "vscode" ]
 then
-  week_ago_timestamp=$(date -d '7 days ago' +%s)
   if [ $LAST_PACKAGE_UPDATE -lt $week_ago_timestamp ]; then
     last_upgrade_date_formatted=$(date -d @$LAST_PACKAGE_UPDATE)
     echo "Last package updates were on $last_upgrade_date_formatted. Would you like to update now?"
@@ -91,19 +93,18 @@ then
   fi
 fi
 
-# # Upgrade apt-get
-# if hostname | grep ciani || hostname | grep isao
-# then
-#   date=$(date -r /var/log/apt/history.log)
-#   date_timestamp=$(date -r /var/log/apt/history.log +%s)
-#   week_ago_timestamp=$(date -d '7 days ago' +%s)
-#   if [ $date_timestamp -lt $week_ago_timestamp ]; then
-#     echo "Last apt-get upgrade was on $date. Would you like to run it now?"
-#     if gum confirm; then
-#       sudo apt-get update && sudo apt-get upgrade -y
-#     fi
-#   fi
-# fi
+# Upgrade apt-get
+if hostname | grep ciani || hostname | grep isao
+then
+  date=$(date -r /var/log/apt/history.log)
+  date_timestamp=$(date -r /var/log/apt/history.log +%s)
+  if [ $date_timestamp -lt $week_ago_timestamp ]; then
+    echo "Last apt-get upgrade was on $date. Would you like to run it now?"
+    if gum confirm; then
+      sudo apt-get update && sudo apt-get upgrade -y
+    fi
+  fi
+fi
 
 if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
   last_backup_date_formatted=$(date -d @$LAST_BACKUP)

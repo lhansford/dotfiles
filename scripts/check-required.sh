@@ -3,6 +3,7 @@ set -euo pipefail
 
 if ! command -v gum >/dev/null 2>&1; then
   echo "gum is not installed. Visit https://github.com/charmbracelet/gum for installation instructions."
+  exit 1
 fi
 
 check() {

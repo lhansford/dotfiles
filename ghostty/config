@@ -1,7 +1,4 @@
-# Ghostty config
-
 config-file = ?config-linux
-config-file = ?config-macos
 
 theme=skogen
 

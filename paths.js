@@ -10,18 +10,6 @@ export const SYSTEMS = {
 };
 
 export const PATHS = [
-  // Amethyst
-  {
-    src: "./amethyst/amethyst.yml",
-    dest: "~/.amethyst.yml",
-    systems: [SYSTEMS.macOS],
-  },
-  // Autostart
-  {
-    src: "./autostart/polybar.desktop",
-    dest: "~/.config/autostart/polybar.desktop",
-    systems: [SYSTEMS.linuxDesktop],
-  },
   // Espanso
   {
     src: "./espanso/match/base.yml",
@@ -73,19 +61,22 @@ export const PATHS = [
     dest: "~/.config/keymapper.conf",
     systems: [SYSTEMS.macOS, SYSTEMS.linuxDesktop, SYSTEMS.cachyos],
   },
-  // // Kitty
-  // {
-  //   src: "./kitty/kitty.conf",
-  //   dest: "~/.config/kitty/kitty.conf",
-  //   systems: [SYSTEMS.macOS, SYSTEMS.linuxDesktop],
-  // },
-  // {
-  //   src: "./kitty/themes/skogen.conf",
-  //   dest: "~/.config/kitty/themes/skogen.conf",
-  //   externalSrc:
-  //     "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.conf",
-  //   systems: [SYSTEMS.macOS, SYSTEMS.linuxDesktop],
-  // },
+  // Niri
+  {
+    src: "./niri/config.kdl",
+    dest: "~/.config/niri/config.kdl",
+    systems: [SYSTEMS.cachyos],
+  },
+  {
+    src: "./niri/cfg/animation.kdl",
+    dest: "~/.config/niri/cfg/animation.kdl",
+    systems: [SYSTEMS.cachyos],
+  },
+  {
+    src: "./niri/cfg/keybinds.kdl",
+    dest: "~/.config/niri/cfg/keybinds.kdl",
+    systems: [SYSTEMS.cachyos],
+  },
   // Ohmyzsh
   {
     src: "./ohmyzsh/themes/skogen.zsh-theme",
@@ -93,17 +84,6 @@ export const PATHS = [
     externalSrc:
       "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.zsh-theme",
     systems: [SYSTEMS.macOS, SYSTEMS.linuxDesktop, SYSTEMS.linuxServer, SYSTEMS.rpi, SYSTEMS.cachyos],
-  },
-  // Polybar
-  {
-    src: "./polybar/polybar.desktop",
-    dest: "~/.config/autostart/polybar.desktop",
-    systems: [SYSTEMS.linuxDesktop],
-  },
-  {
-    src: "./polybar/config.ini",
-    dest: "~/.config/polybar/config.ini",
-    systems: [SYSTEMS.linuxDesktop],
   },
   // Rofi
   {
@@ -125,37 +105,6 @@ export const PATHS = [
     src: "./rofi/bg-transparent.png",
     dest: "~/.config/rofi/bg-transparent.png",
     systems: [SYSTEMS.linuxDesktop],
-  },
-  // SketchyBar
-  {
-    src: "./sketchybar/plugins/battery.sh",
-    dest: "~/.config/sketchybar/plugins/battery.sh",
-    systems: [SYSTEMS.macOS],
-  },
-  {
-    src: "./sketchybar/plugins/clock.sh",
-    dest: "~/.config/sketchybar/plugins/clock.sh",
-    systems: [SYSTEMS.macOS],
-  },
-  {
-    src: "./sketchybar/plugins/front_app.sh",
-    dest: "~/.config/sketchybar/plugins/front_app.sh",
-    systems: [SYSTEMS.macOS],
-  },
-  {
-    src: "./sketchybar/plugins/space.sh",
-    dest: "~/.config/sketchybar/plugins/space.sh",
-    systems: [SYSTEMS.macOS],
-  },
-  {
-    src: "./sketchybar/plugins/volume.sh",
-    dest: "~/.config/sketchybar/plugins/volume.sh",
-    systems: [SYSTEMS.macOS],
-  },
-  {
-    src: "./sketchybar/sketchybarrc",
-    dest: "~/.config/sketchybar/sketchybarrc",
-    systems: [SYSTEMS.macOS],
   },
   // ZSH
   {

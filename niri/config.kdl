@@ -1,13 +1,110 @@
-include "./cfg/autostart.kdl"
+include "./cfg/animation.kdl"
 include "./cfg/keybinds.kdl"
-include "./cfg/input.kdl"
-include "./cfg/display.kdl"
-include "./cfg/layout.kdl"
-include "./cfg/recent-windows.kdl"
-include "./cfg/rules.kdl"
 
-include "./cfg/misc.kdl"
+spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &" // Polkit
+spawn-sh-at-startup "qs -c noctalia-shell"
+
+input {
+    keyboard {
+        xkb {
+            layout "us" // Use the American keyboard layout
+        }
+        numlock // Enable numlock on startup
+    }
+
+    touchpad {
+        click-method "clickfinger"
+    }
+
+    focus-follows-mouse // Automatically focus windows under the mouse pointer
+    workspace-auto-back-and-forth // Enable workspace back & forth switching
+}
+
+layout {
+    gaps 8 // Gap between windows
+    center-focused-column "never" // Don’t auto-center focused column
+
+    background-color "transparent" // <- needed for noctalia-shell to set wallpaper
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    border {
+        on
+        active-color "#7fc8ff"
+    }
+
+    focus-ring {
+        off
+    }
+
+    default-column-width { proportion 1.0; }
+}
+
+recent-windows {
+    debounce-ms 750
+    open-delay-ms 150
+
+    highlight {
+        active-color "#999999ff"
+        urgent-color "#ff9999ff"
+        padding 30
+        corner-radius 0
+    }
+
+    previews {
+        max-height 240
+        max-scale 0.5
+    }
+
+    binds {
+        Control+Tab         { next-window; }
+        Control+Shift+Tab   { previous-window; }
+        Control+grave       { next-window     filter="app-id"; }
+        Control+Shift+grave { previous-window filter="app-id"; }
+    }
+}
+
+window-rule {
+    geometry-corner-radius 4 // Set every window radius to 20
+    clip-to-geometry true
+}
+
+layer-rule {
+    match namespace="^noctalia-wallpaper*"
+    place-within-backdrop true
+}
 
 switch-events {
     lid-close  {  spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "lockAndSuspend"; }
+}
+
+prefer-no-csd
+screenshot-path null
+
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    QT_QPA_PLATFORM "wayland"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+    QT_QPA_PLATFORMTHEME "gtk3"
+}
+
+debug {
+    // Allows notification actions and window activation from Noctalia.
+    honor-xdg-activation-with-invalid-serial
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+window-rule {
+    match title="Junction"
+    open-maximized false
+    open-floating true
 }

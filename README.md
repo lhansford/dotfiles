@@ -18,10 +18,6 @@
 paru -S eza gum diff-so-fancy espanso-wayland atuin
 ```
 
-### Mac only
-
-- [SketchyBar](https://felixkratz.github.io/SketchyBar/setup)
-
 ## TODO:
 
 - Cleanup package.json

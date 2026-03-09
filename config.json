@@ -63,6 +63,16 @@
       "systems": ["cachyos"]
     },
     {
+      "src": "./noctalia/colors.json",
+      "dest": "~/.config/noctalia/colors.json",
+      "systems": ["cachyos"]
+    },
+    {
+      "src": "./noctalia/settings.json",
+      "dest": "~/.config/noctalia/settings.json",
+      "systems": ["cachyos"]
+    },
+    {
       "src": "./ohmyzsh/themes/skogen.zsh-theme",
       "dest": "~/.oh-my-zsh/themes/skogen.zsh-theme",
       "systems": ["linux_desktop", "linux_server", "rpi", "cachyos"],

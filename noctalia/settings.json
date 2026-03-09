@@ -137,6 +137,9 @@
                     ]
                 },
                 {
+                    "id": "plugin:tailscale"
+                },
+                {
                     "clockColor": "none",
                     "customFont": "",
                     "formatHorizontal": "HH:mm ddd, MMM dd",

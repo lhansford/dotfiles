@@ -68,6 +68,11 @@
       "systems": ["cachyos"]
     },
     {
+      "src": "./noctalia/plugin.json",
+      "dest": "~/.config/noctalia/plugin.json",
+      "systems": ["cachyos"]
+    },
+    {
       "src": "./noctalia/settings.json",
       "dest": "~/.config/noctalia/settings.json",
       "systems": ["cachyos"]

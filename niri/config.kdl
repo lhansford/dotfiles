@@ -108,3 +108,9 @@ window-rule {
     open-maximized false
     open-floating true
 }
+
+window-rule {
+    match title="Mullvad VPN"
+    open-maximized false
+    open-floating false
+}

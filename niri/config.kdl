@@ -16,7 +16,6 @@ input {
         click-method "clickfinger"
     }
 
-    focus-follows-mouse // Automatically focus windows under the mouse pointer
     workspace-auto-back-and-forth // Enable workspace back & forth switching
 }
 
@@ -80,6 +79,12 @@ layer-rule {
 
 switch-events {
     lid-close  {  spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "lockAndSuspend"; }
+}
+
+gestures {
+    hot-corners {
+        off
+    }
 }
 
 prefer-no-csd

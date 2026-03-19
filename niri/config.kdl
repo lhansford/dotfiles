@@ -119,3 +119,8 @@ window-rule {
     open-maximized false
     open-floating false
 }
+
+window-rule {
+    match app-id="org.gnome.NautilusPreviewer"
+    open-floating true
+}

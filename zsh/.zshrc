@@ -1,3 +1,8 @@
+# Run Niri at login
+if [[ -z "$DISPLAY" && "$XDG_VTNR" = "1" ]]; then
+  exec dbus-run-session -- startx /usr/bin/niri
+fi
+
 if [ -e ~/.env ]
 then
   export $(cat ~/.env | xargs)

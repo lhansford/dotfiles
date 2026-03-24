@@ -141,6 +141,11 @@ main() {
     exit 1
   fi
 
+  if [[ "$selected_system" == "cachyosWithNix" ]]; then
+    gum style --bold "Installing Arch packages..."
+    "$SCRIPT_DIR/scripts/install-arch-packages.sh"
+  fi
+
   local diff_output=$(compute_diff)
 
   if [[ -z "$diff_output" ]]; then

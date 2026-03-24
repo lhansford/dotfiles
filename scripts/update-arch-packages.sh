@@ -15,7 +15,7 @@ paru -Su --skipreview
 echo "Removing orphaned packages..."
 orphans=$(paru -Qdtq 2>/dev/null || true)
 if [ -n "$orphans" ]; then
-  paru -Rns --noconfirm $orphans
+  paru -Rns --noconfirm "$orphans"
   echo "Removed orphaned packages."
 else
   echo "No orphaned packages found."

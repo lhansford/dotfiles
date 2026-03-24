@@ -3,7 +3,8 @@
     "linux_desktop": "Linux - Desktop",
     "linux_server": "Linux - Server",
     "rpi": "Raspberry Pi",
-    "cachyos": "CachyOS"
+    "cachyos": "CachyOS",
+    "cachyosWithNix": "CachyOS w/ Nix"
   },
   "paths": [
     {
@@ -45,7 +46,7 @@
     {
       "src": "./keymapper/keymapper.conf",
       "dest": "~/.config/keymapper.conf",
-      "systems": ["linux_desktop", "cachyos"]
+      "systems": ["linux_desktop", "cachyos", "cachyosWithNix"]
     },
     {
       "src": "./niri/config.kdl",

@@ -1,6 +1,7 @@
 [user]
 	name = Luke Hansford
 	email = mail@lukehansford.me
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOq797MuXw3T+ssSgo9Q0f5t/2QMJjQi2CzhDpJBAj67
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	editor = code --wait
@@ -20,9 +21,14 @@
 	whitespace = red reverse
 [commit]
   template = ~/.config/git/git_commit_template.txt
+	gpgsign = true
 [init]
 	defaultBranch = main
 [diff]
 	noprefix =
 [pull]
 	rebase = false
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign

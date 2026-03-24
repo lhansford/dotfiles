@@ -1,23 +1,20 @@
 if [ -e ~/.env ]
 then
-  export $(cat .env | xargs)
+  export $(cat ~/.env | xargs)
 fi
 
 if [ -e ~/.shell_timestamps ]
 then
   source ~/.shell_timestamps
 fi
+
 LAST_HOMEBREW_UPGRADE="${LAST_HOMEBREW_UPGRADE:-0}"
+LAST_PACKAGE_UPDATE="${LAST_PACKAGE_UPDATE:-0}"
 LAST_BACKUP="${LAST_BACKUP:-0}"
 
 if [ -e ~/Dropbox/config/zsh/work/.zshrc ]
 then
   source ~/Dropbox/config/zsh/work/.zshrc
-fi
-
-if hostname | grep ciani
-then
-  export TERM=xterm-256color
 fi
 
 export PATH="/home/luke/.local/bin:$PATH"
@@ -39,6 +36,9 @@ export GUM_CONFIRM_SELECTED_BACKGROUND="#4E683E"
 export GUM_CONFIRM_UNSELECTED_FOREGROUND="#D0D0D2"
 export GUM_CONFIRM_UNSELECTED_BACKGROUND="#767676"
 
+# Check all the needed apps are present
+~/Documents/development/dotfiles/scripts/check-required.sh
+
 if [ -x "$(command -v mise)" ];then
   eval "$(mise activate zsh)"
 else
@@ -59,7 +59,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Atuin - needs to be loaded after zsh-autosuggestions
 eval "$(atuin init zsh)"
-. "$HOME/.atuin/bin/env"
 
 # Perm
 export PERM_PEOPLE_DIR="$HOME/Obsidian/Personal/people"
@@ -79,51 +78,33 @@ alias gho='open "https://github.com/$(git config --get remote.origin.url | cut -
 alias ls='eza'
 alias l='eza -la --group-directories-first'
 
-if (hostname | grep aphex || hostname | grep jdilla) && [ "$TERM_PROGRAM" != "vscode" ]
+
+week_ago_timestamp=$(date -d '7 days ago' +%s)
+
+if (hostname | grep -q aphex || hostname | grep -q jdilla) && [ "$TERM_PROGRAM" != "vscode" ]
 then
-  last_upgrade=$(dnf history list | grep upgrade | head -n 1)
-  extracted_date=$(echo $last_upgrade | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
-  date_timestamp=$(date -d "$extracted_date" +%s)
-  week_ago_timestamp=$(date -d '7 days ago' +%s)
-  if [ $date_timestamp -lt $week_ago_timestamp ]; then
-    echo "Last dnf upgrade was on $extracted_date. Would you like to run it now?"
+  if [ $LAST_PACKAGE_UPDATE -lt $week_ago_timestamp ]; then
+    last_upgrade_date_formatted=$(date -d @$LAST_PACKAGE_UPDATE)
+    echo "Last package updates were on $last_upgrade_date_formatted. Would you like to update now?"
     if ([[ -t 1 ]] && gum confirm); then
-      sudo dnf upgrade --refresh
+      ~/Documents/development/dotfiles/scripts/update-arch-packages.sh
     fi
     stty sane
   fi
 fi
 
-# # Upgrade Homebrew
-# if brew -v &>/dev/null && [ "$TERM_PROGRAM" != "vscode" ]
-# then
-#   week_ago_timestamp=$(date -v -7d +%s)
-#   if [ $LAST_HOMEBREW_UPGRADE -lt $week_ago_timestamp ]; then
-#     last_upgrade_date_formatted=$(date -r $LAST_HOMEBREW_UPGRADE)
-#     if gum confirm "Last \`brew upgrade\` was on $last_upgrade_date_formatted. Would you like to run it now?"; then
-#       brew upgrade
-#       if grep -q "LAST_HOMEBREW_UPGRADE" ~/.shell_timestamps; then
-#         sed -i '' "s/LAST_HOMEBREW_UPGRADE=.*/LAST_HOMEBREW_UPGRADE=$(date +%s)/" ~/.shell_timestamps
-#       else
-#         echo "LAST_HOMEBREW_UPGRADE=$(date +%s)" >> ~/.shell_timestamps
-#       fi
-#     fi
-#   fi
-# fi
-
-# # Upgrade apt-get
-# if hostname | grep ciani || hostname | grep isao
-# then
-#   date=$(date -r /var/log/apt/history.log)
-#   date_timestamp=$(date -r /var/log/apt/history.log +%s)
-#   week_ago_timestamp=$(date -d '7 days ago' +%s)
-#   if [ $date_timestamp -lt $week_ago_timestamp ]; then
-#     echo "Last apt-get upgrade was on $date. Would you like to run it now?"
-#     if gum confirm; then
-#       sudo apt-get update && sudo apt-get upgrade -y
-#     fi
-#   fi
-# fi
+# Upgrade apt-get
+if hostname | grep ciani || hostname | grep isao
+then
+  date=$(date -r /var/log/apt/history.log)
+  date_timestamp=$(date -r /var/log/apt/history.log +%s)
+  if [ $date_timestamp -lt $week_ago_timestamp ]; then
+    echo "Last apt-get upgrade was on $date. Would you like to run it now?"
+    if gum confirm; then
+      sudo apt-get update && sudo apt-get upgrade -y
+    fi
+  fi
+fi
 
 if [ $LAST_BACKUP -lt $week_ago_timestamp ]; then
   last_backup_date_formatted=$(date -d @$LAST_BACKUP)

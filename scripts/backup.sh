@@ -2,7 +2,7 @@
 
 if [ -e ~/.env ]
 then
-  export $(cat .env | xargs)
+  export $(cat ~/.env | xargs)
 fi
 
 MEALIE_URL="http://localhost:9925"
@@ -63,12 +63,12 @@ function restic_backups() {
 
 if ! command -v restic >/dev/null 2>&1; then
   echo "restic is not installed. Visit https://restic.readthedocs.io/en/stable/020_installation.html for installation instructions."
-  return 1
+  exit 1
 fi
 
 if [ -z "$MEALIE_API_TOKEN" ]; then
   echo "MEALIE_API_TOKEN not set. See obsidian://open?vault=Personal&file=P01%2F70-79%20Projects%2F71%20Home%20server%2Fbackups for details."
-  return 1
+  exit 1
 fi
 
 restic_backups

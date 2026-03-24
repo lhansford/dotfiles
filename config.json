@@ -1,0 +1,92 @@
+{
+  "systems": {
+    "linux_desktop": "Linux - Desktop",
+    "linux_server": "Linux - Server",
+    "rpi": "Raspberry Pi",
+    "cachyos": "CachyOS"
+  },
+  "paths": [
+    {
+      "src": "./espanso/match/base.yml",
+      "dest": "~/.config/espanso/match/base.yml",
+      "systems": ["linux_desktop", "cachyos"]
+    },
+    {
+      "src": "./espanso/config/default.yml",
+      "dest": "~/.config/espanso/config/default.yml",
+      "systems": ["linux_desktop", "cachyos"]
+    },
+    {
+      "src": "./ghostty/config",
+      "dest": "~/.config/ghostty/config",
+      "systems": ["linux_desktop", "cachyos"]
+    },
+    {
+      "src": "./ghostty/config-linux",
+      "dest": "~/.config/ghostty/config-linux",
+      "systems": ["linux_desktop", "cachyos"]
+    },
+    {
+      "src": "./ghostty/themes/skogen",
+      "dest": "~/.config/ghostty/themes/skogen",
+      "systems": ["linux_desktop", "cachyos"]
+    },
+    {
+      "src": "./git/gitconfig",
+      "dest": "~/.gitconfig",
+      "systems": ["linux_desktop", "linux_server", "rpi", "cachyos"]
+    },
+    {
+      "src": "./git/git_commit_template.txt",
+      "dest": "~/.config/git/git_commit_template.txt",
+      "systems": ["linux_desktop", "linux_server", "rpi", "cachyos"],
+      "external_src": "https://raw.githubusercontent.com/lhansford/git_commit_template/main/git_commit_template.txt"
+    },
+    {
+      "src": "./keymapper/keymapper.conf",
+      "dest": "~/.config/keymapper.conf",
+      "systems": ["linux_desktop", "cachyos"]
+    },
+    {
+      "src": "./niri/config.kdl",
+      "dest": "~/.config/niri/config.kdl",
+      "systems": ["cachyos"]
+    },
+    {
+      "src": "./niri/cfg/animation.kdl",
+      "dest": "~/.config/niri/cfg/animation.kdl",
+      "systems": ["cachyos"]
+    },
+    {
+      "src": "./niri/cfg/keybinds.kdl",
+      "dest": "~/.config/niri/cfg/keybinds.kdl",
+      "systems": ["cachyos"]
+    },
+    {
+      "src": "./noctalia/colors.json",
+      "dest": "~/.config/noctalia/colors.json",
+      "systems": ["cachyos"]
+    },
+    {
+      "src": "./noctalia/plugin.json",
+      "dest": "~/.config/noctalia/plugin.json",
+      "systems": ["cachyos"]
+    },
+    {
+      "src": "./noctalia/settings.json",
+      "dest": "~/.config/noctalia/settings.json",
+      "systems": ["cachyos"]
+    },
+    {
+      "src": "./ohmyzsh/themes/skogen.zsh-theme",
+      "dest": "~/.oh-my-zsh/themes/skogen.zsh-theme",
+      "systems": ["linux_desktop", "linux_server", "rpi", "cachyos"],
+      "external_src": "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.zsh-theme"
+    },
+    {
+      "src": "./zsh/.zshrc",
+      "dest": "~/.zshrc",
+      "systems": ["linux_desktop", "linux_server", "rpi", "cachyos"]
+    }
+  ]
+}

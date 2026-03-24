@@ -7,4 +7,3 @@
 - Search => Shift+Ctrl+Space
 - Switch Applications => Ctrl+Tab
 - Switch windows of an application => Ctrl+`
-- Rofi => Ctrl+Space

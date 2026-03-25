@@ -11,6 +11,9 @@ packages=(
   1password
   1password-cli
 
+  # Docker Desktop isn't supported by Standalone Nix.
+  docker-desktop
+
   # There is a nix plexamp package but I get errors running it on jdilla.
   plexamp-appimage 
 )

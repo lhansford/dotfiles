@@ -81,7 +81,7 @@
     {
       "src": "./ohmyzsh/themes/skogen.zsh-theme",
       "dest": "~/.oh-my-zsh/themes/skogen.zsh-theme",
-      "systems": ["linux_desktop", "linux_server", "rpi", "cachyos"],
+      "systems": ["linux_desktop", "linux_server", "rpi", "cachyos", "cachyosWithNix"],
       "external_src": "https://raw.githubusercontent.com/lhansford/skogen-theme/main/themes/skogen.zsh-theme"
     },
     {

@@ -98,7 +98,18 @@ in
     #  /etc/profiles/per-user/luke/etc/profile.d/hm-session-vars.sh
     #
     sessionVariables = {
+      EDITOR = "code";
+      GUM_CONFIRM_PROMPT_BACKGROUND = "#2a2a26";
+      GUM_CONFIRM_PROMPT_FOREGROUND = "#D0883E";
+      GUM_CONFIRM_SELECTED_BACKGROUND = "#4E683E";
+      GUM_CONFIRM_SELECTED_FOREGROUND = "#D0D0D2";
+      GUM_CONFIRM_UNSELECTED_BACKGROUND = "#767676";
+      GUM_CONFIRM_UNSELECTED_FOREGROUND = "#D0D0D2";
+      MISE_LEGACY_VERSION_FILE = 1;
+      PERM_PEOPLE_DIR = "$HOME/Obsidian/Personal/people";
       SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
+      TRP_API_TOKEN = "op://Personal/todoist-random-project/TRP_API_TOKEN";
+      TRP_IGNORED_PROJECTS = "op://Personal/todoist-random-project/TRP_IGNORED_PROJECTS";
     };
   };
 
@@ -175,8 +186,18 @@ in
       enable = true;
       autosuggestion.enable = true;
 
+      shellAliases = {
+        code = "codium";
+        gcfp = "git commit -a --amend --no-edit --no-verify && git push --force-with-lease";
+        gho = "open \"https://github.com/$(git config --get remote.origin.url | cut -d \":\" -f 2  | cut -d \".\" -f 1)";
+        l = "eza -la --group-directories-first";
+        ls = "eza";
+        trp = "op run -- todoist-random-project";
+      };
+
       oh-my-zsh = {
         enable = true;
+        custom = "${config.home.homeDirectory}/.oh-my-zsh";
         plugins = [
           "aliases"
           "alias-finder"
@@ -189,7 +210,7 @@ in
           "dirhistory"
           "history"
         ];
-        theme = "robbyrussell";
+        theme = "skogen";
       };
     };
 

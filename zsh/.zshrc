@@ -26,15 +26,6 @@ export PATH="/Users/luke/.bin:$PATH" # ecs-run
 export PATH="/home/luke/.atuin/bin:$PATH" # atuin on ciani
 export PATH="/home/luke/diff-so-fancy:$PATH" # diff-so-fancy on isao
 export ZSH=$HOME/.oh-my-zsh
-export EDITOR='code'
-export MISE_LEGACY_VERSION_FILE=1
-
-export GUM_CONFIRM_PROMPT_FOREGROUND="#D0883E"
-export GUM_CONFIRM_PROMPT_BACKGROUND="#2a2a26"
-export GUM_CONFIRM_SELECTED_FOREGROUND="#D0D0D2"
-export GUM_CONFIRM_SELECTED_BACKGROUND="#4E683E"
-export GUM_CONFIRM_UNSELECTED_FOREGROUND="#D0D0D2"
-export GUM_CONFIRM_UNSELECTED_BACKGROUND="#767676"
 
 # Check all the needed apps are present
 ~/Documents/development/dotfiles/scripts/check-required.sh
@@ -59,24 +50,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Atuin - needs to be loaded after zsh-autosuggestions
 eval "$(atuin init zsh)"
-
-# Perm
-export PERM_PEOPLE_DIR="$HOME/Obsidian/Personal/people"
-
-# todoist-random-project
-alias trp='op run -- todoist-random-project'
-export TRP_API_TOKEN=op://Personal/todoist-random-project/TRP_API_TOKEN
-export TRP_IGNORED_PROJECTS=op://Personal/todoist-random-project/TRP_IGNORED_PROJECTS
-
-# git aliases
-alias gcfp='git commit -a --amend --no-edit --no-verify && git push --force-with-lease'
-alias gcnv='git commit -a --no-verify'
-# Open github homepage of a repository
-alias gho='open "https://github.com/$(git config --get remote.origin.url | cut -d ":" -f 2  | cut -d "." -f 1)"'
-
-# eza
-alias ls='eza'
-alias l='eza -la --group-directories-first'
 
 
 week_ago_timestamp=$(date -d '7 days ago' +%s)

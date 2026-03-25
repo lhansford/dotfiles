@@ -98,6 +98,7 @@ in
     #  /etc/profiles/per-user/luke/etc/profile.d/hm-session-vars.sh
     #
     sessionVariables = {
+      SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
     };
   };
 
@@ -127,7 +128,7 @@ in
         };
 
         "gpg \"ssh\"" = {
-          program = "op-ssh-sign";
+          program = "/opt/1Password/op-ssh-sign";
         };
 
         commit = {

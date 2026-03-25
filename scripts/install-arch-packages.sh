@@ -10,6 +10,9 @@ packages=(
   # 1password cannot be installed with standalone Nix as it won't integrate with the system (polkit + SSH + browsers)
   1password
   1password-cli
+
+  # There is a nix plexamp package but I get errors running it on jdilla.
+  plexamp-appimage 
 )
 
 echo "Installing packages..."

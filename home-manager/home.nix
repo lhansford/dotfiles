@@ -47,7 +47,6 @@ in
       pkgs.obsidian
       pkgs.fastmail-desktop
       pkgs.discord
-      pkgs.plexamp
 
       # pkgs.espanso-wayland
 

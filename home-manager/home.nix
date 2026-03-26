@@ -38,15 +38,15 @@ in
       pkgs.gum
       pkgs.diff-so-fancy
       pkgs.ghostty
-      pkgs.mise
 
       pkgs.google-chrome
       pkgs.slack
 
-      pkgs.todoist-electron
       pkgs.obsidian
       pkgs.fastmail-desktop
       pkgs.discord
+
+      pkgs.glow
 
       # pkgs.espanso-wayland
 
@@ -116,6 +116,11 @@ in
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
+
+    mise = {
+      enable = true;
+      enableZshIntegration = true; # Or enableBashIntegration, etc.
+    };
 
     ssh = {
       enable = true;

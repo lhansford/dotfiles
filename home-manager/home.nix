@@ -148,7 +148,7 @@ in
         };
 
         core.pager = "diff-so-fancy | less --tabs=4 -RFX";
-        core.editor = "code --wait";
+        core.editor = "codium --wait";
         color.ui = true;
         "color \"diff-highlight\"" = {
           oldNormal = "red bold";

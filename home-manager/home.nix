@@ -48,6 +48,9 @@ in
 
       pkgs.glow
 
+      pkgs.nicotine-plus
+      pkgs.picard
+
       # pkgs.espanso-wayland
 
       # # It is sometimes useful to fine-tune packages, for example, by applying

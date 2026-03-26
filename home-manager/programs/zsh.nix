@@ -14,6 +14,8 @@
       trp = "op run -- todoist-random-project";
     };
 
+    initContent = builtins.readFile ../../zsh/interactive-prompts.sh;
+
     oh-my-zsh = {
       enable = true;
       custom = "${config.home.homeDirectory}/.oh-my-zsh";
@@ -30,6 +32,11 @@
         "history"
       ];
       theme = "skogen";
+
+      extraConfig = ''
+        zstyle :omz:update frequency 7
+        zstyle :omz:plugins:alias-finder autoload yes
+      '';
     };
   };
 }

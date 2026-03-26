@@ -4,7 +4,7 @@ run = "nix develop --command nixfmt home-manager/*.nix"
 
 [tasks."format:sh"]
 description = "Format shell scripts"
-run = "nix develop --command shfmt -w scripts/"
+run = "nix develop --command bash -c 'find scripts/ zsh/ -name \"*.sh\" | xargs shfmt -w'"
 
 [tasks.format]
 description = "Format all files"
@@ -16,7 +16,7 @@ run = "nix develop --command statix check home-manager/"
 
 [tasks."lint:sh"]
 description = "Lint shell scripts with shellcheck"
-run = "nix develop --command bash -c 'grep -rl \"^#!/usr/bin/env bash\" scripts/ | xargs shellcheck'"
+run = "nix develop --command bash -c 'grep -rl \"^#!/usr/bin/env bash\" scripts/ zsh/ | xargs shellcheck'"
 
 [tasks.lint]
 description = "Lint all files"

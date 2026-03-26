@@ -51,6 +51,8 @@ in
       pkgs.nicotine-plus
       pkgs.picard
 
+      pkgs.delta
+
       # pkgs.espanso-wayland
 
       # # It is sometimes useful to fine-tune packages, for example, by applying

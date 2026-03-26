@@ -17,13 +17,20 @@
         inherit system;
         config.allowUnfree = true;
       };
+      mkHome =
+        hostModule:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./common.nix
+            hostModule
+          ];
+        };
     in
     {
-      homeConfigurations.luke = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home.nix
-        ];
+      homeConfigurations = {
+        aphex = mkHome ./hosts/aphex.nix;
+        jdilla = mkHome ./hosts/jdilla.nix;
       };
     };
 }

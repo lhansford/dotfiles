@@ -1,31 +1,35 @@
 # dotfiles
 
-## Requirements
+## Home Manager
 
-- ZSH
-- [ohmyzsh](https://ohmyz.sh/#install)
-- [mise](https://mise.jdx.dev/)
-- diff-so-fancy
-- [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
-- [eza](https://eza.rocks/)
-  - `brew install eza`
-- [Gum](https://github.com/charmbracelet/gum)
-  - `brew install gum`
+Configuration is split into shared (`common.nix`) and per-host modules under `home-manager/hosts/`.
 
-### Arch
+| Host    | File                        | Description                        |
+| ------- | --------------------------- | ---------------------------------- |
+| `aphex` | `hosts/aphex.nix`           | CachyOS desktop (Framework laptop) |
+| `jdilla` | `hosts/jdilla.nix`         | Desktop with nvidia GPU             |
+
+To apply a configuration, run from the `home-manager/` directory:
 
 ```sh
-paru -S eza gum diff-so-fancy espanso-wayland atuin
+home-manager switch --flake ./home-manager/.#<host>
 ```
+
+For example:
+
+```sh
+home-manager switch --flake ./home-manager/.#aphex
+home-manager switch --flake ./home-manager/.#jdilla
+```
+
+To add a new host, create a file in `home-manager/hosts/` and register it in `home-manager/flake.nix`.
 
 ## TODO:
 
-- Cleanup package.json
-- Typescript it?
-- Add linting?
-- Reconsider symlinks. It behaves a little weird with the sync script. E.g. If I've already symlinked my files and pull
-  changes from git, that now becomes the true sync, not the script.
+- Use nix for symlinks
+
 - Flatpak update in zshrc
 - Paru/pacman update in zsrhc
 - Appimage updates?? Todoist specifically
 - Sync noctalia and niri configs
+- Sync nicotine and picard configs

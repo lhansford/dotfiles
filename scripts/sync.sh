@@ -18,6 +18,17 @@ check_dependencies() {
 	require_command diff-so-fancy "https://github.com/so-fancy/diff-so-fancy"
 }
 
+check_nix_dependencies() {
+	require_command nix "paru -S nix"
+	# TODO: If not set up, also run following
+	#
+	# nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+	# nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+	# nix-channel --update
+	#
+	# nix run github:nix-community/home-manager -- switch --flake ./home-manager/
+}
+
 resolve_path() {
 	echo "${1/#\~/$HOME}"
 }
@@ -142,6 +153,7 @@ main() {
 	fi
 
 	if [[ "$selected_system" == "cachyosWithNix" ]]; then
+		check_nix_dependencies
 		gum style --bold "Installing Arch packages..."
 		"$SCRIPT_DIR/scripts/install-arch-packages.sh"
 	fi

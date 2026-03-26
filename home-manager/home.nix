@@ -98,7 +98,7 @@ in
     #  /etc/profiles/per-user/luke/etc/profile.d/hm-session-vars.sh
     #
     sessionVariables = {
-      EDITOR = "code";
+      EDITOR = "codium";
       GUM_CONFIRM_PROMPT_BACKGROUND = "#2a2a26";
       GUM_CONFIRM_PROMPT_FOREGROUND = "#D0883E";
       GUM_CONFIRM_SELECTED_BACKGROUND = "#4E683E";

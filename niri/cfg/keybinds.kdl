@@ -56,6 +56,9 @@ binds {
     Mod+CTRL+Home                       { move-column-to-first; }
     Mod+CTRL+End                        { move-column-to-last; }
 
+    Mod+Shift+CTRL+ALT+1                          { move-column-to-monitor-left; }
+    Mod+Shift+CTRL+ALT+2                          { move-column-to-monitor-right; }
+
     Mod+Shift+Left                      { focus-monitor-left; }
     Mod+Shift+Right                     { focus-monitor-right; }
     Mod+Shift+UP                        { focus-monitor-up; }
@@ -112,7 +115,7 @@ binds {
     Mod+Equal                           { set-column-width "+10%"; }
     Mod+Shift+Minus                     { set-window-height "-10%"; }
     Mod+Shift+Equal                     { set-window-height "+10%"; }
-Mod+R { switch-preset-column-width; }
+    Mod+R { switch-preset-column-width; }
 
     // ─── Modes ───
     Mod+T                               { toggle-window-floating; }

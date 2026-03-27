@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   home.sessionVariables = {
@@ -13,15 +13,14 @@
       tools = {
         node = "24";
       };
-    };
-
-    settings = {
-      idiomatic_version_file_enable_tools = [
-        "python"
-        "ruby"
-        "terraform"
-        "node"
-      ];
+      settings = {
+        idiomatic_version_file_enable_tools = [
+          "python"
+          "ruby"
+          "terraform"
+          "node"
+        ];
+      };
     };
   };
 }

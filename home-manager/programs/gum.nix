@@ -1,0 +1,16 @@
+{ pkgs, ... }:
+
+{
+  home.packages = [
+    pkgs.gum
+  ];
+
+  home.sessionVariables = {
+    GUM_CONFIRM_PROMPT_BACKGROUND = "#2a2a26";
+    GUM_CONFIRM_PROMPT_FOREGROUND = "#D0883E";
+    GUM_CONFIRM_SELECTED_BACKGROUND = "#4E683E";
+    GUM_CONFIRM_SELECTED_FOREGROUND = "#D0D0D2";
+    GUM_CONFIRM_UNSELECTED_BACKGROUND = "#767676";
+    GUM_CONFIRM_UNSELECTED_FOREGROUND = "#D0D0D2";
+  };
+}

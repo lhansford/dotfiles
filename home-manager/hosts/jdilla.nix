@@ -1,6 +1,9 @@
 { ... }:
 
 {
+  imports = [
+    ../environments/graphical.nix
+  ];
   # Keep in sync with CachyOS updates. See the home-manager docs.
   targets.genericLinux.gpu.nvidia = {
     enable = true;

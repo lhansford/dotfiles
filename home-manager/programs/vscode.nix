@@ -13,6 +13,14 @@
       hashicorp.terraform
       # Nix
       jnoortheen.nix-ide
+      # JS/TS
+      esbenp.prettier-vscode
+      # Go
+      golang.go
+      # Rust
+      rust-lang.rust-analyzer
+      # TOML
+      tamasfe.even-better-toml
     ];
   };
 }

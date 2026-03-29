@@ -3,6 +3,7 @@
 {
   imports = [
     ./programs/atuin.nix
+    ./programs/crush.nix
     ./programs/git.nix
     ./programs/gum.nix
     ./programs/ssh.nix

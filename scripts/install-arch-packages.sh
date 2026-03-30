@@ -23,6 +23,9 @@ packages=(
 
 	# Nix package didn't work. It's possible because I didn't have QT set up properly though, so it might be worth investigating again.
 	todoist-appimage
+
+	# Not supported by home-manager and better to run via pacman
+	steam
 )
 
 echo "Installing packages..."

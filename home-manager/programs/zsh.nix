@@ -15,7 +15,7 @@
     };
 
     initContent = ''
-      export ANTHROPIC_API_KEY="$(op read 'op://Personal/Anthropic API Key')"
+      export ANTHROPIC_API_KEY="$(op read 'op://Personal/Anthropic API Key/credential')"
     '' + builtins.readFile ../../zsh/interactive-prompts.sh;
 
     oh-my-zsh = {

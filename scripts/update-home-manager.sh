@@ -65,18 +65,17 @@ for input in ${inputs}; do
 done
 
 if [[ "${has_changes}" == "false" ]]; then
-	gum style --foreground="#4E683E" "All inputs are already up to date. Nothing to do."
-	exit 0
-fi
+	gum style --foreground="#4E683E" "All inputs are already up to date."
+else
+	gum style --bold "The following inputs will be updated:"
+	echo
+	echo -e "${summary}"
 
-gum style --bold "The following inputs will be updated:"
-echo
-echo -e "${summary}"
-
-if ! gum confirm "Apply changes?"; then
-	gum style --foreground="#D0883E" "Update cancelled. Restoring lock file..."
-	git -C "${FLAKE_DIR}" checkout flake.lock
-	exit 0
+	if ! gum confirm "Apply changes?"; then
+		gum style --foreground="#D0883E" "Update cancelled. Restoring lock file..."
+		git -C "${FLAKE_DIR}" checkout flake.lock
+		exit 0
+	fi
 fi
 
 echo

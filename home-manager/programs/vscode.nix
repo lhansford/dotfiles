@@ -12,6 +12,7 @@
       hashicorp.terraform
       jnoortheen.nix-ide
       esbenp.prettier-vscode
+      hverlin.mise-vscode
       golang.go
       rust-lang.rust-analyzer
       tamasfe.even-better-toml

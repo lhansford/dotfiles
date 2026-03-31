@@ -8,6 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs =
@@ -15,6 +16,7 @@
       nixpkgs,
       home-manager,
       nur,
+      nix-vscode-extensions,
       ...
     }:
     let
@@ -22,6 +24,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [ nix-vscode-extensions.overlays.default ];
       };
       mkHome =
         hostModule:

@@ -8,19 +8,14 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      # Terraform
+    profiles.default.extensions = with pkgs.nix-vscode-extensions.open-vsx; [
       hashicorp.terraform
-      # Nix
       jnoortheen.nix-ide
-      # JS/TS
       esbenp.prettier-vscode
-      # Go
       golang.go
-      # Rust
       rust-lang.rust-analyzer
-      # TOML
       tamasfe.even-better-toml
+      wayou.vscode-todo-highlight
     ];
   };
 }

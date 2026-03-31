@@ -25,6 +25,7 @@
       pkgs.glow
       pkgs.diff-so-fancy
       pkgs.delta
+      pkgs.tailscale
     ];
 
     file = {

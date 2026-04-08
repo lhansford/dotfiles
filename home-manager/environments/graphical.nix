@@ -19,6 +19,15 @@
         IdentityAgent ~/.1password/agent.sock
   '';
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "x-scheme-handler/http" = "re.sonny.Junction.desktop";
+      "x-scheme-handler/https" = "re.sonny.Junction.desktop";
+      "text/html" = "re.sonny.Junction.desktop";
+    };
+  };
+
   home.packages = [
     pkgs.google-chrome
     pkgs.slack
@@ -27,10 +36,7 @@
     pkgs.fastmail-desktop
     pkgs.discord
 
-    pkgs.nicotine-plus
     pkgs.picard
     pkgs.qbittorrent
-
-    pkgs.junction
   ];
 }

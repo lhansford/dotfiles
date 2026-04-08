@@ -29,7 +29,16 @@ packages=(
 
 	# system level tool, better to handle with pacman
 	tailscale
+	
+	# Was getting segfaults for this in Nix
+	calibre
+
+	# Got some GTK issues after installing.
+	nicotine+
 )
+
+echo "Updating package databases..."
+paru -Sy
 
 echo "Installing packages..."
 paru -S --needed --skipreview "${packages[@]}"

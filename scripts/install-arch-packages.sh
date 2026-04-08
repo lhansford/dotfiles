@@ -26,6 +26,9 @@ packages=(
 
 	# Not supported by home-manager and better to run via pacman
 	steam
+
+	# system level tool, better to handle with pacman
+	tailscale
 )
 
 echo "Installing packages..."

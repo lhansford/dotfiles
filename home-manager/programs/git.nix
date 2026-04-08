@@ -23,7 +23,7 @@ _:
         template = "~/.config/git/git_commit_template.txt";
       };
 
-      core.pager = "diff-so-fancy | less --tabs=4 -RFX";
+      core.pager = "delta";
       core.editor = "codium --wait";
       color.ui = true;
       "color \"diff-highlight\"" = {
@@ -43,6 +43,9 @@ _:
       init.defaultBranch = "main";
       diff.noprefix = true;
       pull.rebase = false;
+
+      delta.navigate = true;
+      interactive.diffFilter = "delta --color-only";
     };
 
     signing = {

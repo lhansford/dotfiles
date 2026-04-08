@@ -4,6 +4,8 @@
   imports = [
     ./programs/atuin.nix
     ./programs/crush.nix
+    ./programs/delta.nix
+    ./programs/fzf.nix
     ./programs/git.nix
     ./programs/gum.nix
     ./programs/ssh.nix
@@ -23,15 +25,16 @@
 
     packages = [
       pkgs.glow
-      pkgs.diff-so-fancy
-      pkgs.delta
-      pkgs.tailscale
     ];
 
     file = {
       ".config/git/git_commit_template.txt".source = ../git/git_commit_template.txt;
+      ".local/bin/dff".source = ../bin/dff;
     };
 
+    sessionPath = [
+      "~/.local/bin"
+    ];
   };
 
   programs.home-manager.enable = true;

@@ -26,7 +26,20 @@ for app in "${FLATPAKS[@]}"; do
 	fi
 done
 
-echo "Updating all Flatpaks..."
-flatpak update -y
+updates=$(flatpak remote-ls --updates 2>/dev/null || true)
 
-echo "Flatpak update complete."
+if [[ -z "$updates" ]]; then
+	echo "All Flatpaks are up to date."
+else
+	echo ""
+	echo "Available updates:"
+	echo "$updates"
+	echo ""
+	read -rp "Apply updates? [y/N] " confirm
+	if [[ "$confirm" =~ ^[Yy]$ ]]; then
+		flatpak update -y
+		echo "Flatpak update complete."
+	else
+		echo "Update skipped."
+	fi
+fi

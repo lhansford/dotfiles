@@ -156,6 +156,8 @@ main() {
 		check_nix_dependencies
 		gum style --bold "Installing Arch packages..."
 		"$SCRIPT_DIR/scripts/install-arch-packages.sh"
+		gum style --bold "Updating Flatpaks..."
+		"$SCRIPT_DIR/scripts/update-flatpaks.sh"
 	fi
 
 	local diff_output=$(compute_diff)

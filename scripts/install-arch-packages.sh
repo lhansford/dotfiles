@@ -28,6 +28,9 @@ packages=(
 	steam
 )
 
+echo "Updating package databases..."
+paru -Sy
+
 echo "Installing packages..."
 paru -S --needed --skipreview "${packages[@]}"
 

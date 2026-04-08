@@ -3,6 +3,7 @@
 {
   imports = [
     ./programs/atuin.nix
+    ./programs/bat.nix
     ./programs/crush.nix
     ./programs/delta.nix
     ./programs/fzf.nix

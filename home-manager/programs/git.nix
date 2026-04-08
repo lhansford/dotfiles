@@ -45,6 +45,7 @@ _:
       pull.rebase = false;
 
       delta.navigate = true;
+      delta.theme = "zenburn";
       interactive.diffFilter = "delta --color-only";
     };
 

@@ -26,6 +26,9 @@ packages=(
 
 	# Not supported by home-manager and better to run via pacman
 	steam
+
+	# Was getting segfaults for this in Nix
+	calibre
 )
 
 echo "Updating package databases..."

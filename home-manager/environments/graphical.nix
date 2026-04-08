@@ -39,7 +39,5 @@
     pkgs.nicotine-plus
     pkgs.picard
     pkgs.qbittorrent
-
-    pkgs.calibre
   ];
 }

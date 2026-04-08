@@ -36,7 +36,6 @@
     pkgs.fastmail-desktop
     pkgs.discord
 
-    pkgs.nicotine-plus
     pkgs.picard
     pkgs.qbittorrent
   ];

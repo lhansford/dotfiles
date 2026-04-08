@@ -29,6 +29,9 @@ packages=(
 
 	# Was getting segfaults for this in Nix
 	calibre
+
+	# Got some GTK issues after installing.
+	nicotine+
 )
 
 echo "Updating package databases..."

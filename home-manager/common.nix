@@ -35,7 +35,7 @@
     };
 
     sessionPath = [
-      "~/.local/bin"
+      "/home/luke/.local/bin"
     ];
   };
 

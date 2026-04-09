@@ -31,6 +31,7 @@
     file = {
       ".config/git/git_commit_template.txt".source = ../git/git_commit_template.txt;
       ".local/bin/dff".source = ../bin/dff;
+      ".local/bin/gcof".source = ../bin/gcof;
     };
 
     sessionPath = [

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Adapted from https://mskelton.dev/bytes/switch-git-branches-with-fzf
+
+branches=$(git for-each-ref --sort=-committerdate --format="%(refname:short)" refs/heads/)
+current=$(git symbolic-ref --short HEAD)
+branch=$(echo "$branches" | grep -v "^$current$" | fzf +m)
+
+if [[ -n "$branch" ]]; then
+	git co "$branch"
+fi

@@ -15,7 +15,7 @@ require_command() {
 check_dependencies() {
 	require_command gum "https://github.com/charmbracelet/gum"
 	require_command jq "https://jqlang.github.io/jq/download"
-	require_command diff-so-fancy "https://github.com/so-fancy/diff-so-fancy"
+	require_command delta "https://github.com/dandavison/delta"
 }
 
 check_nix_dependencies() {

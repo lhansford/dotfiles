@@ -83,5 +83,9 @@ gum style --foreground="#767676" "Switching Home Manager config for ${hostname}.
 echo
 home-manager switch --flake "${FLAKE_DIR}/.#${hostname}"
 echo
+gum style --foreground="#767676" "Updating desktop database..." # Needed because we symlink the chrome .desktop file so that Junction can pick up on it (it doesn't look where Nix stores it).
+echo
+update-desktop-database ~/.local/share/applications
+echo
 
 gum style --foreground="#4E683E" --bold "Update complete!"

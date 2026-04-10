@@ -19,13 +19,18 @@
         IdentityAgent ~/.1password/agent.sock
   '';
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "x-scheme-handler/http" = "re.sonny.Junction.desktop";
-      "x-scheme-handler/https" = "re.sonny.Junction.desktop";
-      "text/html" = "re.sonny.Junction.desktop";
+  xdg = {
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "x-scheme-handler/http" = "re.sonny.Junction.desktop";
+        "x-scheme-handler/https" = "re.sonny.Junction.desktop";
+        "text/html" = "re.sonny.Junction.desktop";
+      };
     };
+
+    dataFile."applications/google-chrome.desktop".source =
+      "${pkgs.google-chrome}/share/applications/google-chrome.desktop";
   };
 
   home.packages = [
@@ -39,4 +44,18 @@
     pkgs.picard
     pkgs.qbittorrent
   ];
+
+  services = {
+    flameshot = {
+      enable = true;
+      # Reference: https://github.com/flameshot-org/flameshot/blob/master/flameshot.example.ini
+      settings = {
+        General = {
+          contrastOpacity = 188;
+          savePath = "/home/luke/Downloads"; # TODO: This should be dropbox folder, but I haven't set that up on Jdilla yet. Also don't hardcode home dir.
+          useGrimAdapter = true;
+        };
+      };
+    };
+  };
 }

@@ -6,6 +6,11 @@
     "cachyos": "CachyOS",
     "cachyosWithNix": "CachyOS w/ Nix"
   },
+  "hostnames": {
+    "aphex": "cachyosWithNix",
+    "kraftwerk": "linux_server",
+    "jdilla": "cachyosWithNix"
+  },
   "paths": [
     {
       "src": "./espanso/match/base.yml",

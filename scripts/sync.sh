@@ -37,26 +37,19 @@ resolve_src() {
 	resolve_path "$SCRIPT_DIR/${1#./}"
 }
 
-select_system() {
-	local system_keys=($(jq -r '.systems | keys[]' "$CONFIG_FILE"))
-	local system_labels=()
-	typeset -A label_to_key
+detect_system() {
+	local hostname=$(hostname)
+	DETECTED_SYSTEM=$(jq -r --arg h "$hostname" '.hostnames[$h] // ""' "$CONFIG_FILE")
 
-	for key in "${system_keys[@]}"; do
-		local label=$(jq -r ".systems[\"$key\"]" "$CONFIG_FILE")
-		system_labels+=("$label")
-		label_to_key[$label]="$key"
-	done
-
-	local selected_label=$(gum choose --header "Select your OS:" "${system_labels[@]}")
-	local selected="${label_to_key[$selected_label]}"
-
-	if [[ -z "$selected" ]]; then
-		echo "No system selected."
+	if [[ -z "$DETECTED_SYSTEM" ]]; then
+		gum style --foreground="#FF5F56" "Unknown hostname: $hostname"
+		gum style "Add an entry to the \"hostnames\" object in config.json:"
+		gum style --foreground="#D0883E" "  \"$hostname\": \"<system_key>\""
 		exit 1
 	fi
 
-	echo "$selected"
+	local label=$(jq -r --arg s "$DETECTED_SYSTEM" '.systems[$s]' "$CONFIG_FILE")
+	gum style --foreground="#4E683E" "Detected system: $label ($hostname)"
 }
 
 load_paths() {
@@ -107,7 +100,7 @@ compute_diff() {
 		local dest="${path_dests[$i]}"
 
 		if [[ -e "$dest" ]]; then
-			local file_diff=$(diff -Nu "$dest" "$src" | diff-so-fancy 2>/dev/null || true)
+			local file_diff=$(diff -Nu "$dest" "$src" | delta 2>/dev/null || true)
 			if [[ -n "$file_diff" ]]; then
 				echo "$file_diff"
 				diff_output+="$file_diff"
@@ -143,34 +136,59 @@ apply_symlinks() {
 
 main() {
 	check_dependencies
+	detect_system
 
-	local selected_system=$(select_system)
+	local selected_system="$DETECTED_SYSTEM"
 	local filtered_json=$(load_paths "$selected_system")
 	parse_paths "$filtered_json"
 
-	if ! download_externals; then
-		exit 1
-	fi
+	# if ! download_externals; then
+	# 	exit 1
+	# fi
 
 	if [[ "$selected_system" == "cachyosWithNix" ]]; then
 		check_nix_dependencies
+
+		gum style --bold "Checking for system updates..."
+		paru -Sy
+		local updates=$(paru -Qu 2>/dev/null || true)
+
+		if [[ -n "$updates" ]]; then
+			gum style --bold "Available package updates:"
+			echo "$updates"
+			echo ""
+
+			if gum confirm "Apply system update?"; then
+				gum style --bold "Updating system packages..."
+				"$SCRIPT_DIR/scripts/update-arch-packages.sh"
+			fi
+		else
+			gum style --foreground="#4E683E" "System packages are up to date."
+		fi
+
 		gum style --bold "Installing Arch packages..."
 		"$SCRIPT_DIR/scripts/install-arch-packages.sh"
 		gum style --bold "Updating Flatpaks..."
 		"$SCRIPT_DIR/scripts/update-flatpaks.sh"
+		gum style --bold "Updating Nix..."
+		"$SCRIPT_DIR/scripts/update-home-manager.sh"
 	fi
 
-	local diff_output=$(compute_diff)
+	# local diff_output=$(compute_diff)
 
-	if [[ -z "$diff_output" ]]; then
-		gum style --bold --foreground="#4E683E" "No changes found. You're up to date!"
-		return
-	fi
+	# echo "test"
+	# echo $diff_output
 
-	echo ""
-	if gum confirm "Apply changes?"; then
-		apply_symlinks
-	fi
+	# if [[ -z "$diff_output" ]]; then
+	# 	gum style --bold --foreground="#4E683E" "No changes found. You're up to date!"
+	# 	return
+	# fi
+
+	# echo ""
+	# if gum confirm "Apply changes?"; then
+	# 	apply_symlinks
+	# fi
+	gum style --bold --foreground="#4E683E"  "Sync complete!"
 }
 
 main

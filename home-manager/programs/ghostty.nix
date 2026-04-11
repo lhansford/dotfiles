@@ -34,8 +34,6 @@ _:
         "ctrl+8=goto_tab:8"
         "ctrl+9=goto_tab:9"
         "ctrl+0=goto_tab:10"
-
-        "shift+enter=text:\x1b\r"
       ];
 
       font-size = 10;

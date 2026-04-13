@@ -10,5 +10,5 @@ branch=$(echo "$branches" | grep -v "^$current$" | grep -v "HEAD" | fzf +m)
 if [[ -n "$branch" ]]; then
 	# Strip the remote prefix (e.g. origin/) for checkout
 	branch="${branch#origin/}"
-	git co "$branch"
+	git checkout "$branch"
 fi

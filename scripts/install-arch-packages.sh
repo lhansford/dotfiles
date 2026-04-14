@@ -29,7 +29,7 @@ packages=(
 
 	# system level tool, better to handle with pacman
 	tailscale
-	
+
 	# Was getting segfaults for this in Nix
 	calibre
 

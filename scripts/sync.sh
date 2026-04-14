@@ -172,6 +172,8 @@ main() {
 		"$SCRIPT_DIR/scripts/update-flatpaks.sh"
 		gum style --bold "Updating Nix..."
 		"$SCRIPT_DIR/scripts/update-home-manager.sh"
+		gum style --bold "Setting up ly display manager..."
+		"$SCRIPT_DIR/scripts/setup-ly.sh"
 	fi
 
 	# local diff_output=$(compute_diff)
@@ -188,7 +190,7 @@ main() {
 	# if gum confirm "Apply changes?"; then
 	# 	apply_symlinks
 	# fi
-	gum style --bold --foreground="#4E683E"  "Sync complete!"
+	gum style --bold --foreground="#4E683E" "Sync complete!"
 }
 
 main

@@ -4,6 +4,7 @@
   imports = [
     ../programs/espanso.nix
     ../programs/ghostty.nix
+    ../programs/ly.nix
     ../programs/vscode.nix
   ];
 

@@ -35,6 +35,9 @@ packages=(
 
 	# Got some GTK issues after installing.
 	nicotine+
+
+	# Exists outside home directory so eas
+	ly
 )
 
 echo "Updating package databases..."

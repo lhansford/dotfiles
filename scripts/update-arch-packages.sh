@@ -13,9 +13,7 @@ echo "Upgrading packages..."
 paru -Su --skipreview
 
 echo "Removing orphaned packages..."
-orphans=$(paru -Qdtq 2>/dev/null || true)
-if [ -n "$orphans" ]; then
-	paru -Rns --noconfirm "$orphans"
+if paru -Qdtq 2>/dev/null | paru -Rns --noconfirm - 2>/dev/null; then
 	echo "Removed orphaned packages."
 else
 	echo "No orphaned packages found."

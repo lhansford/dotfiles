@@ -4,7 +4,6 @@
   imports = [
     ../programs/espanso.nix
     ../programs/ghostty.nix
-    ../programs/ly.nix
     ../programs/vscode.nix
   ];
 
@@ -44,6 +43,8 @@
 
     pkgs.picard
     pkgs.qbittorrent
+
+    pkgs.ly
   ];
 
   services = {

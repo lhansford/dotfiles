@@ -3,6 +3,7 @@
 {
   imports = [
     ../environments/graphical.nix
+    ../programs/ollama.nix
   ];
 
   # Nvidia support

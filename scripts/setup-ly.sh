@@ -34,10 +34,10 @@ gum style --bold "Display manager setup"
 echo ""
 
 if [[ -n "$current_dm" ]]; then
-	gum style "Current display manager: " --foreground="#D0883E" "$current_dm"
+	gum style "Current display manager: $current_dm" --foreground="#D0883E"
 fi
 if [[ -n "$current_ly" && "$current_ly" != "ly@tty2.service" ]]; then
-	gum style "Found ly on different TTY: " --foreground="#D0883E" "$current_ly"
+	gum style "Found ly on different TTY: $current_ly" --foreground="#D0883E"
 fi
 
 echo ""

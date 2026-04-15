@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../programs/claude-code.nix
     ../programs/espanso.nix
     ../programs/ghostty.nix
     ../programs/vscode.nix

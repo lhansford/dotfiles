@@ -14,9 +14,9 @@
       trp = "op run -- todoist-random-project";
     };
 
-    initContent = ''
-      export ANTHROPIC_API_KEY="$(op read 'op://Personal/Anthropic API Key/credential')"
-    '' + builtins.readFile ../../zsh/interactive-prompts.sh;
+    # initContent = ''
+    #   export ANTHROPIC_API_KEY="$(op read 'op://Personal/Anthropic API Key/credential')"
+    # '' + builtins.readFile ../../zsh/interactive-prompts.sh;
 
     oh-my-zsh = {
       enable = true;

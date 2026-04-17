@@ -9,6 +9,7 @@
     };
     nur.url = "github:nix-community/NUR";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs =
@@ -17,6 +18,7 @@
       home-manager,
       nur,
       nix-vscode-extensions,
+      claude-code,
       ...
     }:
     let
@@ -24,7 +26,10 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ nix-vscode-extensions.overlays.default ];
+        overlays = [
+          nix-vscode-extensions.overlays.default
+          claude-code.overlays.default
+        ];
       };
       mkHome =
         hostModule:

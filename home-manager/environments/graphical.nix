@@ -49,5 +49,7 @@
     pkgs.qbittorrent
 
     pkgs.ly
+
+    pkgs.dbeaver-bin
   ];
 }

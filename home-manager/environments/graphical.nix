@@ -3,6 +3,7 @@
 {
   imports = [
     ../programs/claude-code.nix
+    ../programs/crush.nix
     ../programs/espanso.nix
     ../programs/ghostty.nix
     ../programs/vscode.nix

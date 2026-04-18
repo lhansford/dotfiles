@@ -23,6 +23,11 @@ dotfiles/
 ├── home-manager/        # Nix Home Manager config (WIP, on nix-config branch)
 │   ├── flake.nix        # Nix flake definition (nixos-unstable, x86_64-linux)
 │   └── home.nix         # Home Manager module (packages, programs, services)
+├── nixos/               # NixOS system configs (kiosk Pi: lotus)
+│   ├── flake.nix        # nixos-25.11 stable + nixos-generators + nixos-hardware
+│   ├── hosts/           # Per-host modules (lotus.nix)
+│   └── modules/         # Reusable modules (common, pi4, kiosk)
+├── keys/                # Shared public keys (read by git signing + NixOS authorized_keys)
 ├── ghostty/             # Ghostty terminal config + custom "skogen" theme
 ├── git/                 # Git config and commit template
 ├── zsh/                 # Zsh config (.zshrc)
@@ -90,6 +95,49 @@ home-manager switch --flake .
 ```
 
 The `home-manager/` directory contains a Nix flake that manages packages and program configs declaratively. This is a work-in-progress on the `nix-config` branch and partially duplicates configs from the traditional dotfiles (ghostty, espanso, zsh, etc.).
+
+### NixOS (Kiosk Pi — `lotus`)
+
+`lotus` is a Raspberry Pi 4 kiosk managed by the `nixos/` flake (pinned to `nixos-25.11`). Home Manager is wired in as a NixOS module, reusing `home-manager/common.nix` via a minimal `home-manager/hosts/lotus.nix` (no graphical environment).
+
+Luke's SSH public key lives at `keys/luke.pub` at the repo root. It's the single source of truth consumed by:
+
+- `home-manager/programs/git.nix` — used as `user.signingkey` for SSH-format commit signing.
+- `nixos/modules/common.nix` — added to `users.users.luke.openssh.authorizedKeys.keys` so `luke` can SSH into any NixOS host using this config.
+
+Public keys are safe to commit. If the keypair ever rotates, updating `keys/luke.pub` is the only change needed — both consumers pick it up via `builtins.readFile`.
+
+**Wifi PSK** lives at `nixos/secrets/wifi.nix` — gitignored, not committed. First-time setup:
+
+```sh
+cp nixos/secrets/wifi.nix.example nixos/secrets/wifi.nix
+$EDITOR nixos/secrets/wifi.nix   # fill in SSID + PSK
+```
+
+The build script refuses to run without it. `nixos/modules/wifi.nix` imports the secrets file and enables `networking.wireless`. Multiple networks, hidden SSIDs, and open networks are all supported — see the comments in the example file.
+
+Two wrapper scripts handle the common flows:
+
+```sh
+# First-time provisioning — builds the SD image, prints flash instructions:
+./scripts/build-lotus-image.sh
+
+# After flashing + booting, SSH once to join Tailscale:
+ssh luke@lotus.local
+sudo tailscale up --ssh
+
+# Subsequent updates over Tailscale — no SD card reflash needed:
+./scripts/deploy-lotus.sh
+# Extra args are passed straight through to nixos-rebuild, e.g.:
+./scripts/deploy-lotus.sh --dry-run
+```
+
+Under the hood:
+
+- `build-lotus-image.sh` runs `nix build ./nixos#sdcard` after checking the SSH key placeholder has been replaced.
+- `deploy-lotus.sh` runs `nixos-rebuild switch --flake ./nixos#lotus --target-host luke@lotus --use-remote-sudo`. Override the target by setting `LOTUS_HOST` (e.g. `LOTUS_HOST=luke@lotus.local ./scripts/deploy-lotus.sh`).
+
+The kiosk URL and any screen rotation are set in `nixos/hosts/lotus.nix` (`kiosk.url`, `boot.kernelParams`). Adding another kiosk host means a new `hosts/*.nix` that reuses the three modules under `nixos/modules/`.
 
 ## How config.json Works
 

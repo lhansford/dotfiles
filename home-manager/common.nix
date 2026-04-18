@@ -5,7 +5,6 @@
     ./programs/atuin.nix
     ./programs/awscli.nix
     ./programs/bat.nix
-    ./programs/crush.nix
     ./programs/delta.nix
     ./programs/fzf.nix
     ./programs/git.nix
@@ -14,8 +13,6 @@
     ./programs/mise.nix
     ./programs/zsh.nix
   ];
-
-  nixpkgs.config.allowUnfree = true;
 
   targets.genericLinux.enable = true;
 

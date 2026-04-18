@@ -1,4 +1,4 @@
-_:
+{ lib, ... }:
 
 {
   programs.git = {
@@ -50,7 +50,7 @@ _:
     };
 
     signing = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOq797MuXw3T+ssSgo9Q0f5t/2QMJjQi2CzhDpJBAj67";
+      key = lib.removeSuffix "\n" (builtins.readFile ../../keys/luke.pub);
       signByDefault = true;
       format = "ssh";
     };

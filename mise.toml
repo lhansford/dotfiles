@@ -1,6 +1,6 @@
 [tasks."format:nix"]
 description = "Format Nix files"
-run = "nix develop --command nixfmt home-manager/*.nix"
+run = "nix develop --command bash -c 'find home-manager nixos -type f -name \"*.nix\" -print0 | xargs -0 nixfmt'"
 
 [tasks."format:sh"]
 description = "Format shell scripts"
@@ -12,7 +12,7 @@ depends = ["format:nix", "format:sh"]
 
 [tasks."lint:nix"]
 description = "Lint Nix files with statix"
-run = "nix develop --command statix check home-manager/"
+run = "nix develop --command statix check ."
 
 [tasks."lint:sh"]
 description = "Lint shell scripts with shellcheck"
@@ -24,4 +24,4 @@ depends = ["lint:nix", "lint:sh"]
 
 [tasks."lint:fix"]
 description = "Auto-fix Nix lint issues"
-run = "nix develop --command statix fix home-manager/"
+run = "nix develop --command statix fix ."

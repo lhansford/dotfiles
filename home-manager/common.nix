@@ -30,7 +30,8 @@
       ".config/git/git_commit_template.txt".source = ../git/git_commit_template.txt;
       ".local/bin/dff".source = ../bin/dff;
       ".local/bin/gcof".source = ../bin/gcof;
-      ".local/bin/ecs-run".source = ../bin/ecs-run;
+      ".local/bin/ecs-run".source = ../bin/ecs-run; # TODO: Move to fishbrain env
+      ".local/bin/open".source = ../bin/open; # TODO: Move to graphical env.
     };
 
     sessionPath = [

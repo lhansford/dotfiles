@@ -8,7 +8,7 @@
     shellAliases = {
       code = "codium";
       gcfp = "git commit -a --amend --no-edit --no-verify && git push --force-with-lease";
-      gho = "open \"https://github.com/$(git config --get remote.origin.url | cut -d \":\" -f 2  | cut -d \".\" -f 1)";
+      gho = "open \"https://github.com/$(git config --get remote.origin.url | cut -d \":\" -f 2  | cut -d \".\" -f 1)\"";
       l = "eza -la --group-directories-first";
       ls = "eza";
       trp = "op run -- todoist-random-project";

@@ -38,6 +38,11 @@ packages=(
 
 	# Exists outside home directory so eas
 	ly
+
+	# flameshot had some issues on aphex with Nix. I still have the configuration file in Nix, but foor
+	# now we install with Nix. grim is a dependency needed to run on Wayland.
+	flameshot
+	grim
 )
 
 echo "Updating package databases..."

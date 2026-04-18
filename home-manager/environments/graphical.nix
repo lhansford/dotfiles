@@ -5,6 +5,7 @@
     ../programs/claude-code.nix
     ../programs/crush.nix
     ../programs/espanso.nix
+    ../programs/flameshot.nix
     ../programs/ghostty.nix
     ../programs/vscode.nix
   ];
@@ -48,18 +49,4 @@
 
     pkgs.ly
   ];
-
-  services = {
-    flameshot = {
-      enable = true;
-      # Reference: https://github.com/flameshot-org/flameshot/blob/master/flameshot.example.ini
-      settings = {
-        General = {
-          contrastOpacity = 188;
-          savePath = "/home/luke/Downloads"; # TODO: This should be dropbox folder, but I haven't set that up on Jdilla yet. Also don't hardcode home dir.
-          useGrimAdapter = true;
-        };
-      };
-    };
-  };
 }

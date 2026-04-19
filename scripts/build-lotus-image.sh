@@ -16,15 +16,6 @@ check_dependencies() {
 	require_command gum "https://github.com/charmbracelet/gum"
 }
 
-check_pubkey() {
-	local key_file="$SCRIPT_DIR/keys/luke.pub"
-	if [[ ! -f "$key_file" ]]; then
-		gum style --foreground="#FF5F56" "Missing $key_file"
-		gum style "Drop your SSH public key there before building."
-		exit 1
-	fi
-}
-
 check_wifi() {
 	gum confirm "Make sure you have updated nixos/modules/wifi.nix to have the correct password. Make sure to revert it before committing any changes.";
 }
@@ -106,63 +97,8 @@ resolve_image_path() {
 	find "$link/sd-image" -maxdepth 1 -type f \( -name '*.img' -o -name '*.img.zst' \) 2>/dev/null | head -n1
 }
 
-wait_for_ssh() {
-	local host="$1"
-	local deadline=$(($(date +%s) + 300))
-	while (($(date +%s) < deadline)); do
-		if ssh -o ConnectTimeout=5 \
-			-o StrictHostKeyChecking=accept-new \
-			-o BatchMode=yes \
-			-o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
-			"luke@$host" true 2>/dev/null; then
-			return 0
-		fi
-		sleep 3
-	done
-	return 1
-}
-
-post_flash_setup() {
-	echo ""
-	if ! gum confirm "Run post-flash setup now (wait for Pi, bootstrap Tailscale)?"; then
-		gum style --foreground="#767676" "Skipping. Run the Tailscale bootstrap manually when ready."
-		return 0
-	fi
-
-	local host
-	host=$(gum input --prompt "Pi address: " --value "lotus.local")
-	host="${host:-lotus.local}"
-
-	gum style --bold "Waiting for ssh on $host..."
-	gum style --foreground="#767676" "Give it up to 5 minutes. First boot expands the root filesystem and reboots once."
-	if ! wait_for_ssh "$host"; then
-		gum style --foreground="#FF5F56" "Timed out waiting for $host to accept SSH."
-		gum style "Check the Pi is powered on and on the same network, then re-run the bootstrap manually:"
-		gum style --foreground="#767676" "    ssh -t luke@$host sudo tailscale up --ssh"
-		return 1
-	fi
-
-	gum style --foreground="#4E683E" "✓ Reachable over SSH."
-
-	if [[ -L "$SCRIPT_DIR/result" ]]; then
-		rm "$SCRIPT_DIR/result"
-		gum style --foreground="#767676" "Removed ./result symlink — store path will be GC'd on next nix-collect-garbage."
-	fi
-
-	echo ""
-	gum style --bold "Bootstrapping Tailscale on $host..."
-	gum style --foreground="#767676" "Follow the auth URL that appears to add the Pi to your tailnet."
-	echo ""
-	ssh -t "luke@$host" "sudo tailscale up --ssh"
-
-	echo ""
-	gum style --bold --foreground="#4E683E" "✓ Setup complete"
-	gum style "Deploy future changes with:  ./scripts/deploy-lotus.sh"
-}
-
 main() {
 	check_dependencies
-	check_pubkey
 	check_wifi
 	ensure_aarch64_emulation
 
@@ -200,8 +136,14 @@ main() {
 	gum style "  2. Flash the image:"
 	gum style --foreground="#767676" "       $flash_cmd"
 	gum style "  3. Eject, insert into the Pi, and power on."
-
-	post_flash_setup
+	gum style "  4. SSH in to the Pi."
+	gum style --foreground="#767676" "       ssh -o IdentitiesOnly=no luke@192.168.0.132"
+	gum style "  4. Enable Tailscale."
+	gum style --foreground="#767676" "       sudo tailscale up --ssh"
+	gum style "  4. Revert wifi password change in Nix config."
+	echo ""
+	gum style --bold --foreground="#4E683E" "✓ Setup complete"
+	gum style "Deploy future changes with:  ./scripts/deploy-lotus.sh"
 }
 
 main

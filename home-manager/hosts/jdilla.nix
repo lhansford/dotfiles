@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -7,6 +7,7 @@
   ];
 
   # Nvidia support
+  nixpkgs.config.allowUnfree = true;
   nixpkgs.config.nvidia.acceptLicense = true;
   targets.genericLinux.gpu.nvidia = {
     enable = true;
@@ -18,4 +19,6 @@
     version = "595.58.03";
     sha256 = "sha256-jA1Plnt5MsSrVxQnKu6BAzkrCnAskq+lVRdtNiBYKfk=";
   };
+
+  programs.git.signing.key = lib.removeSuffix "\n" (builtins.readFile ../../keys/jdilla.pub);
 }

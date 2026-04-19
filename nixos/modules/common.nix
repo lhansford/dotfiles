@@ -12,7 +12,8 @@
       "networkmanager"
     ];
     openssh.authorizedKeys.keys = [
-      (lib.removeSuffix "\n" (builtins.readFile ../../keys/luke.pub))
+      (lib.removeSuffix "\n" (builtins.readFile ../../keys/aphex.pub))
+      (lib.removeSuffix "\n" (builtins.readFile ../../keys/jdilla.pub))
     ];
   };
 
@@ -36,7 +37,7 @@
     "hybrid-sleep".enable = false;
   };
 
-  time.timeZone = lib.mkDefault "Europe/Stockholm";
+  time.timeZone = lib.mkDefault "Asia/Hong_Kong";
 
   system.stateVersion = "25.11";
 }

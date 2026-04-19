@@ -50,7 +50,6 @@
     };
 
     signing = {
-      key = lib.removeSuffix "\n" (builtins.readFile ../../keys/luke.pub);
       signByDefault = true;
       format = "ssh";
     };

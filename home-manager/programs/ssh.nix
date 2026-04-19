@@ -21,7 +21,7 @@ _:
         user = "git";
         identityAgent = "~/.1password/agent.sock";
         extraOptions = {
-          # We disable IdentitiesOnly for GitHub so it can "see" the keys inside the 1Password agent.
+          # We disable IdentitiesOnly for Codeberg so it can "see" the keys inside the 1Password agent.
           IdentitiesOnly = "no";
         };
       };

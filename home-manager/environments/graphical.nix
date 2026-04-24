@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../environments/fishbrain.nix
     ../programs/claude-code.nix
     ../programs/crush.nix
     ../programs/espanso.nix

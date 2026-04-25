@@ -12,5 +12,6 @@
   };
 
   home.file = {
-    ".local/bin/ecs-run".source = ../bin/ecs-run;
+    ".local/bin/ecs-run".source = ../../bin/ecs-run;
+  };
 }

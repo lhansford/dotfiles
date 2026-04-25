@@ -13,8 +13,8 @@
 
   home = {
     file = {
-      ".local/bin/open".source = ../bin/open;
-    }
+      ".local/bin/open".source = ../../bin/open;
+    };
     packages = [
       pkgs.google-chrome
       pkgs.slack
@@ -36,7 +36,6 @@
     };
   };
 
-  home.
   programs.ssh.extraConfig = ''
     Host *
         IdentityAgent ~/.1password/agent.sock

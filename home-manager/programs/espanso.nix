@@ -1,6 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
+  home.activation.reregisterEspanso = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD ${pkgs.espanso-wayland}/bin/espanso service unregister 2>/dev/null || true
+    $DRY_RUN_CMD ${pkgs.espanso-wayland}/bin/espanso service register || true
+  '';
+
   services.espanso = {
     enable = true;
     package = pkgs.espanso-wayland;
@@ -10,6 +15,9 @@
       default = {
         toggle_key = "OFF";
         search_trigger = "off";
+        keyboard_layout = {
+          layout = "us";
+        };
       };
     };
 

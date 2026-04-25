@@ -5,7 +5,7 @@
     enable = true;
     autosuggestion.enable = true;
 
-    interactiveShellInit = ''
+    initContent = ''
       if [ -f "$HOME/.secrets.env" ]; then
         source "$HOME/.secrets.env"
       fi

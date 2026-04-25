@@ -11,18 +11,18 @@
     profiles = {
       default = {
         extensions = with pkgs.nix-vscode-extensions.open-vsx; [
-              dbaeumer.vscode-eslint
-              esbenp.prettier-vscode
-              golang.go
-              hashicorp.terraform
-              hverlin.mise-vscode
-              jnoortheen.nix-ide
-              rust-lang.rust-analyzer
-              svelte.svelte-vscode
-              tamasfe.even-better-toml
-              tauri-apps.tauri-vscode
-              wayou.vscode-todo-highlight
-            ];
+          dbaeumer.vscode-eslint
+          esbenp.prettier-vscode
+          golang.go
+          hashicorp.terraform
+          hverlin.mise-vscode
+          jnoortheen.nix-ide
+          rust-lang.rust-analyzer
+          svelte.svelte-vscode
+          tamasfe.even-better-toml
+          tauri-apps.tauri-vscode
+          wayou.vscode-todo-highlight
+        ];
         userSettings = {
           "[rust]"."editor.tabSize" = 2;
           "[svelte]"."editor.tabSize" = 2;

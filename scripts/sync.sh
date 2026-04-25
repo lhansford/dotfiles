@@ -175,8 +175,14 @@ main() {
 		"$SCRIPT_DIR/scripts/update-flatpaks.sh"
 		gum style --bold "Updating Nix..."
 		"$SCRIPT_DIR/scripts/update-home-manager.sh"
-		gum style --bold "Setting up ly display manager..."
-		"$SCRIPT_DIR/scripts/setup-ly.sh"
+	if ! groups | grep -qw input; then
+		gum style --foreground="#D0883E" "Adding user to 'input' group (needed for espanso)..."
+		sudo usermod -aG input "$USER"
+		gum style --foreground="#D0883E" "A reboot is required for this to take effect."
+	fi
+
+	gum style --bold "Setting up ly display manager..."
+	"$SCRIPT_DIR/scripts/setup-ly.sh"
 	fi
 
 	# local diff_output=$(compute_diff)

@@ -11,11 +11,32 @@
     ../programs/vscode.nix
   ];
 
-  home.sessionVariables = {
-    PERM_PEOPLE_DIR = "$HOME/Obsidian/Personal/people";
-    SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
+  home = {
+    file = {
+      ".local/bin/open".source = ../bin/open;
+    }
+    packages = [
+      pkgs.google-chrome
+      pkgs.slack
+
+      pkgs.obsidian
+      pkgs.fastmail-desktop
+      pkgs.discord
+
+      pkgs.picard
+      pkgs.qbittorrent
+
+      pkgs.ly
+
+      pkgs.dbeaver-bin
+    ];
+    sessionVariables = {
+      PERM_PEOPLE_DIR = "$HOME/Obsidian/Personal/people";
+      SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
+    };
   };
 
+  home.
   programs.ssh.extraConfig = ''
     Host *
         IdentityAgent ~/.1password/agent.sock
@@ -34,20 +55,4 @@
     dataFile."applications/google-chrome.desktop".source =
       "${pkgs.google-chrome}/share/applications/google-chrome.desktop";
   };
-
-  home.packages = [
-    pkgs.google-chrome
-    pkgs.slack
-
-    pkgs.obsidian
-    pkgs.fastmail-desktop
-    pkgs.discord
-
-    pkgs.picard
-    pkgs.qbittorrent
-
-    pkgs.ly
-
-    pkgs.dbeaver-bin
-  ];
 }

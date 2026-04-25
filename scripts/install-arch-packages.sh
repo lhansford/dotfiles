@@ -43,6 +43,12 @@ packages=(
 	# now we install with Nix. grim is a dependency needed to run on Wayland.
 	flameshot
 	grim
+
+	# Needs to be system level, so home-manager can't manage it.
+	mullvad-vpn-bin
+
+	# I can't remember why this isn't handled by Nix. Maybe should try it again sometime.
+	keymapper
 )
 
 echo "Updating package databases..."

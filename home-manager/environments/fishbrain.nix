@@ -10,4 +10,7 @@
       fibinfra = "assume fishbrain-infrastructure --exec --";
     };
   };
+
+  home.file = {
+    ".local/bin/ecs-run".source = ../bin/ecs-run;
 }

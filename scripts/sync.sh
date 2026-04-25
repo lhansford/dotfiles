@@ -147,6 +147,9 @@ main() {
 	# fi
 
 	if [[ "$selected_system" == "cachyosWithNix" ]]; then
+		gum style --bold "Updating secrets..."
+		"$SCRIPT_DIR/scripts/update-secrets-env.sh"
+
 		check_nix_dependencies
 
 		gum style --bold "Checking for system updates..."

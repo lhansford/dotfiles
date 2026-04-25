@@ -6,10 +6,6 @@
       pkgs.nur.repos.charmbracelet.crush
     ];
 
-    sessionVariables = {
-      ANTHROPIC_API_KEY = "";
-    };
-
     file.".config/crush/crush.json".text = builtins.toJSON {
       "$schema" = "https://charm.land/crush.json";
       options = {

@@ -5,6 +5,12 @@
     enable = true;
     autosuggestion.enable = true;
 
+    interactiveShellInit = ''
+      if [ -f "$HOME/.secrets.env" ]; then
+        source "$HOME/.secrets.env"
+      fi
+    '';
+
     shellAliases = {
       code = "codium";
       gcfp = "git commit -a --amend --no-edit --no-verify && git push --force-with-lease";
@@ -13,10 +19,6 @@
       ls = "eza";
       trp = "op run -- todoist-random-project";
     };
-
-    # initContent = ''
-    #   export ANTHROPIC_API_KEY="$(op read 'op://Personal/Anthropic API Key/credential')"
-    # '' + builtins.readFile ../../zsh/interactive-prompts.sh;
 
     oh-my-zsh = {
       enable = true;

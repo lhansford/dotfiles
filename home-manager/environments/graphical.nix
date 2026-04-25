@@ -14,9 +14,6 @@
   home.sessionVariables = {
     PERM_PEOPLE_DIR = "$HOME/Obsidian/Personal/people";
     SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
-    TRP_API_TOKEN = "$(op read op://Personal/todoist-random-project/TRP_API_TOKEN)";
-    TRP_IGNORED_PROJECTS = "$(op read op://Personal/todoist-random-project/TRP_IGNORED_PROJECTS)";
-    ZAI_API_KEY = "$(op read op://Personal/ZAI_API_KEY/notesPlain)";
   };
 
   programs.ssh.extraConfig = ''

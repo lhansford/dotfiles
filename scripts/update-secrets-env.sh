@@ -68,7 +68,7 @@ main() {
 
 	if [[ "$failed" -eq 1 ]]; then
 		echo ""
-		gum style --foreground="#D0883E" "Some secrets failed to fetch. Aborting."
+		gum style --foreground="#D0883E" "Some secrets failed to fetch. Aborting. You may not be logged into the correct account, so try running 'op signin' first."
 		exit 1
 	fi
 

@@ -13,6 +13,7 @@ let
     "--no-first-run"
     "--enable-features=OverlayScrollbar,UseOzonePlatform"
     "--autoplay-policy=no-user-gesture-required"
+    "--start-fullscreen"
   ];
 in
 {

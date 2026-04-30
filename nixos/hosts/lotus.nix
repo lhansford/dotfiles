@@ -8,6 +8,11 @@
     ../modules/wifi.nix
   ];
 
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/NIXOS_SD";
+    fsType = "ext4";
+  };
+
   networking.hostName = "lotus";
 
   kiosk.url = "http://kraftwerk:8080/";

@@ -9,6 +9,7 @@
     ../programs/flameshot.nix
     ../programs/ghostty.nix
     ../programs/vscode.nix
+    ../programs/zed-editor.nix
   ];
 
   home = {

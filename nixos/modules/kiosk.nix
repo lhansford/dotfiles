@@ -13,7 +13,11 @@ let
     "--no-first-run"
     "--enable-features=OverlayScrollbar,UseOzonePlatform"
     "--autoplay-policy=no-user-gesture-required"
-    "--start-fullscreen"
+    # Force a dedicated profile to prevent flag-ignoring via process-reuse
+    "--user-data-dir=/home/${cfg.user}/.config/chromium-kiosk"
+    # Helps Cage treat the window correctly as a single-surface app
+    "--app=${cfg.url}"
+    "--start-maximized"
   ];
 in
 {
@@ -35,7 +39,7 @@ in
     services.cage = {
       enable = true;
       inherit (cfg) user;
-      program = "${pkgs.chromium}/bin/chromium ${chromiumFlags} ${lib.escapeShellArg cfg.url}";
+      program = "${pkgs.chromium}/bin/chromium ${chromiumFlags}";
     };
   };
 }

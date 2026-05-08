@@ -22,7 +22,6 @@
       pkgs.slack
 
       pkgs.obsidian
-      pkgs.fastmail-desktop
       pkgs.discord
 
       pkgs.picard

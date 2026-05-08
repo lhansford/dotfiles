@@ -9,9 +9,11 @@ binds {
     Mod+Shift+Slash                     { show-hotkey-overlay; }
 
     // ─── Applications ───
-    Control+Space                     hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
+    //Control+Space                     hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
+    Control+Space hotkey-overlay-title="Open App Launcher" repeat=false { spawn "vicinae" "toggle"; }
     Mod+ALT+L                           hotkey-overlay-title="Lock Screen: noctalia lock" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
     Mod+Shift+Q                        hotkey-overlay-title="Session Menu: noctalia sessionMenu" { spawn-sh "qs -c noctalia-shell ipc call sessionMenu toggle"; }
+    Mod+Shift+CTRL+ALT+T               repeat=false { spawn "vicinae" "vicinae://launch/@thomaslombart/store.raycast.todoist/quick-add-task"; }
 
     // Please choose your own file manager.
     Mod+E                               hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }

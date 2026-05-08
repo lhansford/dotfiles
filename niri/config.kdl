@@ -4,6 +4,7 @@ include "./cfg/keybinds.kdl"
 spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &" // Polkit
 spawn-sh-at-startup "qs -c noctalia-shell"
 spawn-sh-at-startup "1password --silent"
+spawn-at-startup "vicinae" "server"
 
 input {
     keyboard {

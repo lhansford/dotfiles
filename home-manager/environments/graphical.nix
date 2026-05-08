@@ -8,6 +8,7 @@
     ../programs/espanso.nix
     ../programs/flameshot.nix
     ../programs/ghostty.nix
+    ../programs/vicinae.nix
     ../programs/vscode.nix
     ../programs/zed-editor.nix
   ];

@@ -17,7 +17,7 @@ check_dependencies() {
 }
 
 check_wifi() {
-	gum confirm "Make sure you have updated nixos/modules/wifi.nix to have the correct password. Make sure to revert it before committing any changes.";
+	gum confirm "Make sure you have updated nixos/modules/wifi.nix to have the correct password. Make sure to revert it before committing any changes."
 }
 
 binfmt_ready() {

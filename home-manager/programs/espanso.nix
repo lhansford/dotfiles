@@ -193,24 +193,24 @@
           {
             trigger = ";llmtravel";
             replace = ''
-              I want you to give me a list off 25 interesting things to do when I visit $|$ in $|$.
+               I want you to give me a list off 25 interesting things to do when I visit $|$ in $|$.
 
-              Here are some of my interest to guide your choices, but don't let them be the sole criteria:
+               Here are some of my interest to guide your choices, but don't let them be the sole criteria:
 
-              - Good food, though not overly expensive/fancy. Particularly local cuisines.
-              - Subcultures, underground music.
-             	- Record stores.
-             	- Modular/analog synthesis.
-              - Coffee shops.
-              - History.
-              - Mechanical keyboards and similar tech/electronics stuff.
-              - Cool shops for men's second hand clothing or outdoor clothing.
+               - Good food, though not overly expensive/fancy. Particularly local cuisines.
+               - Subcultures, underground music.
+              	- Record stores.
+              	- Modular/analog synthesis.
+               - Coffee shops.
+               - History.
+               - Mechanical keyboards and similar tech/electronics stuff.
+               - Cool shops for men's second hand clothing or outdoor clothing.
 
-              Do not group into categories like "museums" or "record stores". I want discrete entries.
+               Do not group into categories like "museums" or "record stores". I want discrete entries.
 
-              Add a map link using Google maps.
+               Add a map link using Google maps.
 
-              Format the list like `N. NAME_OF_PLACE: REASON_FOR_THE_RECOMMENDATION. MAP_LINK`.
+               Format the list like `N. NAME_OF_PLACE: REASON_FOR_THE_RECOMMENDATION. MAP_LINK`.
             '';
           }
         ];

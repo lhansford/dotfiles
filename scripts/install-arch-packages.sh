@@ -50,7 +50,7 @@ packages=(
 	# I can't remember why this isn't handled by Nix. Maybe should try it again sometime.
 	keymapper
 
-    # The nix package for this is janky and has the wrong window names.
+	# The nix package for this is janky and has the wrong window names.
 	fastmail
 )
 

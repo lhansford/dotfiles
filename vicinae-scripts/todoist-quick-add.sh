@@ -2,11 +2,13 @@
 # @vicinae.schemaVersion 1
 # @vicinae.title Todoist - Quick Add
 # @vicinae.icon https://app.todoist.com/todoist.svg
-# @vicinae.mode terminal
+# @vicinae.mode silent
 # @vicinae.argument1 { "type": "text", "placeholder": "task" }
 set -euo pipefail
 
-TODOIST_API_TOKEN="@TODOIST_API_TOKEN@"
+source ~/.secrets.env
+
+TRP_API_TOKEN="${TRP_API_TOKEN:?not set in ~/.secrets.env}"
 
 if [[ $# -eq 0 ]]; then
 	echo "Usage: todoist-quick-add <task content>" >&2
@@ -17,7 +19,7 @@ content="$*"
 
 response=$(curl -s -w "\n%{http_code}" \
 	"https://api.todoist.com/api/v1/tasks" \
-	-H "Authorization: Bearer ${TODOIST_API_TOKEN}" \
+	-H "Authorization: Bearer ${TRP_API_TOKEN}" \
 	-H "Content-Type: application/json" \
 	-d "{\"content\": \"${content}\"}")
 

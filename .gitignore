@@ -9,4 +9,3 @@ result-*
 # Local secrets (wifi PSK, etc.) — committed examples only
 nixos/secrets/*
 !nixos/secrets/*.example
-home-manager/secrets/*

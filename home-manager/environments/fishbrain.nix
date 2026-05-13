@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.zsh = {
@@ -9,7 +9,13 @@
     };
   };
 
-  home.file = {
-    ".local/bin/ecs-run".source = ../../bin/ecs-run;
+  home = {
+    file = {
+      ".local/bin/ecs-run".source = ../../bin/ecs-run;
+    };
+
+    packages = [
+      pkgs.google-cloud-sdk
+    ];
   };
 }

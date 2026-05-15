@@ -1,10 +1,10 @@
 [tasks."format:nix"]
-description = "Format Nix files"
-run = "nix develop --command bash -c 'find home-manager nixos -type f -name \"*.nix\" -print0 | xargs -0 nixfmt'"
+description = "Format Nix files in nixos/"
+run = "nix develop --command bash -c 'find nixos -type f -name \"*.nix\" -print0 | xargs -0 nixfmt'"
 
 [tasks."format:sh"]
-description = "Format shell scripts"
-run = "nix develop --command bash -c 'find scripts/ zsh/ -name \"*.sh\" | xargs shfmt -w'"
+description = "Format shell scripts in scripts/"
+run = "nix develop --command bash -c 'find scripts/ -name \"*.sh\" | xargs shfmt -w'"
 
 [tasks.format]
 description = "Format all files"
@@ -12,11 +12,11 @@ depends = ["format:nix", "format:sh"]
 
 [tasks."lint:nix"]
 description = "Lint Nix files with statix"
-run = "nix develop --command statix check ."
+run = "nix develop --command statix check nixos"
 
 [tasks."lint:sh"]
 description = "Lint shell scripts with shellcheck"
-run = "nix develop --command bash -c 'grep -rl \"^#!/usr/bin/env bash\" scripts/ zsh/ | xargs shellcheck'"
+run = "nix develop --command bash -c 'grep -rl \"^#!/usr/bin/env bash\" scripts/ | xargs shellcheck'"
 
 [tasks.lint]
 description = "Lint all files"
@@ -24,4 +24,4 @@ depends = ["lint:nix", "lint:sh"]
 
 [tasks."lint:fix"]
 description = "Auto-fix Nix lint issues"
-run = "nix develop --command statix fix ."
+run = "nix develop --command statix fix nixos"

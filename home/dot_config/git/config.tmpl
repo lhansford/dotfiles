@@ -1,0 +1,65 @@
+{{- $host := index .hosts .chezmoi.hostname -}}
+{{- $signingKey := "" -}}
+{{- if and $host (hasKey $host "signing_key_file") -}}
+{{-   $signingKey = include (printf "%s/keys/%s" .chezmoi.workingTree $host.signing_key_file) | trim -}}
+{{- end -}}
+[color]
+	ui = true
+
+[color "diff"]
+	commit = "yellow bold"
+	frag = "magenta bold"
+	meta = "yellow"
+	new = "green bold"
+	old = "red bold"
+	whitespace = "red reverse"
+
+[color "diff-highlight"]
+	newHighlight = "green bold 22"
+	newNormal = "green bold"
+	oldHighlight = "red bold 52"
+	oldNormal = "red bold"
+
+[commit]
+	template = "~/.config/git/git_commit_template.txt"
+{{- if $signingKey }}
+	gpgsign = true
+{{- end }}
+
+[core]
+	editor = "codium --wait"
+	pager = "delta"
+
+[delta]
+	navigate = true
+	theme = "zenburn"
+
+[diff]
+	noprefix = true
+{{- if $signingKey }}
+
+[gpg]
+	format = "ssh"
+
+[gpg "ssh"]
+	program = "/opt/1Password/op-ssh-sign"
+
+[tag]
+	gpgSign = true
+{{- end }}
+
+[init]
+	defaultBranch = "main"
+
+[interactive]
+	diffFilter = "delta --color-only"
+
+[pull]
+	rebase = false
+
+[user]
+	email = "mail@lukehansford.me"
+	name = "Luke Hansford"
+{{- if $signingKey }}
+	signingKey = "{{ $signingKey }}"
+{{- end }}

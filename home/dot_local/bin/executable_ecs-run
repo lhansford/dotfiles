@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'cgi'
+require 'json'
+require 'open3'
+require 'optparse'
+
+VERSION = '0.1.3'
+
+options = {}
+parser = OptionParser.new
+parser.banner = 'Usage: ecs-run [options] <service> <cluster> <command [argument ...]>'
+parser.on('-n', '--name=NAME', 'Container name') do |value|
+  options[:name] = value
+end
+parser.on('-v', '--version', 'Show version') do
+  puts VERSION
+  exit
+end
+parser.parse!
+parser.parse ['--help'] if ARGV.length < 3
+
+service, cluster, *command = ARGV
+
+services_cmd = \
+  'aws ecs describe-services ' \
+  '--output=json ' \
+  "--services #{service} " \
+  "--cluster #{cluster}"
+services_stdout_str, _status = Open3.capture2(services_cmd)
+services = JSON.parse(services_stdout_str)
+
+deployment = services.dig('services', 0, 'deployments', 0)
+task_definition = deployment['taskDefinition']
+vpc_configuration = deployment.dig('networkConfiguration', 'awsvpcConfiguration')
+network_configuration = {
+  awsvpcConfiguration: {
+    subnets: vpc_configuration['subnets'],
+    securityGroups: vpc_configuration['securityGroups'],
+    assignPublicIp: 'DISABLED',
+  }
+}
+overrides = {
+  containerOverrides: [
+    {
+      name: options[:name] || service,
+      command: command,
+    }
+  ]
+}
+
+run_task_cmd = \
+  'aws ecs run-task ' \
+  '--output=json ' \
+  '--started-by ecs-run ' \
+  "--cluster #{cluster} " \
+  "--task-definition #{task_definition} " \
+  "--network-configuration '#{JSON.generate(network_configuration)}' " \
+  "--overrides '#{JSON.generate(overrides)}'"
+run_task_stdout_str, _status = Open3.capture2(run_task_cmd)
+run_task = JSON.parse(run_task_stdout_str)
+
+arn = run_task.dig('tasks', 0, 'taskArn')
+puts "Task starting with ARN: #{arn}"
+query = "task_arn:\"#{arn.split('/', 2).last}\""
+puts "Logs: https://app.datadoghq.com/logs?query=#{CGI.escape(query)}"

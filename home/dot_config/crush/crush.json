@@ -1,0 +1,28 @@
+{
+  "$schema": "https://charm.land/crush.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "command": "./rtk-rewrite.sh",
+        "matcher": "^bash$"
+      }
+    ]
+  },
+  "options": {
+    "context_paths": [
+      "/home/luke/.config/AGENTS.md"
+    ]
+  },
+  "permissions": {
+    "allowed_tools": [
+      "agentic_fetch",
+      "diff",
+      "edit",
+      "grep",
+      "ls",
+      "multiedit",
+      "view",
+      "write"
+    ]
+  }
+}

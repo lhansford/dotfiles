@@ -25,38 +25,12 @@
           "write"
         ];
       };
-      providers = {
-        anthropic = { };
-      };
-      models = {
-        large = {
-          model = "claude-opus-4-6";
-          provider = "anthropic";
-          reasoning_effort = "medium";
-          max_tokens = 126000;
-        };
-        small = {
-          model = "claude-sonnet-4-6";
-          provider = "anthropic";
-          reasoning_effort = "medium";
-          max_tokens = 64000;
-        };
-      };
-      recent_models = {
-        large = [
+
+      hooks = {
+        PreToolUse = [
           {
-            model = "claude-opus-4-6";
-            provider = "anthropic";
-          }
-          {
-            model = "claude-sonnet-4-6";
-            provider = "anthropic";
-          }
-        ];
-        small = [
-          {
-            model = "claude-sonnet-4-6";
-            provider = "anthropic";
+            matcher = "^bash$";
+            command = "./rtk-rewrite.sh";
           }
         ];
       };

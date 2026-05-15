@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+{{ $host := index .hosts .chezmoi.hostname | default dict -}}
+{{ $roles := $host.roles | default list -}}
+set -euo pipefail
+
+if ! command -v paru &>/dev/null; then
+  echo "paru not found — install paru first, then re-run 'chezmoi apply'" >&2
+  exit 1
+fi
+
+# Some AUR package names below are best-guesses — adjust if a package fails to install.
+packages=(
+  # base
+  atuin
+  bat
+  bottom
+  eza
+  fzf
+  git
+  git-delta
+  glow
+  granted
+  gum
+  jq
+  mise
+  oh-my-zsh-git
+  zsh-autosuggestions
+  aws-cli-v2
+  1password-cli
+  diff-so-fancy
+{{- if has "graphical" $roles }}
+
+  # graphical
+  1password
+  claude-code
+  crush-bin
+  dbeaver
+  discord
+  espanso-wayland-git
+  flameshot
+  google-chrome
+  junction
+  obsidian
+  picard
+  qbittorrent
+  slack-desktop
+  vicinae
+  vscodium-bin
+  zed
+{{- end }}
+{{- if has "fishbrain" $roles }}
+
+  # fishbrain
+  google-cloud-cli
+{{- end }}
+{{- if has "cachyos" $roles }}
+
+  # cachyos / niri desktop
+  keymapper
+  ly
+  niri
+  noctalia-qs
+  noctalia-shell
+{{- end }}
+)
+
+paru -S --needed "${packages[@]}"

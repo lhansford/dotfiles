@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+{{ $host := index .hosts .chezmoi.hostname | default dict -}}
+{{ $roles := $host.roles | default list }}
+{{- if has "graphical" $roles }}
+set -euo pipefail
+
+if ! command -v codium &>/dev/null; then
+  echo "codium not found — skipping vscode extension install"
+  exit 0
+fi
+
+extensions=(
+  dbaeumer.vscode-eslint
+  esbenp.prettier-vscode
+  golang.go
+  hashicorp.terraform
+  hverlin.mise-vscode
+  jnoortheen.nix-ide
+  rust-lang.rust-analyzer
+  svelte.svelte-vscode
+  tamasfe.even-better-toml
+  tauri-apps.tauri-vscode
+  wayou.vscode-todo-highlight
+)
+
+for ext in "${extensions[@]}"; do
+  codium --install-extension "$ext" --force
+done
+{{- end }}

@@ -1,0 +1,22 @@
+# Per-host role assignments. Templates query these via:
+#   {{- $h := index .hosts .chezmoi.hostname -}}
+#   {{- if has "graphical" $h.roles }}...{{ end -}}
+#
+# Roles:
+#   base       every host (zsh, git, mise, atuin, ssh, ...)
+#   graphical  desktops with a GUI (espanso, ghostty themes, vscode, ...)
+#   fishbrain  work env (gcloud, fishbrain shell aliases, ecs-run)
+#   cachyos    Arch-based CachyOS host (paru/AUR available)
+#   server     minimal Linux server (kraftwerk)
+#   nvidia     host has Nvidia GPU (currently jdilla)
+
+[hosts.aphex]
+roles = ["base", "graphical", "fishbrain", "cachyos"]
+signing_key_file = "aphex.pub"
+
+[hosts.jdilla]
+roles = ["base", "graphical", "fishbrain", "cachyos", "nvidia"]
+signing_key_file = "jdilla.pub"
+
+[hosts.kraftwerk]
+roles = ["base", "server"]

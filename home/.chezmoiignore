@@ -1,0 +1,22 @@
+{{- $host := index .hosts .chezmoi.hostname | default dict -}}
+{{- $roles := $host.roles | default list -}}
+{{- if not (has "graphical" $roles) }}
+.ssh/config
+.claude/settings.json
+.config/crush/**
+.config/espanso/**
+.config/flameshot/**
+.config/VSCodium/**
+.config/mimeapps.list
+.local/bin/open
+.local/share/vicinae/**
+{{- end }}
+{{- if not (has "fishbrain" $roles) }}
+.local/bin/ecs-run
+{{- end }}
+{{- if not (has "cachyos" $roles) }}
+.config/niri/**
+.config/noctalia/**
+.config/keymapper.conf
+.config/zsh/interactive-prompts.sh
+{{- end }}

@@ -2,3 +2,10 @@ node_modules
 .DS_Store
 build
 
+# nix build output symlinks (result, result-bin, result-doc, ...)
+result
+result-*
+
+# Local secrets (wifi PSK, etc.) — committed examples only
+nixos/secrets/*
+!nixos/secrets/*.example

@@ -1,31 +1,62 @@
 # dotfiles
 
-## Requirements
+Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/). The `nixos/` directory is a separate NixOS flake for the Lotus Pi kiosk.
 
-- ZSH
-- [ohmyzsh](https://ohmyz.sh/#install)
-- [mise](https://mise.jdx.dev/)
-- diff-so-fancy
-- [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
-- [eza](https://eza.rocks/)
-  - `brew install eza`
-- [Gum](https://github.com/charmbracelet/gum)
-  - `brew install gum`
+## Layout
 
-### Arch
+| Path | Purpose |
+| --- | --- |
+| `home/` | chezmoi source — files deployed to `$HOME` |
+| `nixos/` | NixOS flake for the Lotus Pi kiosk (untouched by chezmoi) |
+| `keys/` | Public SSH keys, used by both chezmoi (git signing) and `nixos/` (authorized_keys) |
+| `ly/` | System-level config for the `ly` display manager (deployed by `scripts/setup-ly.sh`) |
+| `scripts/` | Utility scripts: backups, NixOS Pi deploy, package updates |
+| `flake.nix` | Dev shell with `nixfmt`, `statix`, `shfmt`, `shellcheck` |
+| `mise.toml` | Task runner config (format, lint) |
+
+## Initial setup on a new machine
 
 ```sh
-paru -S eza gum diff-so-fancy espanso-wayland atuin
+# 1. Install chezmoi (CachyOS / Arch)
+paru -S chezmoi
+
+# 2. Point chezmoi at this repo
+mkdir -p ~/.config/chezmoi
+printf 'sourceDir = "%s"\n' "$HOME/Documents/development/dotfiles" > ~/.config/chezmoi/chezmoi.toml
+
+# 3. Verify the host is in the role map
+chezmoi data | jq '.hosts."'$(hostname)'"'
+
+# 4. Apply — runs the package install script, deploys files, registers services
+chezmoi apply
 ```
 
-## TODO:
+## Hosts and roles
 
-- Cleanup package.json
-- Typescript it?
-- Add linting?
-- Reconsider symlinks. It behaves a little weird with the sync script. E.g. If I've already symlinked my files and pull
-  changes from git, that now becomes the true sync, not the script.
-- Flatpak update in zshrc
-- Paru/pacman update in zsrhc
-- Appimage updates?? Todoist specifically
-- Sync noctalia and niri configs
+Per-host role assignments live in `home/.chezmoidata.toml`. Templates query roles via:
+
+```
+{{ $h := index .hosts .chezmoi.hostname }}
+{{ if has "graphical" $h.roles }}...{{ end }}
+```
+
+| Host | Roles |
+| --- | --- |
+| `aphex` | `base graphical fishbrain cachyos` |
+| `jdilla` | `base graphical fishbrain cachyos nvidia` |
+| `kraftwerk` | `base server` |
+
+Add a new host by editing `home/.chezmoidata.toml`.
+
+## Common tasks
+
+```sh
+chezmoi diff        # preview changes
+chezmoi apply       # deploy / re-apply
+chezmoi edit <file> # edit a managed file (opens the source)
+chezmoi cd          # cd into the source directory
+```
+
+## Lotus Pi kiosk (NixOS)
+
+See [`nixos/`](./nixos) — separate flake, deployed via `scripts/build-lotus-image.sh` and `scripts/deploy-lotus.sh`. Not managed by chezmoi.

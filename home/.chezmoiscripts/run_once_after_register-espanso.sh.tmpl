@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+{{ $host := index .hosts .chezmoi.hostname | default dict -}}
+{{ $roles := $host.roles | default list }}
+{{- if has "graphical" $roles }}
+set -euo pipefail
+
+if ! command -v espanso &>/dev/null; then
+  echo "espanso not found — skipping service registration"
+  exit 0
+fi
+
+espanso service unregister 2>/dev/null || true
+espanso service register
+{{- end }}

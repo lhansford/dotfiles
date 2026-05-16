@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Adapted from https://mskelton.dev/bytes/switch-git-branches-with-fzf
+
+git fetch --prune --quiet
+
+branches=$(git for-each-ref --sort=-committerdate --format="%(refname:short)" refs/heads/ refs/remotes/)
+current=$(git symbolic-ref --short HEAD)
+branch=$(echo "$branches" | grep -v "^$current$" | grep -v "HEAD" | fzf +m)
+
+if [[ -n "$branch" ]]; then
+	# Strip the remote prefix (e.g. origin/) for checkout
+	branch="${branch#origin/}"
+	git checkout "$branch"
+fi

@@ -1,0 +1,15 @@
+Host codeberg.org
+  User git
+  HostName codeberg.org
+  IdentityAgent ~/.1password/agent.sock
+  IdentitiesOnly no
+
+Host github.com
+  User git
+  HostName github.com
+  IdentityAgent ~/.1password/agent.sock
+  IdentitiesOnly no
+
+Host *
+  IdentitiesOnly yes
+  IdentityAgent ~/.1password/agent.sock

@@ -6,6 +6,20 @@ if ! command -v paru >/dev/null 2>&1; then
 	exit 1
 fi
 
+echo "Refreshing CachyOS mirrors..."
+if command -v rate-mirrors >/dev/null 2>&1; then
+	sudo rate-mirrors cachyos | sudo tee /etc/pacman.d/cachyos-mirrorlist >/dev/null
+else
+	echo "rate-mirrors not found, skipping CachyOS mirror refresh."
+fi
+
+echo "Refreshing Arch mirrors..."
+if command -v rate-mirrors >/dev/null 2>&1; then
+	sudo rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist >/dev/null
+else
+	echo "rate-mirrors not found, skipping Arch mirror refresh."
+fi
+
 echo "Updating package databases..."
 paru -Sy
 

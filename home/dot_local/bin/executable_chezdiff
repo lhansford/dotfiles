@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Show and preview chezmoi diffs through fzf.
+#
+# Examples:
+#   cdff
+#   cdff --side
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+for arg in "${@}"; do
+  if [ "${arg}" = "--side" ]; then
+    export DELTA_FEATURES="${DELTA_FEATURES} side-by-side"
+  fi
+done
+
+DIFF_CACHE=$(mktemp)
+chezmoi diff --color=false > "${DIFF_CACHE}"
+
+grep '^diff --git' "${DIFF_CACHE}" |
+  sed 's|^diff --git a/||; s| b/.*$||' |
+  sort -u |
+  fzf \
+    --preview "awk -v f={1} 'BEGIN{p=0} /^diff --git/{if(p){p=0}; if(\$0 ~ \"a/\"f\" b/\"f){p=1}; next} p' ${DIFF_CACHE} | delta --width=\${FZF_PREVIEW_COLUMNS}" \
+    --preview-window="right,75%" || true
+
+rm -f "${DIFF_CACHE}"

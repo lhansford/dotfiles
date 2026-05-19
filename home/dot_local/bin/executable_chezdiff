@@ -2,8 +2,8 @@
 # Show and preview chezmoi diffs through fzf.
 #
 # Examples:
-#   cdff
-#   cdff --side
+#   chezdiff
+#   chezdiff --side
 
 set -o errexit
 set -o pipefail

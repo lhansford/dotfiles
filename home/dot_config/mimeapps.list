@@ -7,5 +7,6 @@ x-scheme-handler/https=re.sonny.Junction.desktop
 
 x-scheme-handler/com.todoist=todoist.desktop
 x-scheme-handler/todoist=todoist.desktop
+x-scheme-handler/slack=slack.desktop
 
 [Removed Associations]

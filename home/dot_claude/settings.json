@@ -1,6 +1,7 @@
 {
+  "model": "opus[1m]",
   "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true
-  },
-  "model": "opus[1m]"
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true
+  }
 }

@@ -60,46 +60,25 @@ function saveConfig(config: PermissionsConfig): void {
 
 // ---- Command extraction ----
 
-/**
- * Known commands with subcommands — extract the first two words.
- * Add more as needed.
- */
-const SUBCOMMAND_COMMANDS = new Set([
-	"git",
-	"cargo",
-	"npm",
-	"npx",
-	"yarn",
-	"pnpm",
-	"bun",
-	"deno",
-	"docker",
-	"podman",
-	"kubectl",
-	"helm",
-	"terraform",
-	"ansible",
-	"pip",
-	"conda",
-	"brew",
-	"apt",
-	"dnf",
-	"yum",
-	"systemctl",
-	"journalctl",
-	"go",
-	"rustup",
-	"mise",
-	"task",
-	"just",
-	"make", // make has no subcommands, but keeping for consistency
-	"pi",
-]);
+// No hardcoded command list needed — we always try to extract a
+// subcommand if the second token looks like a word (not a flag).
+
+/** Token that looks like a subcommand: purely alphabetic-ish word
+ *  (letters, digits, hyphens, underscores). Anything containing dots,
+ *  slashes, colons, etc. is treated as an argument, not a subcommand. */
+const SUBCOMMAND_RE = /^[a-zA-Z][a-zA-Z0-9_-]*$/;
 
 /**
  * Extract a normalized command key from a single command string.
- * E.g. "git commit -m 'msg'" → "git commit"
- *      "ls -la"              → "ls"
+ * Grabs the command name plus ALL subsequent tokens that look like
+ * subcommands (alphabetic words, not flags). Stops at the first token
+ * that looks like an argument (path, number, flag, etc.).
+ *
+ * E.g. "git commit -m 'msg'"    → "git commit"
+ *      "gh issue list --open"   → "gh issue list"
+ *      "ls -la"                 → "ls"
+ *      "find . -name foo"       → "find"  (. is not a subcommand)
+ *      "npm run build"          → "npm run build"
  */
 function extractCommandKey(cmd: string): string {
 	// Remove leading whitespace
@@ -114,33 +93,34 @@ function extractCommandKey(cmd: string): string {
 	// Strip environment variable assignments at the front (e.g. FOO=bar cmd ...)
 	const withoutEnv = trimmed.replace(/^[A-Za-z_][A-Za-z0-9_]*=\S*\s*/g, "");
 
-	// Extract the first token (the command name)
-	// Handle quoted executables and path-style commands
-	const match = withoutEnv.match(/^([^\s'"\\|&;><()!]+)/);
-	if (!match) return "";
+	// Tokenize — simple split on whitespace (doesn't handle quoted strings,
+	// but we only need the first few tokens before arguments appear)
+	const tokens = withoutEnv.split(/\s+/);
+	if (tokens.length === 0) return "";
 
-	let commandName = match[1];
-
-	// Strip path prefix — we only care about the basename
+	// First token is the command — strip path prefix
+	let commandName = tokens[0];
 	if (commandName.includes("/")) {
 		commandName = commandName.slice(commandName.lastIndexOf("/") + 1);
 	}
 
-	// Check if this command has a meaningful subcommand
-	if (SUBCOMMAND_COMMANDS.has(commandName)) {
-		const rest = withoutEnv.slice(match[0].length).trimStart();
-		// Extract the next token as the subcommand
-		const subMatch = rest.match(/^([^\s'"\\|&;><()!]+)/);
-		if (subMatch) {
-			const sub = subMatch[1];
-			// Only treat it as a subcommand if it looks like a word (not a flag)
-			if (!sub.startsWith("-")) {
-				return `${commandName} ${sub}`;
-			}
-		}
+	const parts = [commandName];
+
+	// Walk subsequent tokens: include them as long as they look like
+	// subcommands (alphabetic words, not flags, not arguments)
+	for (let i = 1; i < tokens.length; i++) {
+		const tok = tokens[i];
+		// Stop at flags
+		if (tok.startsWith("-")) break;
+		// Stop at shell operators / redirections
+		if (/[|&;><()]/.test(tok)) break;
+		// Stop at anything that doesn't look like a subcommand word
+		if (!SUBCOMMAND_RE.test(tok)) break;
+
+		parts.push(tok);
 	}
 
-	return commandName;
+	return parts.join(" ");
 }
 
 /**

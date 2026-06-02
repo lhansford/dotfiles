@@ -257,7 +257,14 @@ function splitOnShellOperators(command: string): string[] {
 			continue;
 		}
 		if (ch === "\n") {
-			// Newlines are also command separators
+			// Check for line continuation: if last char in current is '\',
+			// this \<newline> is a continuation — remove the backslash and skip.
+			if (current.endsWith("\\")) {
+				current = current.slice(0, -1) + " ";
+				i++;
+				continue;
+			}
+			// Otherwise newlines are command separators
 			results.push(current);
 			current = "";
 			i++;

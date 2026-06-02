@@ -5,6 +5,8 @@
     "cp",
     "echo",
     "find",
+    "git diff",
+    "git log",
     "grep",
     "head",
     "ls",

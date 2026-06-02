@@ -1,5 +1,13 @@
 {
   "alwaysAllowed": [
-    "ls"
+    "cat",
+    "cd",
+    "cp",
+    "echo",
+    "find",
+    "grep",
+    "head",
+    "ls",
+    "sort"
   ]
 }

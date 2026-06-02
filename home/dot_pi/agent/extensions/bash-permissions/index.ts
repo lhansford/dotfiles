@@ -16,6 +16,7 @@
  *   - Pipes: `ls | grep foo` → checks `ls` and `grep` separately
  *   - Command chaining: `make && make test` → checks `make` twice
  *   - Subshells/grouping: `(cd foo && ls)` → checks `cd` and `ls`
+ *   - Quoted strings: `node -e "const x=1; console.log(x)"` → only `node` (semicolons inside quotes are ignored)
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
@@ -124,14 +125,164 @@ function extractCommandKey(cmd: string): string {
 }
 
 /**
+ * Split a command string on shell operators (&&, ||, ;, |, newlines)
+ * while respecting quoted strings so we don't break on operators
+ * inside e.g. `node -e "const x = 1; console.log(x)"`.
+ */
+function splitOnShellOperators(command: string): string[] {
+	const results: string[] = [];
+	let current = "";
+	let i = 0;
+
+	const len = command.length;
+
+	// Helper: consume a single-quoted string (no escapes inside)
+	function consumeSingleQuoted(): void {
+		// opening '
+		current += command[i];
+		i++;
+		while (i < len && command[i] !== "'") {
+			current += command[i];
+			i++;
+		}
+		if (i < len) {
+			current += command[i]; // closing '
+			i++;
+		}
+	}
+
+	// Helper: consume a double-quoted string (backslash escapes)
+	function consumeDoubleQuoted(): void {
+		current += command[i]; // opening "
+		i++;
+		while (i < len && command[i] !== '"') {
+			if (command[i] === "\\" && i + 1 < len) {
+				current += command[i] + command[i + 1];
+				i += 2;
+			} else {
+				current += command[i];
+				i++;
+			}
+		}
+		if (i < len) {
+			current += command[i]; // closing "
+			i++;
+		}
+	}
+
+	// Helper: consume $(...) with bracket depth tracking
+	function consumeCommandSub(): void {
+		let depth = 1;
+		current += command[i] + command[i + 1]; // $(
+		i += 2;
+		while (i < len && depth > 0) {
+			if (command[i] === "'") {
+				consumeSingleQuoted();
+				continue;
+			}
+			if (command[i] === '"') {
+				consumeDoubleQuoted();
+				continue;
+			}
+			if (command[i] === "(" ) depth++;
+			else if (command[i] === ")") depth--;
+			current += command[i];
+			i++;
+		}
+	}
+
+	// Helper: consume backtick command substitution
+	function consumeBacktick(): void {
+		current += command[i]; // opening `
+		i++;
+		while (i < len && command[i] !== "`") {
+			if (command[i] === "\\" && i + 1 < len) {
+				current += command[i] + command[i + 1];
+				i += 2;
+			} else {
+				current += command[i];
+				i++;
+			}
+		}
+		if (i < len) {
+			current += command[i]; // closing `
+			i++;
+		}
+	}
+
+	while (i < len) {
+		const ch = command[i];
+
+		// --- Quoted strings ---
+		if (ch === "'") {
+			consumeSingleQuoted();
+			continue;
+		}
+		if (ch === '"') {
+			consumeDoubleQuoted();
+			continue;
+		}
+		if (ch === "$" && i + 1 < len && command[i + 1] === "(") {
+			consumeCommandSub();
+			continue;
+		}
+		if (ch === "`") {
+			consumeBacktick();
+			continue;
+		}
+
+		// --- Shell operators (only reached outside quotes) ---
+		if (ch === "&" && i + 1 < len && command[i + 1] === "&") {
+			results.push(current);
+			current = "";
+			i += 2;
+			continue;
+		}
+		if (ch === "|" && i + 1 < len && command[i + 1] === "|") {
+			results.push(current);
+			current = "";
+			i += 2;
+			continue;
+		}
+		if (ch === "|") {
+			results.push(current);
+			current = "";
+			i++;
+			continue;
+		}
+		if (ch === ";") {
+			results.push(current);
+			current = "";
+			i++;
+			continue;
+		}
+		if (ch === "\n") {
+			// Newlines are also command separators
+			results.push(current);
+			current = "";
+			i++;
+			continue;
+		}
+
+		current += ch;
+		i++;
+	}
+
+	if (current.trim()) {
+		results.push(current);
+	}
+
+	return results;
+}
+
+/**
  * Split a compound bash command into individual commands
- * (by pipes, &&, ||, ;) and extract command keys for each.
+ * (by pipes, &&, ||, ;, newlines) and extract command keys for each.
+ * Respects quoted strings so operators inside e.g. node -e "..."
+ * are not treated as command separators.
  */
 function extractAllCommandKeys(command: string): string[] {
-	// Split on pipe, &&, ||, and semicolon — keeping it simple
-	// This regex splits on: | (but not ||), ||, &&, ;
-	// We need to be careful: || is "or", single | is pipe
-	const parts = command.split(/\s*(?:\|\||&&|;|\|)\s*/);
+	const parts = splitOnShellOperators(command);
 	const keys: string[] = [];
 
 	for (const part of parts) {
@@ -139,8 +290,6 @@ function extractAllCommandKeys(command: string): string[] {
 		const cleaned = part.replace(/^\(+/, "").replace(/\)+$/, "").trim();
 		if (!cleaned) continue;
 
-		// Handle cases where the part itself has multiple commands
-		// (e.g. from nested grouping)
 		const key = extractCommandKey(cleaned);
 		if (key) {
 			keys.push(key);
@@ -196,8 +345,8 @@ export default function (pi: ExtensionAPI) {
 		}
 
 		const choice = await ctx.ui.select(`⚠️ Permission Required — ${message}`, [
-			"Always Allow",
 			"Allow this time",
+			"Always Allow",
 			"Deny",
 		]);
 

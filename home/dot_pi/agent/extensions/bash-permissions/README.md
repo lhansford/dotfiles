@@ -24,6 +24,7 @@ The extension extracts a "command key" from each bash command:
 | `cargo test --all` | `cargo test` |
 | `ls \| grep foo` | checks `ls` and `grep` separately |
 | `make && make test` | checks `make` (deduplicated) |
+| `node -e "const x=1; console.log(x)"` | `node` (semicolons inside quotes are ignored) |
 
 Subcommand-aware commands include: `git`, `cargo`, `npm`, `npx`, `docker`, `kubectl`, `pip`, `brew`, `mise`, and more. See `SUBCOMMAND_COMMANDS` in the source.
 

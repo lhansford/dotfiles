@@ -13,8 +13,8 @@
  * Command extraction handles:
  *   - Simple commands: `ls -la` → `ls`
  *   - Subcommands: `git commit -m "msg"` → `git commit`
- *   - Pipes: `ls | grep foo` → checks `ls` and `grep` separately
- *   - Command chaining: `make && make test` → checks `make` twice
+ *   - Pipes: `ls | grep foo` → prompts for `ls` and `grep` separately
+ *   - Command chaining: `make && make test` → prompts for `make` once (deduped)
  *   - Subshells/grouping: `(cd foo && ls)` → checks `cd` and `ls`
  *   - Quoted strings: `node -e "const x=1; console.log(x)"` → only `node` (semicolons inside quotes are ignored)
  */
@@ -345,30 +345,30 @@ export default function (pi: ExtensionAPI) {
 		const commandDisplay =
 			command.length > 200 ? command.slice(0, 200) + "…" : command;
 
-		// Build the prompt message
-		let message = `bash command:\n\n  ${commandDisplay}`;
-		if (unknown.length > 0) {
-			message += `\n\nNew command(s): ${unknown.join(", ")}`;
+		// Prompt for each unknown command individually
+		for (const cmdKey of unknown) {
+			const message =
+				`bash command:\n\n  ${commandDisplay}` +
+				`\n\nNew command: ${cmdKey}`;
+
+			const choice = await ctx.ui.select(`⚠️ Permission Required — ${message}`, [
+				"Allow this time",
+				"Always Allow",
+				"Deny",
+			]);
+
+			if (!choice || choice === "Deny") {
+				return { block: true, reason: `Denied by user (command: ${cmdKey})` };
+			}
+
+			if (choice === "Always Allow") {
+				config.alwaysAllowed.push(cmdKey);
+				config.alwaysAllowed = [...new Set(config.alwaysAllowed)].sort();
+				saveConfig(config);
+			}
 		}
 
-		const choice = await ctx.ui.select(`⚠️ Permission Required — ${message}`, [
-			"Allow this time",
-			"Always Allow",
-			"Deny",
-		]);
-
-		if (!choice || choice === "Deny") {
-			return { block: true, reason: "Denied by user" };
-		}
-
-		if (choice === "Always Allow") {
-			config.alwaysAllowed.push(...unknown);
-			// Deduplicate
-			config.alwaysAllowed = [...new Set(config.alwaysAllowed)].sort();
-			saveConfig(config);
-		}
-
-		// "Allow this time" or "Always Allow" — let it through
+		// All commands allowed — let it through
 		return undefined;
 	});
 

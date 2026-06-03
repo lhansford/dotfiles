@@ -7,7 +7,7 @@ A pi extension that prompts for confirmation before executing bash commands.
 1. Intercepts every `bash` tool call
 2. Extracts command names from the command string (handles pipes, `&&`, `;`, subcommands like `git commit`)
 3. Checks each command against an "always allowed" list
-4. If any commands are new/unknown, prompts the user with three options:
+4. If any commands are new/unknown, prompts the user **individually for each** with three options:
    - **Always Allow** — adds the command(s) to the allow list and executes
    - **Allow this time** — executes this once without saving
    - **Deny** — blocks the command

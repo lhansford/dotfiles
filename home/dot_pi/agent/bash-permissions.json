@@ -10,6 +10,13 @@
     "grep",
     "head",
     "ls",
-    "sort"
+    "mise run check",
+    "mise run fmt",
+    "mkdir",
+    "npm run check",
+    "npx eslint",
+    "npx vitest run",
+    "sort",
+    "tail"
   ]
 }

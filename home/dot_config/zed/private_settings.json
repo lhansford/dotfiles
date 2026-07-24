@@ -7,6 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "multi_cursor_modifier": "cmd_or_ctrl",
+  "disable_ai": true,
   "auto_install_extensions": {
     "astro": true,
     "git-firefly": true,
@@ -29,6 +31,6 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Catppuccin Mocha"
+    "dark": "Ayu Dark"
   }
 }

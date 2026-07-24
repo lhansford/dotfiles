@@ -49,6 +49,12 @@ export GUM_CONFIRM_UNSELECTED_FOREGROUND="#D0D0D2"
 
 export PATH="$HOME/.local/bin:$PATH"
 
+# Android stuff
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_NDK_HOME=/opt/android-ndk
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+
 {{ if has "graphical" $roles -}}
 export PERM_PEOPLE_DIR="$HOME/Obsidian/Personal/people"
 export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"

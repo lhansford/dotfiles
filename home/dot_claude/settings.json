@@ -9,8 +9,14 @@
   "autoMemoryEnabled": false,
   "spinnerVerbs": { "mode": "replace", "verbs": ["Rolling the dice"] },
   "permissions": {
-    "allow": ["Bash(git status:*)"],
-    "ask": ["Bash(git:*)"],
+    "allow": [
+      "Bash(git diff:*)",
+      "Bash(git status:*)"
+    ],
+    "deny": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ],
     "defaultMode": "default"
   },
   "tui": "fullscreen"

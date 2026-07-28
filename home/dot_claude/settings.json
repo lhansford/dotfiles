@@ -19,5 +19,19 @@
     ],
     "defaultMode": "default"
   },
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "preferredNotifChannel": "ghostty",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.message // \"Waiting for your input\"' | { read -r m; notify-send -a \"Claude Code\" -i utilities-terminal \"Claude Code\" \"$m\"; } 2>/dev/null || true",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
 }

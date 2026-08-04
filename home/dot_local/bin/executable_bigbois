@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+globs=(package-lock.json Cargo.lock)
+for g in "${globs[@]}"; do args+=(-E "$g"); done
+
+fd -t f "${args[@]}" -X wc -l | sort -n

@@ -1,0 +1,20 @@
+// Gram settings
+//
+// For information on how to configure Gram, see the Gram
+// documentation: gram://docs/configuring-gram
+//
+// To see all of Gram's default settings without changing your
+// custom settings, run `gram: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "buffer_font_family": "Open Sans",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "tab_size": 2,
+  "multi_cursor_modifier": "cmd_or_ctrl",
+  "theme": {
+    "mode": "system",
+    "light": "Ayu Light",
+    "dark": "Ayu Dark",
+  },
+}

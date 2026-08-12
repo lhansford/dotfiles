@@ -4,7 +4,8 @@
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "datadog@claude-plugins-official": true
   },
   "autoMemoryEnabled": false,
   "spinnerVerbs": { "mode": "replace", "verbs": ["Rolling the dice"] },

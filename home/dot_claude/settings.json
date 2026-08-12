@@ -8,6 +8,7 @@
     "datadog@claude-plugins-official": true
   },
   "autoMemoryEnabled": false,
+  "disableAutoMode": "disable",
   "spinnerVerbs": { "mode": "replace", "verbs": ["Rolling the dice"] },
   "permissions": {
     "allow": [

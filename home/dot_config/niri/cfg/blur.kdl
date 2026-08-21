@@ -1,3 +1,8 @@
+blur {
+  passes 2
+  noise 0.04
+}
+
 /* Apps: blur them all without xray so it looks more realistic. */
 window-rule {
   background-effect {

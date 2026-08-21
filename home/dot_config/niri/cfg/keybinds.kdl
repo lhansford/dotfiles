@@ -7,7 +7,6 @@ binds {
     // https://docs.noctalia.dev/getting-started/keybinds/
 
     Mod+Shift+Slash                     { show-hotkey-overlay; }
-    Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
 
     // ─── Applications ───
     Control+Space hotkey-overlay-title="Open App Launcher" repeat=false { spawn "vicinae" "toggle"; }

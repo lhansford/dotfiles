@@ -4,8 +4,8 @@ font-family = Inconsolata Nerd Font Mono Regular
 font-family-bold = Inconsolata Nerd Font Mono Bold
 font-size = 10
 
-# background-opacity = 0.9
-# background-blur-radius = 16
+background-opacity = 0.9
+background-blur-radius = 16
 
 adjust-cursor-thickness = 3
 
